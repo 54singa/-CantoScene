@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>我的学习 · 粤见 CantoScene</title>
+<link rel="stylesheet" href="css/site.css">
+<style>
+  .top-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:24px;align-items:stretch;}
+
+  /* 继续学习：行程单 */
+  .itin{
+    position:relative;background:#fff;border:1px solid var(--line);
+    border-radius:var(--radius);box-shadow:0 10px 26px rgba(51,64,79,.08);
+    padding:26px 30px 24px;overflow:hidden;
+  }
+  .itin::before{
+    content:"";position:absolute;top:0;bottom:0;left:0;width:7px;
+    background:repeating-linear-gradient(to bottom,var(--sky) 0 10px,var(--sky-wash) 10px 20px);
+  }
+  .itin .label{font-size:12px;font-weight:700;color:var(--sky-deep);}
+  .itin h3{margin-top:6px;font-family:var(--serif);font-size:23px;font-weight:700;color:#243B4E;}
+  .itin .sub{margin-top:4px;font-size:13.5px;color:var(--ink-soft);}
+  .itin .prog{
+    margin:20px 0 22px;display:flex;align-items:center;gap:12px;
+    font-family:var(--mono);font-size:12px;color:var(--ink-faint);
+  }
+  .itin .foot{display:flex;align-items:center;gap:14px;}
+  .itin .foot .alt{font-size:13px;font-weight:600;color:var(--sky-deep);}
+
+  /* 学习概览：印章 */
+  .stats{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    box-shadow:0 10px 26px rgba(51,64,79,.08);
+    padding:22px 26px;
+    display:flex;flex-direction:column;
+  }
+  .stats .label{font-size:12px;font-weight:700;color:var(--ink-soft);}
+  .stats .rings{
+    flex:1;display:flex;align-items:center;justify-content:space-around;
+    padding-top:10px;
+  }
+  .ring{
+    width:84px;height:84px;border-radius:50%;
+    border:2px dashed;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;gap:0;
+    transform:rotate(-2deg);
+  }
+  .ring:nth-child(2){transform:rotate(1.6deg);}
+  .ring:nth-child(3){transform:rotate(-1.2deg);}
+  .ring:nth-child(4){transform:rotate(2.2deg);}
+  .ring b{font-family:var(--mono);font-size:21px;font-weight:600;line-height:1.15;}
+  .ring span{font-size:11px;font-weight:600;}
+  .r-sky{color:var(--sky-deep);border-color:rgba(47,143,196,.55);background:var(--sky-wash);}
+  .r-peach{color:var(--peach-deep);border-color:rgba(217,126,108,.55);background:var(--peach-wash);}
+  .r-butter{color:var(--butter-deep);border-color:rgba(217,174,78,.6);background:var(--butter-wash);}
+  .r-green{color:var(--green-deep);border-color:rgba(76,175,142,.55);background:var(--green-wash);}
+
+  /* 区块标题 */
+  .sec{margin-top:36px;}
+  .sec-head{
+    display:flex;align-items:baseline;gap:12px;margin-bottom:16px;
+  }
+  .sec-head h2{font-family:var(--serif);font-size:20px;font-weight:700;color:#243B4E;}
+  .sec-head a{margin-left:auto;font-size:13px;font-weight:600;color:var(--sky-deep);}
+
+  /* 课程进度 */
+  .units{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    box-shadow:0 6px 18px rgba(51,64,79,.05);
+    padding:8px 26px;
+  }
+  .unit-row{
+    display:flex;align-items:center;gap:16px;
+    padding:16px 0;border-bottom:1px dashed rgba(51,64,79,.12);
+  }
+  .unit-row:last-child{border-bottom:none;}
+  .unit-row .name{font-family:var(--serif);font-weight:700;font-size:16px;color:#243B4E;width:170px;}
+  .unit-row .pct{font-family:var(--mono);font-size:12px;color:var(--ink-faint);width:44px;text-align:right;}
+  .unit-row .go-l{
+    font-size:13px;font-weight:600;color:var(--sky-deep);white-space:nowrap;
+  }
+
+  /* 最近观看 */
+  .recent{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
+  .rcard{
+    display:flex;align-items:center;gap:16px;
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    box-shadow:0 6px 18px rgba(51,64,79,.05);padding:14px 18px;
+  }
+  .rcard .thumb{
+    flex:none;width:104px;aspect-ratio:16/9;border-radius:8px;
+    display:flex;align-items:center;justify-content:center;position:relative;
+  }
+  .rcard .thumb span{font-family:var(--serif);font-weight:700;font-size:30px;}
+  .rcard .info{flex:1;min-width:0;}
+  .rcard .info h4{font-family:var(--serif);font-size:15.5px;font-weight:700;color:#243B4E;}
+  .rcard .info .rmeta{font-size:12px;color:var(--ink-faint);margin-top:3px;}
+  .rcard .route{width:90px;flex:none;}
+
+  /* 最近收藏 mini 票根 */
+  .minis{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
+  .mini-ticket{
+    position:relative;background:#fff;border:1px solid var(--line);
+    border-radius:12px;box-shadow:0 6px 18px rgba(51,64,79,.06);
+    padding:16px 20px 13px;
+  }
+  .mini-ticket .yue{font-size:17px;}
+  .mini-ticket .jyut{display:block;font-size:12px;margin-top:3px;}
+  .mini-ticket .mfoot{
+    margin-top:10px;display:flex;align-items:center;gap:10px;
+    font-size:11.5px;color:var(--ink-faint);
+  }
+  .mini-ticket .mfoot .play-mini{width:26px;height:26px;}
+  .mini-ticket .mfoot .play-mini svg{width:9px;height:9px;}
+
+  /* 账号设置 */
+  .acct{
+    margin-top:36px;background:var(--paper-deep);border-radius:var(--radius);
+    padding:18px 26px;display:flex;align-items:center;gap:26px;flex-wrap:wrap;
+    font-size:13.5px;color:var(--ink-soft);
+  }
+  .acct b{color:var(--ink);font-weight:600;}
+  .acct .quit{margin-left:auto;font-size:13px;color:var(--ink-faint);}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="brand" href="home.html"><span class="zh">粤见</span><span class="en">CantoScene</span></a>
+  <div class="nav-links">
+    <a href="home.html">首页</a>
+    <a href="courses.html">基础课程</a>
+    <a href="videos.html">影视学粤语</a>
+    <a href="favorites.html">收藏</a>
+    <a href="#" class="active">我的学习</a>
+  </div>
+  <div class="nav-right">
+    <span class="lang">简 / 繁</span>
+    <a class="login-btn" href="#">阿 May</a>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="page-head">
+    <span class="eyebrow">天台书桌</span>
+    <h1>我的学习</h1>
+    <p>学到哪儿了、接下来学什么，一眼看清楚。</p>
+  </div>
+
+  <div class="top-grid">
+    <div class="itin">
+      <span class="label">继续学习 · 行程单</span>
+      <h3>茶餐厅点餐 · 第 2 课：说出你想要什么</h3>
+      <p class="sub">上次学到「核心字词 · 少甜」，今天把这一课走完吧。</p>
+      <div class="prog">
+        <span>55%</span>
+        <span class="route"><i style="width:55%;"></i></span>
+        <span>第 2/5 课节</span>
+      </div>
+      <div class="foot">
+        <a class="btn-primary" href="lesson.html">继续学习</a>
+        <a class="alt" href="video-study.html">或直接看：茶餐厅点饮品 →</a>
+      </div>
+    </div>
+
+    <div class="stats">
+      <span class="label">学习概览</span>
+      <div class="rings">
+        <div class="ring r-sky"><b>4</b><span>学习天</span></div>
+        <div class="ring r-peach"><b>20</b><span>收藏</span></div>
+        <div class="ring r-butter"><b>6</b><span>学习中</span></div>
+        <div class="ring r-green"><b>5</b><span>已掌握</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><h2>课程进度</h2><a href="courses.html">全部课程 →</a></div>
+    <div class="units">
+      <div class="unit-row">
+        <span class="name">粤拼与声调入门</span>
+        <span class="route"><i style="width:100%;background:var(--green);"></i></span>
+        <span class="pct">100%</span>
+        <span class="stamp-state stamp-green" style="font-size:11px;padding:2px 9px;">已完成</span>
+      </div>
+      <div class="unit-row">
+        <span class="name">打招呼与自我介绍</span>
+        <span class="route"><i style="width:60%;"></i></span>
+        <span class="pct">60%</span>
+        <a class="go-l" href="lesson.html">继续 →</a>
+      </div>
+      <div class="unit-row">
+        <span class="name">茶餐厅点餐</span>
+        <span class="route"><i style="width:25%;"></i></span>
+        <span class="pct">25%</span>
+        <a class="go-l" href="lesson.html">继续 →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><h2>最近观看</h2><a href="videos.html">查看全部 →</a></div>
+    <div class="recent">
+      <div class="rcard">
+        <span class="thumb" style="background:var(--sky-wash);"><span style="color:#A5CFE7;">茶</span></span>
+        <div class="info">
+          <h4>茶餐厅点饮品</h4>
+          <div class="rmeta">入门 · 01:32 · 看到 00:08</div>
+        </div>
+        <span class="route"><i style="width:38%;"></i></span>
+      </div>
+      <div class="rcard">
+        <span class="thumb" style="background:var(--butter-wash);"><span style="color:#EAD496;">聚</span></span>
+        <div class="info">
+          <h4>第一次见面</h4>
+          <div class="rmeta">基础 · 02:10 · 看到 00:44</div>
+        </div>
+        <span class="route"><i style="width:35%;"></i></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><h2>最近收藏</h2><a href="favorites.html">进入收藏夹 →</a></div>
+    <div class="minis">
+      <div class="mini-ticket">
+        <div class="yue">少甜，唔该。</div>
+        <span class="jyut">siu2 tim4, m4 goi1.</span>
+        <div class="mfoot">
+          <span class="play-mini solid"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg></span>
+          茶餐厅点餐 · 00:12
+          <span class="stamp-state stamp-sky" style="margin-left:auto;font-size:10.5px;padding:1px 8px;">刚收藏</span>
+        </div>
+      </div>
+      <div class="mini-ticket">
+        <div class="yue">唔该借歪。</div>
+        <span class="jyut">m4 goi1 ze3 waai2.</span>
+        <div class="mfoot">
+          <span class="play-mini solid"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg></span>
+          港铁问路 · 00:31
+          <span class="stamp-state stamp-green" style="margin-left:auto;font-size:10.5px;padding:1px 8px;">已掌握</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="acct">
+    <span>昵称：<b>阿 May</b></span>
+    <span>显示语言：<b>简体</b>（切换繁体）</span>
+    <span class="quit">退出登录</span>
+  </div>
+</div>
+
+<footer class="site-footer">
+  MVP 视觉预览 · 方向一「云上港街」 · 我的学习页（桌面端） · 内容为示范数据
+</footer>
+
+</body>
+</html>

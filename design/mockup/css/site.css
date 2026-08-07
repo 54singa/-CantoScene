@@ -1,0 +1,159 @@
+/* 粤见 CantoScene · 共享视觉基础（方向一：云上港街） */
+:root{
+  --paper:#FBF7F0;
+  --paper-deep:#F4ECDC;
+  --ink:#33404F;
+  --ink-soft:#5C6B7A;
+  --ink-faint:#8C99A6;
+  --sky:#2F8FC4;
+  --sky-deep:#226E99;
+  --sky-wash:#E3F1FA;
+  --peach:#F0A091;
+  --peach-deep:#D97E6C;
+  --peach-wash:#FCE9E4;
+  --butter:#F5D78E;
+  --butter-deep:#D9AE4E;
+  --butter-wash:#FBF0D4;
+  --green:#4CAF8E;
+  --green-deep:#2E7D5F;
+  --green-wash:#E2F3EC;
+  --line:rgba(51,64,79,.10);
+  --film:#EDF1F4;
+  --serif:"Songti SC","Noto Serif SC","Source Han Serif SC","STSong",serif;
+  --sans:"PingFang SC","Hiragino Sans GB","Noto Sans SC","Microsoft YaHei",sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --hand:"Kaiti SC","STKaiti","KaiTi",serif;
+  --radius:14px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  font-family:var(--sans);background:var(--paper);color:var(--ink);
+  font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;
+}
+a{text-decoration:none;color:inherit;}
+.wrap{max-width:1120px;margin:0 auto;padding:0 32px;}
+.wrap-wide{max-width:1280px;margin:0 auto;padding:0 32px;}
+
+/* 导航（纸面态） */
+.nav{
+  position:sticky;top:0;z-index:50;
+  display:flex;align-items:center;gap:34px;
+  padding:13px 36px;
+  background:rgba(251,247,240,.9);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  box-shadow:0 1px 0 var(--line);
+}
+.brand{display:flex;align-items:baseline;gap:9px;}
+.brand .zh{font-family:var(--serif);font-weight:700;font-size:22px;color:#22405A;}
+.brand .en{font-size:12.5px;font-weight:600;color:#3D6076;}
+.nav-links{display:flex;gap:26px;font-size:14.5px;}
+.nav-links a{color:#2C4A63;font-weight:500;padding:4px 2px;}
+.nav-links a.active{color:var(--sky-deep);font-weight:600;box-shadow:0 2px 0 var(--sky);}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:14px;}
+.lang{
+  font-size:12.5px;font-weight:600;color:#2C4A63;
+  border:1px solid rgba(44,74,99,.3);border-radius:999px;padding:4px 12px;
+}
+.login-btn{
+  font-size:14px;font-weight:600;color:#fff;background:var(--sky);
+  border-radius:999px;padding:8px 20px;box-shadow:0 4px 14px rgba(47,143,196,.3);
+}
+
+/* 页头 */
+.page-head{padding:44px 0 30px;}
+.page-head .eyebrow{
+  display:inline-block;font-size:12.5px;font-weight:600;color:var(--sky-deep);
+  background:var(--sky-wash);border-radius:999px;padding:4px 13px;margin-bottom:12px;
+}
+.page-head h1{font-family:var(--serif);font-weight:700;font-size:32px;color:#243B4E;}
+.page-head p{margin-top:8px;color:var(--ink-soft);font-size:15px;}
+
+/* 返回条 */
+.back{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:13.5px;font-weight:600;color:var(--sky-deep);
+}
+.back svg{width:15px;height:15px;stroke:var(--sky-deep);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;}
+
+/* 按钮 */
+.btn-primary{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--sky);color:#fff;font-size:14.5px;font-weight:600;
+  padding:11px 26px;border-radius:999px;box-shadow:0 6px 16px rgba(31,111,158,.3);
+}
+.btn-outline{
+  display:inline-flex;align-items:center;gap:7px;
+  font-size:13.5px;font-weight:600;color:var(--sky-deep);
+  border:1.5px solid var(--sky);border-radius:999px;padding:8px 18px;background:#fff;
+}
+.btn-outline svg{width:14px;height:14px;stroke:var(--sky-deep);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.btn-ghost{
+  display:inline-flex;align-items:center;gap:7px;
+  font-size:13.5px;font-weight:600;color:var(--peach-deep);
+  background:var(--peach-wash);border-radius:999px;padding:8px 18px;
+}
+.btn-weak{
+  font-size:12.5px;color:var(--ink-faint);font-weight:500;
+}
+
+/* 标签 */
+.chip{
+  display:inline-block;font-size:11.5px;font-weight:600;border-radius:6px;padding:3px 10px;
+}
+.chip-sky{color:var(--sky-deep);background:var(--sky-wash);}
+.chip-green{color:var(--green-deep);background:var(--green-wash);}
+.chip-butter{color:var(--butter-deep);background:var(--butter-wash);}
+.chip-plain{color:var(--ink-soft);background:var(--paper-deep);}
+
+/* 印章（学习状态／收藏态） */
+.stamp-state{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:12.5px;font-weight:700;border:2px solid;border-radius:8px;
+  padding:4px 12px;transform:rotate(1.5deg);
+}
+.stamp-sky{color:var(--sky-deep);border-color:var(--sky-deep);background:var(--sky-wash);}
+.stamp-butter{color:var(--butter-deep);border-color:var(--butter-deep);background:var(--butter-wash);transform:rotate(-1.5deg);}
+.stamp-green{color:var(--green-deep);border-color:var(--green-deep);background:var(--green-wash);}
+.stamp-peach{color:var(--peach-deep);border-color:var(--peach-deep);background:var(--peach-wash);}
+
+/* 纸胶带 */
+.tape{
+  position:absolute;width:60px;height:18px;
+  background:rgba(245,215,142,.6);transform:rotate(-3deg);
+  border-left:1px dashed rgba(51,64,79,.12);
+  border-right:1px dashed rgba(51,64,79,.12);
+}
+.tape-sky{background:rgba(227,241,250,.85);}
+
+/* 粤语三层 */
+.yue{font-family:var(--serif);font-weight:700;color:#22394C;}
+.jyut{font-family:var(--mono);color:var(--sky-deep);}
+.zh-sub{color:var(--ink-soft);}
+
+/* 播放小圆钮 */
+.play-mini{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:32px;height:32px;border-radius:50%;flex:none;
+  background:#fff;border:1.5px solid var(--sky);
+}
+.play-mini svg{width:11px;height:11px;fill:var(--sky-deep);margin-left:1px;}
+.play-mini.solid{background:var(--sky);border-color:var(--sky);}
+.play-mini.solid svg{fill:#fff;}
+
+/* 路线式进度（虚线路线 + 已完成实线段） */
+.route{
+  position:relative;height:6px;flex:1;
+  background-image:repeating-linear-gradient(to right,rgba(51,64,79,.28) 0 6px,transparent 6px 12px);
+  background-size:100% 2px;background-repeat:no-repeat;background-position:center;
+}
+.route i{
+  position:absolute;left:0;top:50%;transform:translateY(-50%);
+  height:6px;border-radius:999px;background:var(--sky);display:block;
+}
+
+/* 页脚 */
+.site-footer{
+  margin-top:56px;padding:26px 0 30px;text-align:center;
+  border-top:1px solid var(--line);
+  font-size:11.5px;color:var(--ink-faint);
+}

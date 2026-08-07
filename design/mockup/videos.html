@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>影视学粤语 · 粤见 CantoScene</title>
+<link rel="stylesheet" href="css/site.css">
+<style>
+  .filter-bar{
+    display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+    margin-bottom:30px;
+  }
+  .filter-bar .f-chip{
+    font-size:13px;font-weight:600;color:var(--ink-soft);
+    background:#fff;border:1px solid var(--line);border-radius:999px;
+    padding:7px 18px;
+  }
+  .filter-bar .f-chip.on{
+    color:#fff;background:var(--sky);border-color:var(--sky);
+    box-shadow:0 4px 12px rgba(47,143,196,.28);
+  }
+  .filter-bar .diff{
+    margin-left:auto;font-size:13px;color:var(--ink-soft);font-weight:500;
+  }
+  .filter-bar .diff b{font-family:var(--mono);font-weight:600;color:var(--sky-deep);}
+
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  .vcard{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    overflow:hidden;box-shadow:0 6px 20px rgba(51,64,79,.05);
+    transition:transform .18s ease, box-shadow .18s ease;
+    display:flex;flex-direction:column;
+  }
+  .vcard:hover{transform:translateY(-4px);box-shadow:0 14px 32px rgba(51,64,79,.10);}
+  .cover{
+    position:relative;aspect-ratio:16/9;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .cover .cover-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+  .c-sky{background:var(--sky-wash);}
+  .c-peach{background:var(--peach-wash);}
+  .c-butter{background:var(--butter-wash);}
+  .c-green{background:var(--green-wash);}
+  .cover .glyph{font-family:var(--serif);font-weight:700;font-size:66px;line-height:1;}
+  .c-sky .glyph{color:#A5CFE7;}
+  .c-peach .glyph{color:#EFC2B8;}
+  .c-butter .glyph{color:#EAD496;}
+  .c-green .glyph{color:#B4DCCB;}
+  .cover .play{
+    position:absolute;width:46px;height:46px;border-radius:50%;
+    background:rgba(255,255,255,.9);box-shadow:0 6px 18px rgba(51,64,79,.16);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .cover .play svg{width:16px;height:16px;fill:var(--sky-deep);margin-left:2px;}
+  .cover .dur{
+    position:absolute;right:10px;bottom:10px;
+    font-family:var(--mono);font-size:11.5px;color:#fff;
+    background:rgba(34,57,76,.78);border-radius:6px;padding:2px 8px;
+  }
+  .cover .level{position:absolute;left:10px;top:10px;}
+  .cover .resume{
+    position:absolute;left:0;right:0;bottom:0;height:5px;
+    background:rgba(255,255,255,.55);
+  }
+  .cover .resume i{display:block;height:100%;background:var(--sky);}
+  .vbody{padding:16px 20px 16px;}
+  .vbody h3{font-family:var(--serif);font-size:18.5px;font-weight:700;color:#243B4E;}
+  .vbody .tags{margin-top:8px;display:flex;gap:7px;flex-wrap:wrap;align-items:center;}
+  .vbody .tags span{
+    font-size:11.5px;color:var(--ink-soft);background:var(--paper);
+    border:1px solid var(--line);border-radius:6px;padding:2px 9px;
+  }
+  .vbody .tags .tag-rel{
+    display:inline-flex;align-items:center;gap:5px;
+    color:var(--butter-deep);background:var(--butter-wash);
+    border:1px solid rgba(217,174,78,.3);font-weight:600;
+  }
+  .vbody .tags .tag-rel svg{width:12px;height:12px;stroke:var(--butter-deep);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+  .vfoot{
+    margin-top:12px;display:flex;align-items:center;justify-content:space-between;
+  }
+  .go{
+    display:inline-flex;align-items:center;gap:7px;
+    font-size:14px;font-weight:600;color:var(--sky-deep);
+  }
+  .go svg{width:15px;height:15px;stroke:var(--sky-deep);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;}
+  .go.coming{color:var(--ink-faint);}
+  .vfoot .pct{font-family:var(--mono);font-size:12px;color:var(--ink-faint);}
+  .grid-note{margin-top:28px;text-align:center;font-size:12.5px;color:var(--ink-faint);}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="brand" href="home.html"><span class="zh">粤见</span><span class="en">CantoScene</span></a>
+  <div class="nav-links">
+    <a href="home.html">首页</a>
+    <a href="courses.html">基础课程</a>
+    <a href="#" class="active">影视学粤语</a>
+    <a href="favorites.html">收藏</a>
+    <a href="my.html">我的学习</a>
+  </div>
+  <div class="nav-right">
+    <span class="lang">简 / 繁</span>
+    <a class="login-btn" href="#">登录</a>
+  </div>
+</nav>
+
+<div class="wrap-wide">
+  <div class="page-head">
+    <span class="eyebrow">老录像厅 · 今日放映</span>
+    <h1>影视学粤语</h1>
+    <p>每段一两分钟，都是一个真实的香港生活场景。点开学一句，就算赚到一句。</p>
+  </div>
+
+  <div class="filter-bar">
+    <span class="f-chip on">全部</span>
+    <span class="f-chip">饮食</span>
+    <span class="f-chip">朋友</span>
+    <span class="f-chip">出行</span>
+    <span class="f-chip">购物</span>
+    <span class="f-chip">家庭</span>
+    <span class="diff">难度：<b>全部 ⌄</b></span>
+  </div>
+
+  <div class="grid">
+    <div class="vcard">
+      <div class="cover c-sky">
+        <img class="cover-image" src="../assets/video-01-cover.png" alt="影视片段 01 封面">
+        <span class="level chip chip-butter">进阶</span>
+        <span class="play"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg></span>
+        <span class="dur">18:19</span>
+      </div>
+      <div class="vbody">
+        <h3>影视片段 01：律师楼初见</h3>
+        <div class="tags">
+          <span>职场</span><span>律师楼</span><span>日常对白</span>
+          <span class="tag-rel">
+            <svg viewBox="0 0 24 24"><path d="M10 14a5 5 0 0 0 7 0l2-2a5 5 0 0 0-7-7l-1 1"/><path d="M14 10a5 5 0 0 0-7 0l-2 2a5 5 0 0 0 7 7l1-1"/></svg>
+            自动转写初稿
+          </span>
+        </div>
+        <div class="vfoot">
+          <a class="go" href="video-study.html">开始学习
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="vcard">
+      <div class="cover c-peach">
+        <span class="glyph">问</span>
+        <span class="level chip chip-green">入门</span>
+        <span class="play"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg></span>
+        <span class="dur">00:48</span>
+      </div>
+      <div class="vbody">
+        <h3>港铁问路</h3>
+        <div class="tags"><span>出行</span><span>方向</span></div>
+        <div class="vfoot">
+          <span class="go coming">即将上线</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="vcard">
+      <div class="cover c-butter">
+        <span class="glyph">聚</span>
+        <span class="level chip chip-sky">基础</span>
+        <span class="play"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg></span>
+        <span class="dur">02:10</span>
+        <span class="resume"><i style="width:35%;"></i></span>
+      </div>
+      <div class="vbody">
+        <h3>第一次见面</h3>
+        <div class="tags"><span>问候</span><span>介绍</span></div>
+        <div class="vfoot">
+          <span class="go coming">即将上线</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="vcard">
+      <div class="cover c-green">
+        <span class="glyph">市</span>
+        <span class="level chip chip-sky">基础</span>
+        <span class="play"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg></span>
+        <span class="dur">01:20</span>
+      </div>
+      <div class="vbody">
+        <h3>街市买菜</h3>
+        <div class="tags"><span>购物</span><span>价钱</span></div>
+        <div class="vfoot">
+          <span class="go coming">即将上线</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="vcard">
+      <div class="cover c-peach">
+        <span class="glyph">风</span>
+        <span class="level chip chip-butter">进阶</span>
+        <span class="play"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg></span>
+        <span class="dur">02:45</span>
+      </div>
+      <div class="vbody">
+        <h3>打风放假</h3>
+        <div class="tags"><span>天气</span><span>放假</span></div>
+        <div class="vfoot">
+          <span class="go coming">即将上线</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="vcard">
+      <div class="cover c-sky">
+        <span class="glyph">家</span>
+        <span class="level chip chip-sky">基础</span>
+        <span class="play"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg></span>
+        <span class="dur">01:05</span>
+      </div>
+      <div class="vbody">
+        <h3>屋企晚饭</h3>
+        <div class="tags"><span>家庭</span><span>日常</span></div>
+        <div class="vfoot">
+          <span class="go coming">即将上线</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-note">第一段视频已接入 · 其余片段为待更新示意</div>
+</div>
+
+<footer class="site-footer">
+  MVP 视觉预览 · 方向一「云上港街」 · 影视视频列表页（桌面端）
+</footer>
+
+</body>
+</html>

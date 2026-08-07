@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>基础课程 · 粤见 CantoScene</title>
+<link rel="stylesheet" href="css/site.css">
+<style>
+  .street-label{
+    display:flex;align-items:center;gap:14px;margin:6px 0 22px;
+  }
+  .street-label h2{font-family:var(--serif);font-size:20px;font-weight:700;color:#243B4E;white-space:nowrap;}
+  .street-label .road{
+    flex:1;height:2px;
+    background-image:repeating-linear-gradient(to right,rgba(51,64,79,.3) 0 8px,transparent 8px 16px);
+  }
+  .street-label .tip{font-size:12px;color:var(--ink-faint);white-space:nowrap;}
+
+  /* 店铺卡 */
+  .shops{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;}
+  .shop{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    overflow:hidden;box-shadow:0 8px 22px rgba(51,64,79,.06);
+    display:flex;flex-direction:column;
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .shop:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(51,64,79,.10);}
+  .awning{height:22px;position:relative;}
+  .awning::after{
+    content:"";position:absolute;left:0;right:0;bottom:-6px;height:6px;
+    background:inherit;
+    clip-path:polygon(0 0,100% 0,100% 30%,96% 100%,92% 30%,88% 100%,84% 30%,80% 100%,76% 30%,72% 100%,68% 30%,64% 100%,60% 30%,56% 100%,52% 30%,48% 100%,44% 30%,40% 100%,36% 30%,32% 100%,28% 30%,24% 100%,20% 30%,16% 100%,12% 30%,8% 100%,4% 30%,0 100%);
+    opacity:.55;
+  }
+  .a-sky{background:repeating-linear-gradient(90deg,var(--sky) 0 24px,#fff 24px 48px);}
+  .a-peach{background:repeating-linear-gradient(90deg,var(--peach) 0 24px,#fff 24px 48px);}
+  .a-butter{background:repeating-linear-gradient(90deg,var(--butter) 0 24px,#fff 24px 48px);}
+  .shop .sign{
+    padding:18px 24px 4px;display:flex;align-items:center;gap:10px;
+  }
+  .shop .sign .no{
+    font-family:var(--mono);font-size:12px;font-weight:600;color:var(--ink-faint);
+  }
+  .shop .sign .shopname{
+    font-size:12px;font-weight:600;color:var(--ink-faint);
+  }
+  .shop .body{padding:6px 24px 20px;display:flex;flex-direction:column;flex:1;}
+  .shop h3{font-family:var(--serif);font-size:22px;font-weight:700;color:#243B4E;}
+  .shop .desc{margin-top:8px;font-size:13.5px;color:var(--ink-soft);flex:1;}
+  .shop .meta{
+    margin-top:14px;display:flex;align-items:center;gap:10px;
+    font-size:12px;color:var(--ink-faint);
+  }
+  .shop .foot{
+    margin-top:12px;display:flex;align-items:center;justify-content:space-between;
+  }
+  .shop .go{
+    display:inline-flex;align-items:center;gap:7px;
+    font-size:14px;font-weight:600;color:var(--sky-deep);
+  }
+  .shop .go svg{width:15px;height:15px;stroke:var(--sky-deep);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;}
+  .shop .route{width:90px;}
+
+  /* 基础工具 */
+  .tools{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:40px;}
+  .tool{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    box-shadow:0 8px 22px rgba(51,64,79,.06);
+    padding:22px 26px;display:flex;flex-direction:column;gap:12px;
+  }
+  .tool .t-head{display:flex;align-items:baseline;gap:10px;}
+  .tool h3{font-family:var(--serif);font-size:19px;font-weight:700;color:#243B4E;}
+  .tool .t-sub{font-size:12.5px;color:var(--ink-faint);}
+  .tiles{display:flex;gap:9px;flex-wrap:wrap;}
+  .tile{
+    width:38px;height:38px;border-radius:9px;background:var(--paper);
+    border:1px solid var(--line);
+    font-family:var(--mono);font-size:14px;color:var(--ink);
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 2px 0 rgba(51,64,79,.08);
+  }
+  .tile.on{background:var(--sky-wash);border-color:rgba(47,143,196,.4);color:var(--sky-deep);font-weight:600;}
+  .words{display:flex;gap:8px;flex-wrap:wrap;}
+  .words span{
+    font-size:13px;color:var(--ink-soft);background:var(--paper);
+    border:1px solid var(--line);border-radius:8px;padding:4px 12px;
+  }
+  .tool .t-go{
+    margin-top:auto;display:inline-flex;align-items:center;gap:7px;
+    font-size:13.5px;font-weight:600;color:var(--sky-deep);
+  }
+  .tool .t-go svg{width:14px;height:14px;stroke:var(--sky-deep);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="brand" href="home.html"><span class="zh">粤见</span><span class="en">CantoScene</span></a>
+  <div class="nav-links">
+    <a href="home.html">首页</a>
+    <a href="#" class="active">基础课程</a>
+    <a href="videos.html">影视学粤语</a>
+    <a href="favorites.html">收藏</a>
+    <a href="my.html">我的学习</a>
+  </div>
+  <div class="nav-right">
+    <span class="lang">简 / 繁</span>
+    <a class="login-btn" href="#">登录</a>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="page-head">
+    <span class="eyebrow">小城的街</span>
+    <h1>基础课程</h1>
+    <p>三个短单元是这条街上的三家店，按顺序逛完，就能走进录像厅了。</p>
+  </div>
+
+  <div class="street-label">
+    <h2>入门学习路线</h2>
+    <span class="road"></span>
+    <span class="tip">情景对话在每一课里面，不单独开店</span>
+  </div>
+
+  <div class="shops">
+    <div class="shop">
+      <div class="awning a-sky"></div>
+      <div class="sign"><span class="no">01</span><span class="shopname">粤拼文具店</span></div>
+      <div class="body">
+        <h3>粤拼与声调入门</h3>
+        <p class="desc">看懂页面上的粤拼标记，听得出声调差别，知道去哪里查发音。</p>
+        <div class="meta">5 课节 · 约 20 分钟 <span class="chip chip-green">已完成</span></div>
+        <div class="foot">
+          <a class="go" href="lesson.html">再学一遍
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <span class="route"><i style="width:100%;background:var(--green);"></i></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="shop">
+      <div class="awning a-peach"></div>
+      <div class="sign"><span class="no">02</span><span class="shopname">见面茶档</span></div>
+      <div class="body">
+        <h3>打招呼与自我介绍</h3>
+        <p class="desc">开口第一句：问候、称呼、介绍自己，第一次见面就够用了。</p>
+        <div class="meta">4 课节 · 约 15 分钟 <span class="chip chip-sky">学习中</span></div>
+        <div class="foot">
+          <a class="go" href="lesson.html">继续学习
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <span class="route"><i style="width:60%;"></i></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="shop">
+      <div class="awning a-butter"></div>
+      <div class="sign"><span class="no">03</span><span class="shopname">茶餐厅</span></div>
+      <div class="body">
+        <h3>茶餐厅点餐</h3>
+        <p class="desc">冻柠茶、少甜、埋单——一次完整的茶餐厅点单全流程。</p>
+        <div class="meta">5 课节 · 约 20 分钟 <span class="chip chip-sky">学习中</span></div>
+        <div class="foot">
+          <a class="go" href="lesson.html">继续学习
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <span class="route"><i style="width:25%;"></i></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tools">
+    <div class="tool">
+      <div class="t-head">
+        <h3>粤拼发音速查</h3>
+        <span class="t-sub">声母 · 韵母 · 声调，点一下就发音</span>
+      </div>
+      <div class="tiles">
+        <span class="tile">b</span><span class="tile">p</span><span class="tile">m</span><span class="tile">f</span>
+        <span class="tile">d</span><span class="tile">t</span><span class="tile">n</span><span class="tile">l</span>
+        <span class="tile on">g</span><span class="tile">k</span><span class="tile">ng</span><span class="tile">h</span>
+      </div>
+      <a class="t-go" href="#">打开速查表
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+
+    <div class="tool">
+      <div class="t-head">
+        <h3>高频粤语字词</h3>
+        <span class="t-sub">首批 30–50 个，生活和港片里最常听到的</span>
+      </div>
+      <div class="words">
+        <span>唔该</span><span>埋单</span><span>冻</span><span>少甜</span>
+        <span>借歪</span><span>几多</span><span>畀</span><span>咗</span><span>+42</span>
+      </div>
+      <a class="t-go" href="#">浏览全部字词
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  MVP 视觉预览 · 方向一「云上港街」 · 基础课程首页（桌面端） · 内容为示范数据
+</footer>
+
+</body>
+</html>

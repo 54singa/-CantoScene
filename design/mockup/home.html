@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>粤见 CantoScene · 走进真实粤语</title>
+<style>
+  :root{
+    --paper:#FBF7F0;
+    --paper-deep:#F4ECDC;
+    --ink:#33404F;
+    --ink-soft:#5C6B7A;
+    --ink-faint:#8C99A6;
+    --sky:#2F8FC4;
+    --sky-deep:#226E99;
+    --sky-wash:#E3F1FA;
+    --peach:#F0A091;
+    --peach-deep:#D97E6C;
+    --peach-wash:#FCE9E4;
+    --butter:#F5D78E;
+    --butter-deep:#D9AE4E;
+    --butter-wash:#FBF0D4;
+    --green:#4CAF8E;
+    --green-wash:#E2F3EC;
+    --line:rgba(51,64,79,.10);
+    --serif:"Songti SC","Noto Serif SC","Source Han Serif SC","STSong",serif;
+    --sans:"PingFang SC","Hiragino Sans GB","Noto Sans SC","Microsoft YaHei",sans-serif;
+    --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+    --radius:14px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:var(--sans);
+    background:var(--paper);
+    color:var(--ink);
+    font-size:16px;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{text-decoration:none;color:inherit;}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 28px;}
+
+  /* ---------- 全局导航 ---------- */
+  .nav{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    display:flex;align-items:center;gap:34px;
+    padding:16px 36px;
+    transition:background .3s ease, box-shadow .3s ease, padding .3s ease;
+  }
+  .nav.scrolled{
+    background:rgba(251,247,240,.86);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    box-shadow:0 1px 0 var(--line);
+    padding:12px 36px;
+  }
+  .brand{display:flex;align-items:baseline;gap:9px;}
+  .brand .zh{font-family:var(--serif);font-weight:700;font-size:23px;color:#22405A;}
+  .brand .en{font-size:12.5px;font-weight:600;color:#3D6076;}
+  .nav:not(.scrolled) .brand .zh,
+  .nav:not(.scrolled) .brand .en,
+  .nav:not(.scrolled) .nav-links a,
+  .nav:not(.scrolled) .nav-right .lang,
+  .nav:not(.scrolled) .nav-right .burger{
+    text-shadow:0 0 14px rgba(255,255,255,.95),0 0 4px rgba(255,255,255,.9);
+  }
+  .nav-links{display:flex;gap:26px;font-size:14.5px;}
+  .nav-links a{color:#2C4A63;font-weight:500;padding:4px 2px;}
+  .nav-links a.active{color:var(--sky-deep);font-weight:600;box-shadow:0 2px 0 var(--sky);}
+  .nav-right{margin-left:auto;display:flex;align-items:center;gap:14px;}
+  .lang{
+    font-size:12.5px;font-weight:600;color:#2C4A63;
+    border:1px solid rgba(44,74,99,.35);border-radius:999px;
+    padding:4px 12px;background:rgba(255,255,255,.45);
+  }
+  .login-btn{
+    font-size:14px;font-weight:600;color:#fff;background:var(--sky);
+    border-radius:999px;padding:8px 20px;
+    box-shadow:0 4px 14px rgba(47,143,196,.35);
+  }
+  .burger{display:none;width:38px;height:38px;border-radius:10px;
+    border:1px solid rgba(44,74,99,.3);background:rgba(255,255,255,.5);
+    align-items:center;justify-content:center;}
+  .burger svg{width:18px;height:18px;stroke:#2C4A63;}
+
+  /* ---------- 首屏 ---------- */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    min-height:100svh;
+    display:flex;flex-direction:column;
+    overflow:hidden;
+  }
+  .hero-bg{
+    position:absolute;inset:0;width:100%;height:100%;
+    object-fit:cover;object-position:center 30%;
+  }
+  .hero-copy{
+    position:absolute;z-index:2;
+    top:13vh;right:8%;max-width:46%;
+    text-align:left;
+  }
+  .hero-copy h1{
+    font-family:var(--serif);font-weight:700;
+    font-size:clamp(58px,7.5vw,96px);
+    line-height:1.1;color:#1E3D57;
+    text-shadow:0 0 30px rgba(255,255,255,.95),0 0 10px rgba(255,255,255,.85),0 2px 18px rgba(255,255,255,.6);
+  }
+  .hero-copy .en-name{
+    margin-top:10px;font-size:clamp(15px,1.6vw,20px);font-weight:600;
+    color:#2A5878;
+    text-shadow:0 0 16px rgba(255,255,255,.95),0 0 6px rgba(255,255,255,.85);
+  }
+  .hero-copy .slogan{
+    margin-top:26px;font-family:var(--serif);
+    font-size:clamp(19px,2.2vw,26px);color:#24445F;
+    text-shadow:0 0 20px rgba(255,255,255,.95),0 0 8px rgba(255,255,255,.9);
+  }
+  .hero-copy .slogan-en{
+    margin-top:8px;font-size:13.5px;color:#39627F;
+    text-shadow:0 0 14px rgba(255,255,255,.95),0 0 5px rgba(255,255,255,.9);
+  }
+  .hero-cta{
+    position:relative;z-index:2;
+    margin-top:auto;margin-bottom:7.5vh;
+    display:flex;justify-content:center;gap:16px;flex-wrap:wrap;
+    padding:0 24px;
+  }
+  .btn-primary{
+    display:inline-flex;align-items:center;gap:9px;
+    background:var(--sky);color:#fff;
+    font-size:16px;font-weight:600;
+    padding:15px 34px;border-radius:999px;
+    box-shadow:0 10px 26px rgba(31,111,158,.38);
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(31,111,158,.45);}
+  .btn-glass{
+    display:inline-flex;align-items:center;gap:9px;
+    background:rgba(255,255,255,.72);color:#1E3D57;
+    backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+    border:1px solid rgba(255,255,255,.95);
+    font-size:16px;font-weight:600;
+    padding:15px 32px;border-radius:999px;
+    box-shadow:0 8px 22px rgba(51,64,79,.16);
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .btn-glass:hover{transform:translateY(-2px);box-shadow:0 12px 26px rgba(51,64,79,.2);}
+  .hero-hint{
+    position:absolute;left:50%;bottom:14px;transform:translateX(-50%);
+    z-index:2;color:#3D6076;font-size:12px;opacity:.85;
+    text-shadow:0 0 10px rgba(255,255,255,.9);
+  }
+
+  /* ---------- 通用区块 ---------- */
+  section.block{padding:92px 0;}
+  .block-head{text-align:center;max-width:640px;margin:0 auto 52px;}
+  .block-head .eyebrow{
+    display:inline-block;font-size:13px;font-weight:600;color:var(--sky-deep);
+    background:var(--sky-wash);border-radius:999px;padding:5px 14px;margin-bottom:16px;
+  }
+  .block-head h2{font-family:var(--serif);font-weight:700;font-size:clamp(28px,3.4vw,36px);color:#243B4E;}
+  .block-head p{margin-top:12px;color:var(--ink-soft);font-size:15.5px;}
+
+  /* ---------- 这样学习 ---------- */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  .step{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    padding:30px 28px 28px;position:relative;
+    box-shadow:0 6px 20px rgba(51,64,79,.05);
+  }
+  .step::before{
+    content:"";position:absolute;top:0;left:24px;right:24px;height:5px;
+    border-radius:0 0 6px 6px;background:var(--sky);
+  }
+  .step:nth-child(2)::before{background:var(--peach);}
+  .step:nth-child(3)::before{background:var(--butter);}
+  .step .num{
+    font-family:var(--mono);font-size:13px;font-weight:600;color:var(--ink-faint);
+  }
+  .step .icon{
+    width:46px;height:46px;border-radius:12px;margin:14px 0 16px;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--sky-wash);
+  }
+  .step:nth-child(2) .icon{background:var(--peach-wash);}
+  .step:nth-child(3) .icon{background:var(--butter-wash);}
+  .step .icon svg{width:22px;height:22px;stroke:var(--sky-deep);fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;}
+  .step:nth-child(2) .icon svg{stroke:var(--peach-deep);}
+  .step:nth-child(3) .icon svg{stroke:var(--butter-deep);}
+  .step h3{font-family:var(--serif);font-size:20px;font-weight:700;color:#243B4E;}
+  .step p{margin-top:8px;font-size:14px;color:var(--ink-soft);}
+
+  .demo{
+    margin-top:56px;display:flex;flex-direction:column;align-items:center;gap:14px;
+  }
+  .demo-label{font-size:13px;color:var(--ink-faint);}
+  .demo-card{
+    width:min(660px,100%);
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    box-shadow:0 14px 36px rgba(51,64,79,.10);
+    padding:26px 30px 24px;position:relative;overflow:hidden;
+  }
+  .demo-card::before{
+    content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--sky);
+  }
+  .demo-meta{
+    display:flex;align-items:center;gap:10px;margin-bottom:12px;
+    font-family:var(--mono);font-size:12.5px;color:var(--ink-faint);
+  }
+  .demo-meta .tag{
+    font-family:var(--sans);font-size:11.5px;font-weight:600;
+    color:var(--sky-deep);background:var(--sky-wash);
+    border-radius:6px;padding:2px 8px;
+  }
+  .demo-yue{font-family:var(--serif);font-size:clamp(20px,2.4vw,25px);font-weight:700;color:#22394C;}
+  .demo-jyut{margin-top:6px;font-family:var(--mono);font-size:14.5px;color:var(--sky-deep);}
+  .demo-zh{margin-top:6px;font-size:14.5px;color:var(--ink-soft);}
+  .demo-actions{margin-top:18px;display:flex;gap:12px;flex-wrap:wrap;}
+  .btn-outline{
+    display:inline-flex;align-items:center;gap:7px;
+    font-size:13.5px;font-weight:600;color:var(--sky-deep);
+    border:1.5px solid var(--sky);border-radius:999px;padding:8px 18px;
+    background:#fff;
+  }
+  .btn-outline svg{width:14px;height:14px;stroke:var(--sky-deep);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+  .btn-ghost{
+    display:inline-flex;align-items:center;gap:7px;
+    font-size:13.5px;font-weight:600;color:var(--peach-deep);
+    background:var(--peach-wash);border-radius:999px;padding:8px 18px;
+  }
+  .btn-ghost svg{width:14px;height:14px;stroke:var(--peach-deep);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+  .demo-note{font-size:12.5px;color:var(--ink-faint);}
+
+  /* ---------- 入门路线：小城的街 ---------- */
+  .shops{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  .shop{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    overflow:hidden;display:flex;flex-direction:column;
+    box-shadow:0 8px 22px rgba(51,64,79,.06);
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .shop:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(51,64,79,.10);}
+  .awning{height:22px;position:relative;}
+  .awning::after{
+    content:"";position:absolute;left:0;right:0;bottom:-6px;height:6px;
+    background:inherit;opacity:.55;
+    clip-path:polygon(0 0,100% 0,100% 30%,96% 100%,92% 30%,88% 100%,84% 30%,80% 100%,76% 30%,72% 100%,68% 30%,64% 100%,60% 30%,56% 100%,52% 30%,48% 100%,44% 30%,40% 100%,36% 30%,32% 100%,28% 30%,24% 100%,20% 30%,16% 100%,12% 30%,8% 100%,4% 30%,0 100%);
+  }
+  .a-sky{background:repeating-linear-gradient(90deg,var(--sky) 0 24px,#fff 24px 48px);}
+  .a-peach{background:repeating-linear-gradient(90deg,var(--peach) 0 24px,#fff 24px 48px);}
+  .a-butter{background:repeating-linear-gradient(90deg,var(--butter) 0 24px,#fff 24px 48px);}
+  .shop .sign{
+    padding:18px 24px 4px;display:flex;align-items:center;gap:10px;
+  }
+  .shop .sign .no{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--ink-faint);}
+  .shop .sign .shopname{font-size:12px;font-weight:600;color:var(--ink-faint);}
+  .shop .sign .chip{margin-left:auto;}
+  .chip{
+    font-size:11.5px;font-weight:600;border-radius:6px;padding:3px 10px;
+  }
+  .chip-rec{color:var(--sky-deep);background:var(--sky-wash);}
+  .chip-demo{color:var(--butter-deep);background:var(--butter-wash);}
+  .shop .body{padding:6px 24px 20px;display:flex;flex-direction:column;flex:1;}
+  .shop h3{font-family:var(--serif);font-size:22px;font-weight:700;color:#243B4E;}
+  .shop .desc{margin-top:8px;font-size:13.5px;color:var(--ink-soft);flex:1;}
+  .shop .meta{
+    margin-top:14px;font-size:12px;color:var(--ink-faint);
+    display:flex;align-items:center;gap:6px;
+  }
+  .shop .go{
+    margin-top:12px;display:inline-flex;align-items:center;gap:7px;
+    font-size:14.5px;font-weight:600;color:var(--sky-deep);
+  }
+  .shop .go svg{width:15px;height:15px;stroke:var(--sky-deep);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;}
+
+  /* ---------- 精选影视 ---------- */
+  .videos-sec{background:var(--paper-deep);}
+  .videos{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  .video-card{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    overflow:hidden;box-shadow:0 6px 20px rgba(51,64,79,.05);
+    transition:transform .18s ease, box-shadow .18s ease;display:block;color:inherit;
+  }
+  .video-card:hover{transform:translateY(-4px);box-shadow:0 14px 32px rgba(51,64,79,.10);}
+  .cover{
+    position:relative;aspect-ratio:16/9;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .cover .cover-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+  .video-card:nth-child(1) .cover{background:var(--sky-wash);}
+  .video-card:nth-child(2) .cover{background:var(--peach-wash);}
+  .video-card:nth-child(3) .cover{background:var(--butter-wash);}
+  .cover .glyph{
+    font-family:var(--serif);font-weight:700;font-size:72px;line-height:1;
+  }
+  .video-card:nth-child(1) .cover .glyph{color:#A5CFE7;}
+  .video-card:nth-child(2) .cover .glyph{color:#EFC2B8;}
+  .video-card:nth-child(3) .cover .glyph{color:#EAD496;}
+  .cover .play{
+    position:absolute;width:48px;height:48px;border-radius:50%;
+    background:rgba(255,255,255,.88);box-shadow:0 6px 18px rgba(51,64,79,.18);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .cover .play svg{width:17px;height:17px;fill:var(--sky-deep);margin-left:2px;}
+  .cover .dur{
+    position:absolute;right:10px;bottom:10px;
+    font-family:var(--mono);font-size:11.5px;color:#fff;
+    background:rgba(34,57,76,.78);border-radius:6px;padding:2px 8px;
+  }
+  .cover .level{
+    position:absolute;left:10px;top:10px;
+    font-size:11px;font-weight:600;color:#2E7D5F;
+    background:var(--green-wash);border-radius:6px;padding:3px 9px;
+  }
+  .video-body{padding:16px 20px 16px;}
+  .video-body h3{font-family:var(--serif);font-size:18.5px;font-weight:700;color:#243B4E;}
+  .video-body .tags{margin-top:8px;display:flex;gap:7px;flex-wrap:wrap;}
+  .video-body .tags span{
+    font-size:11.5px;color:var(--ink-soft);background:var(--paper);
+    border:1px solid var(--line);border-radius:6px;padding:2px 9px;
+  }
+  .video-body .go{
+    margin-top:13px;display:inline-flex;align-items:center;gap:7px;
+    font-size:14px;font-weight:600;color:var(--sky-deep);
+  }
+  .video-body .go svg{width:15px;height:15px;stroke:var(--sky-deep);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;}
+  .video-body .coming{color:var(--ink-faint);}
+  .videos-note{margin-top:26px;text-align:center;font-size:12.5px;color:var(--ink-faint);}
+
+  /* ---------- 登录提示 ---------- */
+  .login-band{background:var(--sky-wash);}
+  .login-inner{
+    display:flex;align-items:center;gap:28px;flex-wrap:wrap;
+    padding:20px 0;
+  }
+  .login-inner .txt{flex:1;min-width:260px;}
+  .login-inner h3{font-family:var(--serif);font-size:clamp(21px,2.4vw,25px);font-weight:700;color:#22405A;}
+  .login-inner p{margin-top:6px;font-size:14px;color:var(--ink-soft);}
+
+  /* ---------- 页脚 ---------- */
+  footer{
+    padding:44px 0 40px;text-align:center;
+    border-top:1px solid var(--line);
+  }
+  footer .f-brand{font-family:var(--serif);font-weight:700;font-size:19px;color:#22405A;}
+  footer .f-slogan{margin-top:6px;font-size:13px;color:var(--ink-soft);}
+  footer .f-note{margin-top:16px;font-size:11.5px;color:var(--ink-faint);}
+
+  /* ---------- 响应式 ---------- */
+  @media (max-width:900px){
+    .nav{padding:14px 20px;gap:18px;}
+    .nav-links{display:none;}
+    .burger{display:flex;}
+    .hero{min-height:100vh;min-height:100svh;justify-content:flex-end;}
+    .hero-bg{object-position:center 20%;}
+    .hero::after{
+      content:"";position:absolute;inset:0;z-index:1;
+      background:linear-gradient(to bottom,
+        rgba(251,247,240,0) 38%,
+        rgba(251,247,240,.38) 58%,
+        rgba(251,247,240,.72) 88%);
+    }
+    .hero-copy{
+      position:relative;top:auto;right:auto;max-width:none;
+      text-align:center;margin:0 0 22px;padding:0 24px;
+    }
+    .hero-cta{margin-top:0;margin-bottom:6vh;}
+    .hero-hint{display:none;}
+    section.block{padding:66px 0;}
+    .steps,.shops,.videos{grid-template-columns:1fr;}
+    .login-inner{flex-direction:column;align-items:flex-start;}
+  }
+</style>
+</head>
+<body>
+
+<!-- 全局导航 -->
+<nav class="nav" id="nav">
+  <a class="brand" href="#">
+    <span class="zh">粤见</span><span class="en">CantoScene</span>
+  </a>
+  <div class="nav-links">
+    <a href="#" class="active">首页</a>
+    <a href="courses.html">基础课程</a>
+    <a href="videos.html">影视学粤语</a>
+    <a href="favorites.html">收藏</a>
+    <a href="my.html">我的学习</a>
+  </div>
+  <div class="nav-right">
+    <span class="lang">简 / 繁</span>
+    <a class="login-btn" href="#">登录</a>
+    <span class="burger">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </span>
+  </div>
+</nav>
+
+<!-- 首屏 -->
+<header class="hero">
+  <img class="hero-bg" src="../assets/hero-hk-street-v2.png" alt="香港街景插画：骑车飞越楼宇之间的女孩">
+  <div class="hero-copy">
+    <h1>粤见</h1>
+    <div class="en-name">CantoScene</div>
+    <p class="slogan">走进真实粤语。</p>
+    <p class="slogan-en">See it. Hear it. Get Cantonese.</p>
+  </div>
+  <div class="hero-cta">
+    <a class="btn-primary" href="#courses">从第一课开始</a>
+    <a class="btn-glass" href="video-study.html">体验影视学习</a>
+  </div>
+  <div class="hero-hint">向下滚动，看看怎么学</div>
+</header>
+
+<!-- 这样学习 -->
+<section class="block">
+  <div class="wrap">
+    <div class="block-head">
+      <span class="eyebrow">这样学习</span>
+      <h2>先打一点基础，再钻进真实香港日常</h2>
+      <p>课本让你看得懂，原声让你听得真。在粤见，两件事是一条路。</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="num">01</div>
+        <div class="icon">
+          <svg viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5V5.5"/><path d="M8 7.5h8M8 11h5"/></svg>
+        </div>
+        <h3>学基础</h3>
+        <p>粤拼、声调和高频表达，三个短单元就够跨过第一道门槛。</p>
+      </div>
+      <div class="step">
+        <div class="num">02</div>
+        <div class="icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M7 11h6M7 14.5h10"/><path d="M16.5 11H17"/></svg>
+        </div>
+        <h3>看视频逐句理解</h3>
+        <p>字幕跟着原声走，点一句，粤拼和普通话就在原地展开。</p>
+      </div>
+      <div class="step">
+        <div class="num">03</div>
+        <div class="icon">
+          <svg viewBox="0 0 24 24"><path d="M7 4h10a1 1 0 0 1 1 1v15l-6-4-6 4V5a1 1 0 0 1 1-1z"/></svg>
+        </div>
+        <h3>收藏原声台词</h3>
+        <p>喜欢的句子连声音一起存下来，回到收藏夹随时再听。</p>
+      </div>
+    </div>
+
+    <div class="demo">
+      <div class="demo-label">点一句字幕，就会出现这些</div>
+      <div class="demo-card">
+        <div class="demo-meta"><span>00:05</span><span class="tag">当前句 · 已展开</span></div>
+        <div class="demo-yue">唔该，冻柠茶少甜。</div>
+        <div class="demo-jyut">m4 goi1, dung3 ning4 caa4 siu2 tim4.</div>
+        <div class="demo-zh">麻烦来一杯少甜的冻柠檬茶。</div>
+        <div class="demo-actions">
+          <span class="btn-outline">
+            <svg viewBox="0 0 24 24"><path d="M4 5v14l11-7z"/></svg>
+            重播本句
+          </span>
+          <span class="btn-ghost">
+            <svg viewBox="0 0 24 24"><path d="M7 4h10a1 1 0 0 1 1 1v15l-6-4-6 4V5a1 1 0 0 1 1-1z"/></svg>
+            收藏
+          </span>
+        </div>
+      </div>
+      <div class="demo-note">粤语原文 · 粤拼 · 普通话释义，三层信息在全站保持同一排版。</div>
+    </div>
+  </div>
+</section>
+
+<!-- 入门路线 -->
+<section class="block" id="courses" style="padding-top:0;">
+  <div class="wrap">
+    <div class="block-head">
+      <span class="eyebrow">小城的街 · 入门路线</span>
+      <h2>三个短单元，这条街上的三家店</h2>
+      <p>按顺序逛完，就能走进录像厅看真实粤语了。</p>
+    </div>
+    <div class="shops">
+      <div class="shop">
+        <div class="awning a-sky"></div>
+        <div class="sign"><span class="no">01</span><span class="shopname">粤拼文具店</span><span class="chip chip-rec">推荐起点</span></div>
+        <div class="body">
+          <h3>粤拼与声调入门</h3>
+          <p class="desc">看懂页面上的粤拼标记，听得出声调差别，知道去哪里查发音。</p>
+          <div class="meta">5 课节 · 约 20 分钟</div>
+          <a class="go" href="lesson.html">开始学习
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="shop">
+        <div class="awning a-peach"></div>
+        <div class="sign"><span class="no">02</span><span class="shopname">见面茶档</span></div>
+        <div class="body">
+          <h3>打招呼与自我介绍</h3>
+          <p class="desc">开口第一句：问候、称呼、介绍自己，第一次见面就够用了。</p>
+          <div class="meta">4 课节 · 约 15 分钟</div>
+          <a class="go" href="lesson.html">开始学习
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="shop">
+        <div class="awning a-butter"></div>
+        <div class="sign"><span class="no">03</span><span class="shopname">茶餐厅</span><span class="chip chip-demo">示范单元</span></div>
+        <div class="body">
+          <h3>茶餐厅点餐</h3>
+          <p class="desc">冻柠茶、少甜、埋单——一次完整的茶餐厅点单全流程。</p>
+          <div class="meta">5 课节 · 约 20 分钟</div>
+          <a class="go" href="lesson.html">开始学习
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 精选影视 -->
+<section class="block videos-sec" id="videos">
+  <div class="wrap">
+    <div class="block-head">
+      <span class="eyebrow">老录像厅 · 今日放映</span>
+      <h2>精选影视片段</h2>
+      <p>从真实影视对白里边听边看，一句一句练习粤语。</p>
+    </div>
+    <div class="videos">
+      <a class="video-card" href="video-study.html">
+        <div class="cover">
+          <img class="cover-image" src="../assets/video-01-cover.png" alt="影视片段 01 封面">
+          <span class="level">进阶</span>
+          <span class="play"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg></span>
+          <span class="dur">18:19</span>
+        </div>
+        <div class="video-body">
+          <h3>影视片段 01：律师楼初见</h3>
+          <div class="tags"><span>职场</span><span>律师楼</span><span>日常对白</span></div>
+          <span class="go">开始学习
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </span>
+        </div>
+      </a>
+      <div class="video-card">
+        <div class="cover">
+          <span class="glyph">问</span>
+          <span class="level">入门</span>
+          <span class="play"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg></span>
+          <span class="dur">00:48</span>
+        </div>
+        <div class="video-body">
+          <h3>港铁问路</h3>
+          <div class="tags"><span>出行</span><span>方向</span></div>
+          <span class="go coming">即将上线</span>
+        </div>
+      </div>
+      <div class="video-card">
+        <div class="cover">
+          <span class="glyph">聚</span>
+          <span class="level">基础</span>
+          <span class="play"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg></span>
+          <span class="dur">02:10</span>
+        </div>
+        <div class="video-body">
+          <h3>第一次见面</h3>
+          <div class="tags"><span>问候</span><span>介绍</span></div>
+          <span class="go coming">即将上线</span>
+        </div>
+      </div>
+    </div>
+    <div class="videos-note">第一段视频已接入，其余片段待后续补充。</div>
+  </div>
+</section>
+
+<!-- 登录提示 -->
+<section class="login-band">
+  <div class="wrap">
+    <div class="login-inner">
+      <div class="txt">
+        <h3>登录后，进度和收藏都会留下来</h3>
+        <p>游客可以随便逛；想保存第一句台词的时候，再登录也不迟。</p>
+      </div>
+      <a class="btn-primary" href="#">登录 / 注册</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="f-brand">粤见 CantoScene</div>
+    <div class="f-slogan">走进真实粤语。 · See it. Hear it. Get Cantonese.</div>
+    <div class="f-note">MVP 视觉预览 · 方向一「云上港街」 · 首页（游客状态）</div>
+  </div>
+</footer>
+
+<script>
+  var nav = document.getElementById('nav');
+  function onScroll(){ nav.classList.toggle('scrolled', window.scrollY > 40); }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+</script>
+</body>
+</html>

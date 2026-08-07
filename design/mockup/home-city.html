@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>粤见 CantoScene · 走进真实粤语</title>
+<style>
+  :root{
+    --paper:#FBF7F0;
+    --paper-deep:#F4ECDC;
+    --ink:#33404F;
+    --ink-soft:#5C6B7A;
+    --ink-faint:#8C99A6;
+    --sky:#2F8FC4;
+    --sky-deep:#226E99;
+    --sky-wash:#E3F1FA;
+    --peach:#F0A091;
+    --peach-deep:#D97E6C;
+    --butter:#F5D78E;
+    --butter-deep:#D9AE4E;
+    --line:rgba(51,64,79,.10);
+    --serif:"Songti SC","Noto Serif SC","Source Han Serif SC","STSong",serif;
+    --sans:"PingFang SC","Hiragino Sans GB","Noto Sans SC","Microsoft YaHei",sans-serif;
+    --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+    --hand:"Kaiti SC","STKaiti","KaiTi",serif;
+    --radius:14px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:var(--sans);background:var(--paper);color:var(--ink);
+    font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;
+  }
+  a{text-decoration:none;color:inherit;}
+
+  /* ---------- 导航 ---------- */
+  .nav{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    display:flex;align-items:center;gap:34px;
+    padding:16px 36px;
+    transition:background .3s ease, box-shadow .3s ease, padding .3s ease;
+  }
+  .nav.scrolled{
+    background:rgba(251,247,240,.86);
+    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    box-shadow:0 1px 0 var(--line);
+    padding:12px 36px;
+  }
+  .brand{display:flex;align-items:baseline;gap:9px;}
+  .brand .zh{font-family:var(--serif);font-weight:700;font-size:23px;color:#22405A;}
+  .brand .en{font-size:12.5px;font-weight:600;color:#3D6076;}
+  .nav:not(.scrolled) .brand .zh,
+  .nav:not(.scrolled) .brand .en,
+  .nav:not(.scrolled) .nav-links a,
+  .nav:not(.scrolled) .nav-right .lang{
+    text-shadow:0 0 14px rgba(255,255,255,.95),0 0 4px rgba(255,255,255,.9);
+  }
+  .nav-links{display:flex;gap:26px;font-size:14.5px;}
+  .nav-links a{color:#2C4A63;font-weight:500;padding:4px 2px;}
+  .nav-links a.active{color:var(--sky-deep);font-weight:600;box-shadow:0 2px 0 var(--sky);}
+  .nav-right{margin-left:auto;display:flex;align-items:center;gap:14px;}
+  .lang{
+    font-size:12.5px;font-weight:600;color:#2C4A63;
+    border:1px solid rgba(44,74,99,.35);border-radius:999px;
+    padding:4px 12px;background:rgba(255,255,255,.45);
+  }
+  .login-btn{
+    font-size:14px;font-weight:600;color:#fff;background:var(--sky);
+    border-radius:999px;padding:8px 20px;
+    box-shadow:0 4px 14px rgba(47,143,196,.35);
+  }
+
+  /* ---------- 首屏：天空层 ---------- */
+  .hero{position:relative;min-height:92vh;display:flex;flex-direction:column;overflow:hidden;}
+  .hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%;}
+  .hero-copy{position:absolute;z-index:2;top:13vh;right:8%;max-width:46%;text-align:left;}
+  .hero-copy h1{
+    font-family:var(--serif);font-weight:700;
+    font-size:clamp(58px,7.5vw,96px);line-height:1.1;color:#1E3D57;
+    text-shadow:0 0 30px rgba(255,255,255,.95),0 0 10px rgba(255,255,255,.85),0 2px 18px rgba(255,255,255,.6);
+  }
+  .hero-copy .en-name{
+    margin-top:10px;font-size:clamp(15px,1.6vw,20px);font-weight:600;color:#2A5878;
+    text-shadow:0 0 16px rgba(255,255,255,.95),0 0 6px rgba(255,255,255,.85);
+  }
+  .hero-copy .slogan{
+    margin-top:26px;font-family:var(--serif);
+    font-size:clamp(19px,2.2vw,26px);color:#24445F;
+    text-shadow:0 0 20px rgba(255,255,255,.95),0 0 8px rgba(255,255,255,.9);
+  }
+  .hero-copy .slogan-en{
+    margin-top:8px;font-size:13.5px;color:#39627F;
+    text-shadow:0 0 14px rgba(255,255,255,.95),0 0 5px rgba(255,255,255,.9);
+  }
+  .hero-cta{
+    position:relative;z-index:2;margin-top:auto;margin-bottom:7.5vh;
+    display:flex;justify-content:center;gap:16px;flex-wrap:wrap;padding:0 24px;
+  }
+  .btn-primary{
+    display:inline-flex;align-items:center;gap:9px;
+    background:var(--sky);color:#fff;font-size:16px;font-weight:600;
+    padding:15px 34px;border-radius:999px;
+    box-shadow:0 10px 26px rgba(31,111,158,.38);
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .btn-primary:hover{transform:translateY(-2px);}
+  .btn-glass{
+    display:inline-flex;align-items:center;gap:9px;
+    background:rgba(255,255,255,.72);color:#1E3D57;
+    backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+    border:1px solid rgba(255,255,255,.95);
+    font-size:16px;font-weight:600;padding:15px 32px;border-radius:999px;
+    box-shadow:0 8px 22px rgba(51,64,79,.16);
+    transition:transform .18s ease;
+  }
+  .btn-glass:hover{transform:translateY(-2px);}
+  .hero-hint{
+    position:absolute;left:50%;bottom:14px;transform:translateX(-50%);
+    z-index:2;color:#3D6076;font-size:12px;opacity:.85;
+    text-shadow:0 0 10px rgba(255,255,255,.9);
+  }
+
+  /* ---------- 云层过渡带：三步学习 ---------- */
+  .clouds{
+    position:relative;overflow:hidden;
+    background:linear-gradient(to bottom,#E7F2F9 0%,#F6F3EC 62%,var(--paper) 100%);
+    padding:90px 24px 110px;
+  }
+  .cloud{
+    position:absolute;background:#fff;border-radius:50%;
+    filter:blur(26px);opacity:.85;pointer-events:none;
+  }
+  .cloud.c1{width:340px;height:120px;left:6%;top:14%;}
+  .cloud.c2{width:420px;height:140px;right:4%;top:38%;}
+  .cloud.c3{width:300px;height:110px;left:30%;bottom:6%;}
+  .clouds .c-head{
+    position:relative;text-align:center;margin-bottom:64px;
+  }
+  .clouds .c-head .kicker{
+    font-family:var(--mono);font-size:12.5px;color:var(--ink-faint);
+  }
+  .clouds .c-head h2{
+    font-family:var(--serif);font-weight:700;font-size:clamp(26px,3vw,34px);color:#24445F;
+    text-shadow:0 0 18px rgba(255,255,255,.9);
+  }
+  .flight{
+    position:relative;max-width:1060px;margin:0 auto;
+    display:grid;grid-template-columns:repeat(3,1fr);gap:40px;
+  }
+  .flight .path{
+    position:absolute;left:2%;right:2%;top:26px;width:96%;height:60px;
+    pointer-events:none;
+  }
+  .flight .path path{
+    stroke:rgba(61,96,118,.55);stroke-width:2.2;stroke-dasharray:2 9;
+    stroke-linecap:round;fill:none;
+  }
+  .fstep{position:relative;text-align:center;}
+  .fstep .gull{width:56px;height:32px;margin:0 auto 10px;display:block;}
+  .fstep .gull path{stroke:#3D6076;stroke-width:2;fill:none;stroke-linecap:round;}
+  .fstep:nth-child(3) .gull{transform:rotate(-6deg) translateY(6px);}
+  .fstep:nth-child(4) .gull{transform:rotate(5deg) translateY(-4px);}
+  .fstep .num{font-family:var(--mono);font-size:12px;color:var(--ink-faint);}
+  .fstep h3{
+    margin-top:4px;font-family:var(--serif);font-size:21px;font-weight:700;color:#24445F;
+    text-shadow:0 0 14px rgba(255,255,255,.9);
+  }
+  .fstep p{
+    margin-top:6px;font-size:13.5px;color:#48657C;
+    text-shadow:0 0 12px rgba(255,255,255,.9);
+  }
+
+  /* ---------- 楼群层：三家店招牌 ---------- */
+  .layer{position:relative;overflow:hidden;container-type:inline-size;}
+  .layer > img.scene{width:100%;display:block;}
+  .layer-title{
+    position:absolute;z-index:3;left:4.5%;top:4.5%;
+  }
+  .layer-title.right{left:auto;right:5%;top:6%;text-align:right;}
+  .layer-title .k{
+    font-family:var(--mono);font-size:1cqw;color:#3D6076;
+    text-shadow:0 0 12px rgba(255,255,255,.9);
+  }
+  .layer-title h2{
+    font-family:var(--serif);font-weight:700;font-size:2.6cqw;color:#24445F;
+    text-shadow:0 0 22px rgba(255,255,255,.95),0 0 8px rgba(255,255,255,.9);
+  }
+
+  /* 自制招牌：完整盖住图中空白牌面，按牌面实测角度对齐 */
+  .sign{
+    position:absolute;z-index:2;
+    writing-mode:vertical-rl;text-orientation:upright;
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--serif);font-weight:700;font-size:2.5cqw;color:#3E4E60;
+    text-shadow:.06cqw .1cqw 0 rgba(217,174,78,.30);
+    border-radius:.5cqw;
+    box-shadow:
+      inset 0 0 0 .18cqw rgba(255,255,255,.65),
+      inset 0 0 0 .4cqw rgba(51,64,79,.08),
+      .7cqw 1cqw 2cqw rgba(51,64,79,.20);
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .s-pink{background:#FBF1E2;border:.55cqw solid #DFA7B5;}
+  .s-teal{background:#FBF3E4;border:.55cqw solid #8FBFAF;}
+  .s-red{background:#FBF0E3;border:.55cqw solid #D89A8E;}
+  #b1{left:16.7%;top:9.6%;width:10.4%;height:70.8%;transform:rotate(5.2deg);}
+  #b1:hover{transform:rotate(5.2deg) translateY(-.5cqw);}
+  #b2{left:43%;top:33.2%;width:8.6%;height:60.6%;}
+  #b2:hover{transform:translateY(-.5cqw);}
+  #b3{left:57.9%;top:53.2%;width:6.6%;height:40.4%;}
+  #b3:hover{transform:translateY(-.5cqw);}
+  .sign .meta{
+    writing-mode:horizontal-tb;
+    position:absolute;left:50%;transform:translateX(-50%);
+    bottom:-3.4cqw;
+    white-space:nowrap;
+    font-family:var(--sans);font-weight:600;
+    font-size:.95cqw;color:#2C4A63;
+    background:rgba(251,247,240,.94);
+    border:1px solid rgba(51,64,79,.14);
+    border-radius:.6cqw;padding:.28cqw .9cqw;
+    box-shadow:0 .3cqw 1cqw rgba(51,64,79,.14);
+    text-shadow:none;
+  }
+  .sign .meta b{font-family:var(--mono);font-weight:600;color:var(--sky-deep);}
+
+  /* ---------- 街面层：排片灯箱 ---------- */
+  .street-note-title{left:4.5%;top:6%;}
+  .marquee{
+    position:absolute;z-index:2;
+    left:59.5%;top:27.5%;width:27.5%;
+    display:flex;flex-direction:column;gap:.55cqw;
+  }
+  .strip{
+    display:flex;align-items:baseline;gap:.8cqw;
+    background:rgba(255,252,240,.96);
+    border:1px solid rgba(51,64,79,.10);
+    border-radius:.45cqw;
+    padding:.55cqw .95cqw;
+    box-shadow:0 .2cqw .7cqw rgba(51,64,79,.10), inset 0 -.2cqw 0 rgba(51,64,79,.05);
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .strip:hover{transform:translateX(.5cqw);box-shadow:0 .4cqw 1.1cqw rgba(51,64,79,.16);}
+  .strip .no{font-family:var(--mono);font-size:.8cqw;color:var(--ink-faint);}
+  .strip .name{
+    font-family:var(--serif);font-weight:700;font-size:1.18cqw;color:#22394C;
+    white-space:nowrap;
+  }
+  .strip .tag{
+    font-size:.72cqw;font-weight:600;color:var(--ink-soft);
+    white-space:nowrap;
+  }
+  .strip .dur{
+    margin-left:auto;font-family:var(--mono);font-size:.8cqw;color:var(--sky-deep);
+    white-space:nowrap;
+  }
+  .marquee .more{
+    margin-top:.2cqw;text-align:right;
+    font-size:.85cqw;font-weight:600;color:#2C4A63;
+    text-shadow:0 0 10px rgba(255,255,255,.9);
+  }
+
+  /* 街角纸条（登录提示） */
+  .note{
+    position:absolute;z-index:2;left:5%;top:70%;width:21%;
+    background:#FFFDF4;border:1px solid rgba(51,64,79,.10);
+    border-radius:.4cqw 1cqw 1cqw 1cqw;
+    padding:1.1cqw 1.3cqw 1cqw;
+    transform:rotate(-1.4deg);
+    box-shadow:0 .7cqw 1.6cqw rgba(51,64,79,.14);
+  }
+  .note .tape{
+    position:absolute;top:-.9cqw;left:16%;width:4.6cqw;height:1.3cqw;
+    background:rgba(245,215,142,.65);transform:rotate(-3deg);
+    border-left:1px dashed rgba(51,64,79,.12);
+    border-right:1px dashed rgba(51,64,79,.12);
+  }
+  .note p{
+    font-family:var(--hand);font-size:1.05cqw;color:#3E4E60;line-height:1.6;
+  }
+  .note a{
+    display:inline-block;margin-top:.5cqw;
+    font-size:.85cqw;font-weight:600;color:var(--sky-deep);
+  }
+
+  /* ---------- 页脚 ---------- */
+  footer{
+    padding:40px 24px 36px;text-align:center;
+    border-top:1px solid var(--line);
+  }
+  footer .f-brand{font-family:var(--serif);font-weight:700;font-size:19px;color:#22405A;}
+  footer .f-slogan{margin-top:6px;font-size:13px;color:var(--ink-soft);}
+  footer .f-note{margin-top:14px;font-size:11.5px;color:var(--ink-faint);}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <a class="brand" href="#"><span class="zh">粤见</span><span class="en">CantoScene</span></a>
+  <div class="nav-links">
+    <a href="#" class="active">首页</a>
+    <a href="courses.html">基础课程</a>
+    <a href="videos.html">影视学粤语</a>
+    <a href="favorites.html">收藏</a>
+    <a href="my.html">我的学习</a>
+  </div>
+  <div class="nav-right">
+    <span class="lang">简 / 繁</span>
+    <a class="login-btn" href="#">登录</a>
+  </div>
+</nav>
+
+<!-- 天空层 -->
+<header class="hero">
+  <img class="hero-bg" src="../assets/hero-hk-street.png" alt="香港街景插画：骑车飞越楼宇之间的女孩">
+  <div class="hero-copy">
+    <h1>粤见</h1>
+    <div class="en-name">CantoScene</div>
+    <p class="slogan">走进真实粤语。</p>
+    <p class="slogan-en">See it. Hear it. Get Cantonese.</p>
+  </div>
+  <div class="hero-cta">
+    <a class="btn-primary" href="#shops">从第一课开始</a>
+    <a class="btn-glass" href="#street">体验影视学习</a>
+  </div>
+  <div class="hero-hint">向下滚动，跟着她落进这条街</div>
+</header>
+
+<!-- 云层过渡带 -->
+<section class="clouds">
+  <span class="cloud c1"></span>
+  <span class="cloud c2"></span>
+  <span class="cloud c3"></span>
+  <div class="c-head">
+    <div class="kicker">HOW IT WORKS</div>
+    <h2>先打一点基础，再钻进真实香港日常</h2>
+  </div>
+  <div class="flight">
+    <svg class="path" viewBox="0 0 1000 60" preserveAspectRatio="none">
+      <path d="M0,38 C180,4 340,58 500,30 C660,2 820,52 1000,22"/>
+    </svg>
+    <div class="fstep">
+      <svg class="gull" viewBox="0 0 44 26"><path d="M3 18 Q12 6 22 16 Q32 6 41 16"/></svg>
+      <div class="num">01</div>
+      <h3>学基础</h3>
+      <p>粤拼、声调和高频表达，三个短单元就够跨过第一道门槛。</p>
+    </div>
+    <div class="fstep">
+      <svg class="gull" viewBox="0 0 44 26"><path d="M3 18 Q12 6 22 16 Q32 6 41 16"/></svg>
+      <div class="num">02</div>
+      <h3>看视频逐句理解</h3>
+      <p>字幕跟着原声走，点一句，粤拼和普通话就在原地展开。</p>
+    </div>
+    <div class="fstep">
+      <svg class="gull" viewBox="0 0 44 26"><path d="M3 18 Q12 6 22 16 Q32 6 41 16"/></svg>
+      <div class="num">03</div>
+      <h3>收藏原声台词</h3>
+      <p>喜欢的句子连声音一起存下来，回到收藏夹随时再听。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 楼群层：三家店 -->
+<section class="layer" id="shops">
+  <img class="scene" src="../assets/city-buildings.png" alt="粉彩香港楼群，楼面伸出空白竖招牌">
+  <div class="layer-title right">
+    <div class="k">THE STREET · 基础课程</div>
+    <h2>降到街面，逛三家店</h2>
+  </div>
+  <a class="sign s-pink" id="b1" href="lesson.html">
+    粤拼与声调入门
+    <span class="meta"><b>01</b> 粤拼文具店 · 5 课节 →</span>
+  </a>
+  <a class="sign s-teal" id="b2" href="lesson.html">
+    打招呼与自我介绍
+    <span class="meta"><b>02</b> 见面茶档 · 4 课节 →</span>
+  </a>
+  <a class="sign s-red" id="b3" href="lesson.html">
+    茶餐厅点餐
+    <span class="meta"><b>03</b> 茶餐厅 · 5 课节 →</span>
+  </a>
+</section>
+
+<!-- 街面层：录像厅 -->
+<section class="layer" id="street">
+  <img class="scene" src="../assets/city-street.png" alt="粉彩香港街景，右侧是老录像厅的排片灯箱">
+  <div class="layer-title street-note-title">
+    <div class="k">THE CINEMA · 影视学粤语</div>
+    <h2>街角录像厅，今日放映</h2>
+  </div>
+  <div class="marquee">
+    <a class="strip" href="video-study.html">
+      <span class="no">01</span>
+      <span class="name">茶餐厅点饮品</span>
+      <span class="tag">点餐 · 冷热甜度</span>
+      <span class="dur">01:32</span>
+    </a>
+    <a class="strip" href="video-study.html">
+      <span class="no">02</span>
+      <span class="name">港铁问路</span>
+      <span class="tag">出行 · 方向</span>
+      <span class="dur">00:48</span>
+    </a>
+    <a class="strip" href="video-study.html">
+      <span class="no">03</span>
+      <span class="name">第一次见面</span>
+      <span class="tag">问候 · 介绍</span>
+      <span class="dur">02:10</span>
+    </a>
+    <a class="strip" href="video-study.html">
+      <span class="no">04</span>
+      <span class="name">街市买菜</span>
+      <span class="tag">购物 · 价钱</span>
+      <span class="dur">01:20</span>
+    </a>
+    <a class="more" href="videos.html">查看全部片段 →</a>
+  </div>
+  <div class="note">
+    <span class="tape"></span>
+    <p>登录后，进度和收藏都会留下来。游客可以随便逛——想存下第一句台词的时候，再登录也不迟。</p>
+    <a href="#">登录 / 注册 →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="f-brand">粤见 CantoScene</div>
+  <div class="f-slogan">走进真实粤语。 · See it. Hear it. Get Cantonese.</div>
+  <div class="f-note">MVP 视觉预览 · 方向一「云上港街 · 降落版」 · 首页（游客状态）</div>
+</footer>
+
+<script>
+  var nav = document.getElementById('nav');
+  function onScroll(){ nav.classList.toggle('scrolled', window.scrollY > 40); }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+</script>
+</body>
+</html>

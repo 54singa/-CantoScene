@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>我的收藏 · 粤见 CantoScene</title>
+<link rel="stylesheet" href="css/site.css">
+<style>
+  .fav-head{
+    display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+    margin-bottom:34px;
+  }
+  .tab{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:14px;font-weight:600;color:var(--ink-soft);
+    background:#fff;border:1px solid var(--line);border-radius:999px;
+    padding:9px 20px;cursor:pointer;
+  }
+  .tab b{font-family:var(--mono);font-weight:600;}
+  .tab.on{
+    color:#fff;background:var(--sky);border-color:var(--sky);
+    box-shadow:0 4px 12px rgba(47,143,196,.28);
+  }
+  .fav-head .diff{margin-left:auto;font-size:13px;color:var(--ink-soft);}
+  .fav-head .diff b{font-weight:600;color:var(--sky-deep);}
+
+  /* 剪贴墙区域 */
+  .wall{
+    background:var(--paper-deep);border-radius:18px;
+    padding:40px 44px 34px;
+    display:flex;flex-direction:column;gap:30px;
+  }
+
+  /* 票根卡 */
+  .ticket{
+    position:relative;background:#fff;border:1px solid var(--line);
+    border-radius:12px;
+    box-shadow:0 10px 24px rgba(51,64,79,.08);
+    display:flex;
+  }
+  .ticket:nth-child(odd){transform:rotate(-.7deg);}
+  .ticket:nth-child(even){transform:rotate(.6deg);}
+  .ticket .stub{
+    flex:none;width:86px;
+    border-right:2px dashed rgba(51,64,79,.16);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
+    padding:18px 6px;
+  }
+  .stub .no{
+    font-family:var(--mono);font-size:11px;color:var(--ink-faint);
+    writing-mode:vertical-rl;
+  }
+  .stub .play-mini{width:36px;height:36px;}
+  .stub .play-mini svg{width:12px;height:12px;}
+  .ticket .main{flex:1;padding:20px 26px 16px;}
+  .ticket .main .yue{font-size:21px;line-height:1.5;}
+  .ticket .main .jyut{display:block;margin-top:5px;font-size:13.5px;}
+  .ticket .main .zh-sub{display:block;margin-top:4px;font-size:14px;}
+  .ticket .foot{
+    margin-top:14px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  }
+  .src{
+    font-size:12px;color:var(--ink-faint);
+    display:inline-flex;align-items:center;gap:6px;
+  }
+  .src b{font-family:var(--mono);font-weight:600;color:var(--ink-soft);}
+  .foot .link{
+    font-size:13px;font-weight:600;color:var(--sky-deep);
+    display:inline-flex;align-items:center;gap:5px;
+  }
+  .foot .link svg{width:13px;height:13px;stroke:var(--sky-deep);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;}
+  .foot .weak{font-size:12.5px;color:var(--ink-faint);}
+  .ticket .tape{top:-9px;left:44px;}
+  .ticket:nth-child(even) .tape{left:auto;right:52px;transform:rotate(2.5deg);}
+
+  /* 生字卡 */
+  .wordcard{
+    position:relative;background:#fff;border:1px solid var(--line);
+    border-radius:12px;box-shadow:0 10px 24px rgba(51,64,79,.08);
+    padding:20px 26px 16px;transform:rotate(.5deg);
+  }
+  .wordcard .wc-top{display:flex;align-items:center;gap:14px;}
+  .wordcard .wc-word{font-family:var(--serif);font-weight:700;font-size:24px;color:#22394C;}
+  .wordcard .wc-jyut{font-family:var(--mono);font-size:13.5px;color:var(--sky-deep);}
+  .wordcard .wc-top .play-mini{margin-left:auto;}
+  .wordcard .wc-zh{margin-top:4px;font-size:14px;color:var(--ink-soft);}
+  .wordcard .wc-eg{
+    margin-top:12px;padding-top:12px;border-top:1px dashed rgba(51,64,79,.14);
+    font-size:13.5px;color:var(--ink-soft);
+    display:flex;align-items:center;gap:10px;
+  }
+  .wordcard .wc-eg .yue{font-size:15.5px;}
+  .wordcard .foot{margin-top:12px;}
+
+  .group{display:none;flex-direction:column;gap:30px;}
+  .group.on{display:flex;}
+
+  .wall-note{
+    text-align:center;font-size:12px;color:var(--ink-faint);margin-top:6px;
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="brand" href="home.html"><span class="zh">粤见</span><span class="en">CantoScene</span></a>
+  <div class="nav-links">
+    <a href="home.html">首页</a>
+    <a href="courses.html">基础课程</a>
+    <a href="videos.html">影视学粤语</a>
+    <a href="#" class="active">收藏</a>
+    <a href="my.html">我的学习</a>
+  </div>
+  <div class="nav-right">
+    <span class="lang">简 / 繁</span>
+    <a class="login-btn" href="#">登录</a>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="page-head">
+    <span class="eyebrow">软木剪贴墙</span>
+    <h1>我的收藏</h1>
+    <p>看片时撕下来的台词、课里捡到的字词，都贴在这面墙上。</p>
+  </div>
+
+  <div class="fav-head">
+    <span class="tab on" data-g="g-film">影视台词 <b>12</b></span>
+    <span class="tab" data-g="g-word">课程字词 <b>8</b></span>
+    <span class="diff">状态：<b>全部 ⌄</b></span>
+  </div>
+
+  <div class="wall">
+    <!-- 影视台词：票根 -->
+    <div class="group on" id="g-film">
+      <div class="ticket">
+        <span class="tape"></span>
+        <div class="stub">
+          <span class="play-mini solid"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg></span>
+          <span class="no">No. 00:05</span>
+        </div>
+        <div class="main">
+          <div class="yue">唔该，我想要杯冻柠茶，少甜。</div>
+          <span class="jyut">m4 goi1, ngo5 soeng2 jiu3 bui1 dung3 ning4 caa4, siu2 tim4.</span>
+          <span class="zh-sub">麻烦来一杯少甜的冻柠檬茶。</span>
+          <div class="foot">
+            <span class="src">来源：茶餐厅点餐 · <b>00:05</b></span>
+            <span class="stamp-state stamp-butter">学习中 ⌄</span>
+            <a class="link" href="video-study.html">回到原视频
+              <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <span class="weak">取消收藏</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ticket">
+        <span class="tape"></span>
+        <div class="stub">
+          <span class="play-mini solid"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg></span>
+          <span class="no">No. 00:15</span>
+        </div>
+        <div class="main">
+          <div class="yue">埋单，唔该。</div>
+          <span class="jyut">maai4 daan1, m4 goi1.</span>
+          <span class="zh-sub">结账，麻烦你。</span>
+          <div class="foot">
+            <span class="src">来源：茶餐厅点餐 · <b>00:15</b></span>
+            <span class="stamp-state stamp-sky">刚收藏 ⌄</span>
+            <a class="link" href="video-study.html">回到原视频
+              <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <span class="weak">取消收藏</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ticket">
+        <span class="tape"></span>
+        <div class="stub">
+          <span class="play-mini solid"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg></span>
+          <span class="no">No. 00:31</span>
+        </div>
+        <div class="main">
+          <div class="yue">唔该借歪。</div>
+          <span class="jyut">m4 goi1 ze3 waai2.</span>
+          <span class="zh-sub">麻烦让一让。（问路、过闸机都好用）</span>
+          <div class="foot">
+            <span class="src">来源：港铁问路 · <b>00:31</b></span>
+            <span class="stamp-state stamp-green">已掌握 ⌄</span>
+            <a class="link" href="video-study.html">回到原视频
+              <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <span class="weak">取消收藏</span>
+          </div>
+        </div>
+      </div>
+      <div class="wall-note">按收藏时间倒序 · 点播放键重播原声片段</div>
+    </div>
+
+    <!-- 课程字词：生字卡 -->
+    <div class="group" id="g-word">
+      <div class="wordcard">
+        <span class="tape tape-sky"></span>
+        <div class="wc-top">
+          <span class="wc-word">唔该</span>
+          <span class="wc-jyut">m4 goi1</span>
+          <span class="play-mini"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg></span>
+        </div>
+        <div class="wc-zh">谢谢；劳驾；麻烦你</div>
+        <div class="wc-eg">
+          <span class="yue">唔该，帮我拎杯水。</span>
+          <span class="play-mini"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg></span>
+        </div>
+        <div class="foot" style="display:flex;align-items:center;gap:14px;">
+          <span class="src">所属：单元三 · 茶餐厅点餐</span>
+          <span class="stamp-state stamp-butter">学习中 ⌄</span>
+          <a class="link" href="lesson.html">回到原课程
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <span class="weak">取消收藏</span>
+        </div>
+      </div>
+
+      <div class="wordcard" style="transform:rotate(-.6deg);">
+        <span class="tape tape-sky"></span>
+        <div class="wc-top">
+          <span class="wc-word">埋单</span>
+          <span class="wc-jyut">maai4 daan1</span>
+          <span class="play-mini"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg></span>
+        </div>
+        <div class="wc-zh">结账、买单</div>
+        <div class="wc-eg">
+          <span class="yue">唔该，埋单。</span>
+          <span class="play-mini"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg></span>
+        </div>
+        <div class="foot" style="display:flex;align-items:center;gap:14px;">
+          <span class="src">所属：单元三 · 茶餐厅点餐</span>
+          <span class="stamp-state stamp-sky">刚收藏 ⌄</span>
+          <a class="link" href="lesson.html">回到原课程
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <span class="weak">取消收藏</span>
+        </div>
+      </div>
+      <div class="wall-note">点词条听发音，点例句听整句</div>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  MVP 视觉预览 · 方向一「云上港街」 · 收藏页（桌面端） · 内容为示范数据
+</footer>
+
+<script>
+  document.querySelectorAll('.tab').forEach(function(tab){
+    tab.addEventListener('click', function(){
+      document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('on'); });
+      document.querySelectorAll('.group').forEach(function(g){ g.classList.remove('on'); });
+      tab.classList.add('on');
+      document.getElementById(tab.dataset.g).classList.add('on');
+    });
+  });
+</script>
+
+</body>
+</html>

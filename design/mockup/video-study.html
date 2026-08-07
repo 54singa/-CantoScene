@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>茶餐厅点餐：一杯冻柠茶 · 粤见 CantoScene</title>
+<style>
+  :root{
+    --paper:#FBF7F0;
+    --paper-deep:#F4ECDC;
+    --ink:#33404F;
+    --ink-soft:#5C6B7A;
+    --ink-faint:#8C99A6;
+    --sky:#2F8FC4;
+    --sky-deep:#226E99;
+    --sky-wash:#E3F1FA;
+    --peach:#F0A091;
+    --peach-deep:#D97E6C;
+    --peach-wash:#FCE9E4;
+    --butter:#F5D78E;
+    --butter-deep:#D9AE4E;
+    --butter-wash:#FBF0D4;
+    --green:#4CAF8E;
+    --green-wash:#E2F3EC;
+    --line:rgba(51,64,79,.10);
+    --film:#EDF1F4;
+    --serif:"Songti SC","Noto Serif SC","Source Han Serif SC","STSong",serif;
+    --sans:"PingFang SC","Hiragino Sans GB","Noto Sans SC","Microsoft YaHei",sans-serif;
+    --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+    --hand:"Kaiti SC","STKaiti","KaiTi",serif;
+    --radius:14px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    font-family:var(--sans);background:var(--paper);color:var(--ink);
+    font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;
+  }
+  a{text-decoration:none;color:inherit;}
+  .wrap{max-width:1280px;margin:0 auto;padding:0 32px;}
+
+  /* ---------- 导航（纸面态） ---------- */
+  .nav{
+    position:sticky;top:0;z-index:50;
+    display:flex;align-items:center;gap:34px;
+    padding:13px 36px;
+    background:rgba(251,247,240,.9);
+    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    box-shadow:0 1px 0 var(--line);
+  }
+  .brand{display:flex;align-items:baseline;gap:9px;}
+  .brand .zh{font-family:var(--serif);font-weight:700;font-size:22px;color:#22405A;}
+  .brand .en{font-size:12.5px;font-weight:600;color:#3D6076;}
+  .nav-links{display:flex;gap:26px;font-size:14.5px;}
+  .nav-links a{color:#2C4A63;font-weight:500;padding:4px 2px;}
+  .nav-links a.active{color:var(--sky-deep);font-weight:600;box-shadow:0 2px 0 var(--sky);}
+  .nav-right{margin-left:auto;display:flex;align-items:center;gap:14px;}
+  .lang{
+    font-size:12.5px;font-weight:600;color:#2C4A63;
+    border:1px solid rgba(44,74,99,.3);border-radius:999px;padding:4px 12px;
+  }
+  .login-btn{
+    font-size:14px;font-weight:600;color:#fff;background:var(--sky);
+    border-radius:999px;padding:8px 20px;box-shadow:0 4px 14px rgba(47,143,196,.3);
+  }
+
+  /* ---------- 页头信息条 ---------- */
+  .subhead{
+    display:flex;align-items:center;gap:16px;
+    padding:18px 0 16px;
+  }
+  .back{
+    display:inline-flex;align-items:center;gap:6px;
+    font-size:13.5px;font-weight:600;color:var(--sky-deep);
+  }
+  .back svg{width:15px;height:15px;stroke:var(--sky-deep);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;}
+  .subhead h1{font-family:var(--serif);font-size:21px;font-weight:700;color:#243B4E;}
+  .subhead .meta{
+    margin-left:auto;display:flex;align-items:center;gap:10px;
+    font-size:12.5px;color:var(--ink-faint);
+  }
+  .level-chip{
+    font-size:11px;font-weight:600;color:#2E7D5F;
+    background:var(--green-wash);border-radius:6px;padding:3px 9px;
+  }
+  .meta .tc{font-family:var(--mono);}
+
+  /* ---------- 主区 ---------- */
+  .study{
+    display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:26px;
+    align-items:start;
+  }
+
+  /* 放映厅：胶片框播放器 */
+  .theater{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    overflow:hidden;box-shadow:0 10px 28px rgba(51,64,79,.08);
+  }
+  .frame-edge{
+    height:16px;background:var(--film);position:relative;
+  }
+  .frame-edge::before{
+    content:"";position:absolute;left:10px;right:10px;top:50%;
+    height:7px;transform:translateY(-50%);
+    background:repeating-linear-gradient(to right,#fff 0 10px,transparent 10px 26px);
+  }
+  .screen{
+    position:relative;margin:14px;border-radius:8px;overflow:hidden;
+    aspect-ratio:16/9;background:#111;
+    display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;
+  }
+  .screen .study-video{
+    position:absolute;inset:0;width:100%;height:100%;
+    object-fit:contain;background:#111;
+  }
+  .screen .glyph{
+    font-family:var(--serif);font-weight:700;font-size:110px;line-height:1;color:#A5CFE7;
+  }
+  .screen .placeholder-note{
+    font-size:12px;color:var(--ink-faint);
+  }
+  .screen .big-play{
+    position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+    width:64px;height:64px;border-radius:50%;
+    background:rgba(255,255,255,.92);box-shadow:0 10px 26px rgba(51,64,79,.2);
+    display:flex;align-items:center;justify-content:center;cursor:pointer;
+    transition:opacity .18s ease,transform .18s ease;
+  }
+  .screen .big-play.is-playing{opacity:0;pointer-events:none;}
+  .screen .big-play svg{width:22px;height:22px;fill:var(--sky-deep);margin-left:3px;}
+  .controls{
+    display:flex;align-items:center;gap:14px;
+    padding:0 18px 16px;
+  }
+  .ctrl-btn{
+    width:34px;height:34px;border-radius:50%;background:var(--sky);
+    display:flex;align-items:center;justify-content:center;flex:none;
+  }
+  .ctrl-btn svg{width:13px;height:13px;fill:#fff;}
+  .track{
+    position:relative;flex:1;height:6px;border-radius:999px;background:var(--paper-deep);
+  }
+  .track .fill{
+    position:absolute;left:0;top:0;bottom:0;width:38%;
+    border-radius:999px;background:var(--sky);
+  }
+  .track .thumb{
+    position:absolute;left:38%;top:50%;transform:translate(-50%,-50%);
+    width:15px;height:15px;border-radius:50%;
+    background:#fff;border:3px solid var(--sky);
+    box-shadow:0 2px 6px rgba(51,64,79,.18);
+  }
+  .timecode{font-family:var(--mono);font-size:12.5px;color:var(--ink-soft);white-space:nowrap;}
+  .ctrl-icons{display:flex;gap:12px;align-items:center;}
+  .ctrl-icons svg{width:17px;height:17px;stroke:var(--ink-soft);fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;}
+
+  /* 播放器下方信息 */
+  .below{
+    margin-top:18px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+  }
+  .focus-chips{display:flex;gap:8px;align-items:center;font-size:12.5px;color:var(--ink-faint);}
+  .focus-chips span.chip{
+    font-size:11.5px;font-weight:600;color:var(--sky-deep);
+    background:var(--sky-wash);border-radius:6px;padding:3px 10px;
+  }
+  .learned{
+    margin-left:auto;display:flex;align-items:center;gap:12px;
+    font-size:12.5px;color:var(--ink-faint);
+  }
+  .mini-progress{
+    width:110px;height:6px;border-radius:999px;background:var(--paper-deep);overflow:hidden;
+  }
+  .mini-progress i{display:block;height:100%;width:25%;background:var(--green);border-radius:999px;}
+  .done-btn{
+    font-size:13px;font-weight:600;color:var(--sky-deep);
+    border:1.5px solid var(--sky);border-radius:999px;padding:7px 18px;background:#fff;
+  }
+
+  /* 字幕：胶片条面板 */
+  .subs{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    box-shadow:0 10px 28px rgba(51,64,79,.08);
+    display:flex;overflow:hidden;
+  }
+  .film-edge{
+    flex:none;width:18px;background:var(--film);position:relative;
+  }
+  .film-edge::before{
+    content:"";position:absolute;top:10px;bottom:10px;left:50%;
+    width:7px;transform:translateX(-50%);
+    background:repeating-linear-gradient(to bottom,#fff 0 9px,transparent 9px 24px);
+  }
+  .subs-body{flex:1;padding:18px 18px 14px;max-height:560px;overflow-y:auto;scroll-behavior:smooth;}
+  .subs-head{
+    display:flex;align-items:center;gap:8px;margin-bottom:10px;
+  }
+  .subs-head h2{font-family:var(--serif);font-size:17px;font-weight:700;color:#243B4E;}
+  .subs-head svg{width:20px;height:14px;stroke:var(--ink-faint);fill:none;stroke-width:1.8;stroke-linecap:round;}
+  .subs-head .hint{margin-left:auto;font-size:11.5px;color:var(--ink-faint);}
+
+  .row{
+    position:relative;padding:10px 10px 10px 12px;border-radius:10px;
+  }
+  .row + .row{margin-top:2px;}
+  .row .t{
+    font-family:var(--mono);font-size:11.5px;color:var(--ink-faint);
+  }
+  .row .speaker{
+    display:inline-block;margin-left:8px;
+    font-size:10.5px;font-weight:600;color:var(--ink-soft);
+    background:var(--paper-deep);border-radius:5px;padding:1px 7px;
+    vertical-align:1px;
+  }
+  .row .yue{
+    margin-top:3px;font-family:var(--serif);font-weight:700;
+    font-size:17.5px;color:#22394C;line-height:1.5;
+  }
+  .row.played{opacity:.55;}
+
+  /* 当前播放句：荧光笔 */
+  .row.current{
+    background:linear-gradient(to right, rgba(245,215,142,.40), rgba(245,215,142,.28));
+    border-radius:26% 42% 38% 30% / 58% 52% 48% 42%;
+  }
+  .row.current .t{color:var(--butter-deep);}
+  .row.current::before{
+    content:"";position:absolute;left:-4px;top:50%;transform:translateY(-50%);
+    border:5px solid transparent;border-left-color:var(--butter-deep);
+  }
+  .row.current .playing-tag{
+    margin-left:8px;font-size:10.5px;font-weight:600;color:var(--butter-deep);
+  }
+
+  /* 展开学习句：明信片 */
+  .postcard{
+    position:relative;margin:8px 0 6px;
+    background:#fff;border:1px solid var(--line);border-radius:10px;
+    box-shadow:0 12px 26px rgba(51,64,79,.10);
+    padding:20px 18px 16px;
+  }
+  .postcard .tape{
+    position:absolute;top:-9px;left:34px;width:64px;height:18px;
+    background:rgba(245,215,142,.6);transform:rotate(-3deg);
+    border-left:1px dashed rgba(51,64,79,.12);
+    border-right:1px dashed rgba(51,64,79,.12);
+  }
+  .postcard .yue{font-size:20px;}
+  .stamp{
+    display:inline-block;margin-top:10px;
+    font-family:var(--mono);font-size:13.5px;color:var(--sky-deep);
+    border:1.5px dashed var(--sky);border-radius:6px;
+    padding:5px 11px;transform:rotate(-1.5deg);
+    background:var(--sky-wash);
+  }
+  .zh-hand{
+    margin-top:10px;font-family:var(--hand);font-size:16px;color:var(--ink-soft);
+  }
+  .pc-actions{margin-top:14px;display:flex;align-items:center;gap:12px;}
+  .btn-outline{
+    display:inline-flex;align-items:center;gap:7px;
+    font-size:13px;font-weight:600;color:var(--sky-deep);
+    border:1.5px solid var(--sky);border-radius:999px;padding:7px 16px;background:#fff;
+  }
+  .btn-outline svg{width:13px;height:13px;stroke:var(--sky-deep);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+  .stamped{
+    display:inline-flex;align-items:center;gap:7px;
+    font-size:13px;font-weight:700;color:var(--peach-deep);
+    border:2px solid var(--peach-deep);border-radius:8px;
+    padding:5px 13px;transform:rotate(1.6deg);
+    background:var(--peach-wash);
+  }
+  .stamped svg{width:13px;height:13px;fill:var(--peach-deep);}
+
+  /* 表达提示：便利贴 */
+  .note-band{padding:30px 0 10px;}
+  .sticky{
+    position:relative;max-width:760px;
+    background:var(--butter-wash);border:1px solid rgba(217,174,78,.25);
+    border-radius:4px 14px 14px 14px;
+    padding:20px 24px 18px;transform:rotate(-.6deg);
+    box-shadow:0 10px 24px rgba(51,64,79,.07);
+  }
+  .sticky .tape{
+    position:absolute;top:-10px;right:44px;width:58px;height:18px;
+    background:rgba(227,241,250,.85);transform:rotate(2.5deg);
+    border-left:1px dashed rgba(51,64,79,.12);
+    border-right:1px dashed rgba(51,64,79,.12);
+  }
+  .sticky .label{
+    font-size:11.5px;font-weight:700;color:var(--butter-deep);
+    margin-bottom:6px;
+  }
+  .sticky p{font-size:14px;color:var(--ink);font-family:var(--hand);font-size:15.5px;}
+  .sticky .more{
+    display:inline-flex;align-items:center;gap:6px;margin-top:10px;
+    font-size:13px;font-weight:600;color:var(--sky-deep);
+  }
+  .sticky .more svg{width:14px;height:14px;stroke:var(--sky-deep);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;}
+
+  footer{
+    margin-top:44px;padding:26px 0 30px;text-align:center;
+    border-top:1px solid var(--line);
+    font-size:11.5px;color:var(--ink-faint);
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="brand" href="home.html">
+    <span class="zh">粤见</span><span class="en">CantoScene</span>
+  </a>
+  <div class="nav-links">
+    <a href="home.html">首页</a>
+    <a href="#">基础课程</a>
+    <a href="#" class="active">影视学粤语</a>
+    <a href="#">收藏</a>
+    <a href="#">我的学习</a>
+  </div>
+  <div class="nav-right">
+    <span class="lang">简 / 繁</span>
+    <a class="login-btn" href="#">登录</a>
+  </div>
+</nav>
+
+<div class="wrap">
+  <!-- 页头信息条 -->
+  <div class="subhead">
+    <a class="back" href="#">
+      <svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>
+      返回影视列表
+    </a>
+    <h1>影视片段 01：粤语对白练习</h1>
+    <div class="meta">
+      <span class="level-chip">自动转写初稿</span>
+      <span class="tc">18:19</span>
+      <span>350 句对白</span>
+    </div>
+  </div>
+
+  <div class="study">
+    <!-- 左：放映厅 -->
+    <div>
+      <div class="theater">
+        <div class="frame-edge"></div>
+        <div class="screen">
+          <video class="study-video" src="/videos/01.mp4" preload="metadata" playsinline></video>
+          <span class="big-play"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg></span>
+        </div>
+        <div class="controls">
+          <span class="ctrl-btn"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg></span>
+          <div class="track"><span class="fill"></span><span class="thumb"></span></div>
+          <span class="timecode">00:08 / 01:32</span>
+          <div class="ctrl-icons">
+            <svg viewBox="0 0 24 24"><path d="M4 10v4h4l5 4V6l-5 4H4z"/><path d="M16.5 9.5a4 4 0 0 1 0 5"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M4 9V5a1 1 0 0 1 1-1h4M20 9V5a1 1 0 0 0-1-1h-4M4 15v4a1 1 0 0 0 1 1h4M20 15v4a1 1 0 0 1-1 1h-4"/></svg>
+          </div>
+        </div>
+        <div class="frame-edge"></div>
+      </div>
+
+      <div class="below">
+        <div class="focus-chips">
+          本段场景
+          <span class="chip">职场</span>
+          <span class="chip">律师楼</span>
+          <span class="chip">日常对白</span>
+        </div>
+        <div class="learned">
+          共 350 句对白
+          <span class="mini-progress"><i></i></span>
+          <a class="done-btn" href="#">标记完成</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 右：胶片字幕条 -->
+    <div class="subs">
+      <div class="film-edge"></div>
+      <div class="subs-body">
+        <div class="subs-head">
+          <h2>同步字幕</h2>
+          <svg viewBox="0 0 24 14"><path d="M2 10 Q7 3 12 10 Q17 3 22 10"/></svg>
+          <span class="hint">点击任意一句展开</span>
+        </div>
+
+        <div class="row played">
+          <span class="t">00:02</span><span class="speaker">店员</span>
+          <div class="yue">想饮啲咩啊？</div>
+        </div>
+
+        <!-- 展开的学习句：明信片 -->
+        <div class="postcard">
+          <span class="tape"></span>
+          <span class="t" style="font-family:var(--mono);font-size:11.5px;color:var(--ink-faint);">00:05</span><span class="speaker">顾客</span>
+          <div class="yue">唔该，我想要杯冻柠茶，少甜。</div>
+          <span class="stamp">m4 goi1, ngo5 soeng2 jiu3 bui1 dung3 ning4 caa4, siu2 tim4.</span>
+          <div class="zh-hand">麻烦来一杯少甜的冻柠檬茶。</div>
+          <div class="pc-actions">
+            <span class="btn-outline">
+              <svg viewBox="0 0 24 24"><path d="M4 5v14l11-7z"/></svg>
+              重播本句
+            </span>
+            <span class="stamped">
+              <svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2 4.4-9.5 9-9.5 9z"/></svg>
+              已收藏
+            </span>
+          </div>
+        </div>
+
+        <!-- 当前播放句：荧光笔 -->
+        <div class="row current">
+          <span class="t">00:09</span><span class="speaker">店员</span><span class="playing-tag">正在播放</span>
+          <div class="yue">要唔要少甜啊？</div>
+        </div>
+
+        <div class="row">
+          <span class="t">00:12</span><span class="speaker">顾客</span>
+          <div class="yue">少甜，唔该。</div>
+        </div>
+
+        <div class="row">
+          <span class="t">00:15</span><span class="speaker">顾客</span>
+          <div class="yue">埋单，唔该。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 表达提示：便利贴 -->
+  <div class="note-band">
+    <div class="sticky">
+      <span class="tape"></span>
+      <div class="label">表达提示</div>
+      <p>当前字幕由本地语音识别自动生成，时间轴可用，但粤语口语、人名和快速对话仍可能有同音错字。校对后再生成粤拼和普通话释义。</p>
+      <a class="more" href="#">自动转写初稿
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  粤见 CantoScene · 影视学习页 · 字幕为自动转写初稿
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第 2 课：说出你想要什么 · 粤见 CantoScene</title>
+<link rel="stylesheet" href="css/site.css">
+<style>
+  .lesson-head{
+    display:flex;align-items:center;gap:16px;
+    padding:20px 0 18px;
+  }
+  .lesson-head .unit{font-family:var(--serif);font-size:20px;font-weight:700;color:#243B4E;}
+  .lesson-head .meta{margin-left:auto;font-size:12.5px;color:var(--ink-faint);}
+
+  .lesson{display:grid;grid-template-columns:264px minmax(0,1fr);gap:28px;align-items:start;}
+
+  /* 餐牌侧栏 */
+  .menu{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    box-shadow:0 8px 22px rgba(51,64,79,.06);
+    overflow:hidden;
+  }
+  .menu .awning{
+    height:20px;
+    background:repeating-linear-gradient(90deg,var(--peach) 0 22px,#fff 22px 44px);
+  }
+  .menu .menu-title{
+    padding:16px 20px 10px;
+    font-family:var(--serif);font-size:15.5px;font-weight:700;color:#243B4E;
+  }
+  .menu .menu-title small{
+    display:block;font-family:var(--sans);font-size:11px;font-weight:500;
+    color:var(--ink-faint);margin-top:2px;
+  }
+  .menu ul{list-style:none;padding:2px 14px 8px;}
+  .menu li{
+    display:flex;align-items:center;gap:10px;
+    padding:11px 8px;font-size:14px;color:var(--ink-soft);
+    border-bottom:1px dashed rgba(51,64,79,.14);
+  }
+  .menu li:last-child{border-bottom:none;}
+  .menu li .st{
+    flex:none;width:20px;height:20px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:11px;font-weight:700;
+  }
+  .menu li.done .st{color:#fff;background:var(--green);}
+  .menu li.todo .st{color:var(--ink-faint);border:1.5px solid rgba(51,64,79,.2);}
+  .menu li.now{
+    color:var(--ink);font-weight:600;
+  }
+  .menu li.now .st{color:#fff;background:var(--sky);}
+  .menu li .now-stamp{
+    margin-left:auto;font-size:10px;font-weight:700;color:var(--peach-deep);
+    border:1.5px solid var(--peach-deep);border-radius:6px;padding:1px 7px;
+    transform:rotate(2deg);background:var(--peach-wash);
+  }
+  .menu .jyut-link{
+    display:flex;align-items:center;gap:9px;
+    margin:6px 14px 16px;padding:10px 12px;
+    background:var(--sky-wash);border-radius:10px;
+    font-size:13px;font-weight:600;color:var(--sky-deep);
+  }
+  .menu .jyut-link .tile{
+    width:22px;height:22px;border-radius:6px;background:#fff;
+    border:1px solid rgba(47,143,196,.35);
+    font-family:var(--mono);font-size:11.5px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .menu .jyut-link svg{margin-left:auto;width:14px;height:14px;stroke:var(--sky-deep);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;}
+
+  /* 主区 */
+  .stage h2{font-family:var(--serif);font-size:26px;font-weight:700;color:#243B4E;}
+  .stage .goal{margin-top:6px;font-size:14px;color:var(--ink-soft);}
+  .stage .prog{
+    margin:16px 0 26px;display:flex;align-items:center;gap:12px;
+    font-family:var(--mono);font-size:12px;color:var(--ink-faint);
+  }
+
+  /* 字词卡：点心纸 */
+  .dish{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    box-shadow:0 6px 18px rgba(51,64,79,.05);
+    padding:20px 24px 16px;margin-bottom:18px;
+    display:grid;grid-template-columns:52px minmax(0,1fr) auto;gap:6px 18px;align-items:start;
+  }
+  .dish .code{
+    grid-row:span 2;
+    font-family:var(--mono);font-size:13px;font-weight:600;color:var(--peach-deep);
+    border:1.5px dashed var(--peach);border-radius:8px;
+    padding:8px 0;text-align:center;background:var(--peach-wash);
+  }
+  .dish .d-main{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;}
+  .dish .d-word{font-family:var(--serif);font-size:24px;font-weight:700;color:#22394C;}
+  .dish .d-jyut{font-family:var(--mono);font-size:14px;color:var(--sky-deep);}
+  .dish .d-zh{font-size:14px;color:var(--ink-soft);}
+  .dish .d-ops{display:flex;gap:10px;align-items:center;}
+  .dish .fav{
+    display:inline-flex;align-items:center;gap:6px;
+    font-size:12.5px;font-weight:600;color:var(--peach-deep);
+  }
+  .dish .fav svg{width:15px;height:15px;stroke:var(--peach-deep);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+  .dish .d-eg{
+    grid-column:2 / 4;
+    margin-top:6px;padding-top:12px;border-top:1px dashed rgba(51,64,79,.14);
+    display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+  }
+  .dish .d-eg .yue{font-size:16.5px;}
+  .dish .d-eg .jyut{font-size:12.5px;}
+  .dish .d-eg .zh-sub{font-size:13px;}
+  .dish .d-eg .play-mini{margin-left:auto;}
+
+  .lesson-nav{
+    margin-top:26px;display:flex;align-items:center;justify-content:space-between;
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="brand" href="home.html"><span class="zh">粤见</span><span class="en">CantoScene</span></a>
+  <div class="nav-links">
+    <a href="home.html">首页</a>
+    <a href="courses.html" class="active">基础课程</a>
+    <a href="videos.html">影视学粤语</a>
+    <a href="favorites.html">收藏</a>
+    <a href="my.html">我的学习</a>
+  </div>
+  <div class="nav-right">
+    <span class="lang">简 / 繁</span>
+    <a class="login-btn" href="#">登录</a>
+  </div>
+</nav>
+
+<div class="wrap-wide">
+  <div class="lesson-head">
+    <a class="back" href="courses.html">
+      <svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>
+      返回课程
+    </a>
+    <span class="unit">单元三 · 茶餐厅点餐</span>
+    <span class="meta">完成本课后推荐观看：茶餐厅点饮品（01:32）</span>
+  </div>
+
+  <div class="lesson">
+    <!-- 餐牌 -->
+    <aside class="menu">
+      <div class="awning"></div>
+      <div class="menu-title">
+        第 2 课 · 说出你想要什么
+        <small>本课餐牌 · 按顺序上菜</small>
+      </div>
+      <ul>
+        <li class="done"><span class="st">✓</span>场景引入</li>
+        <li class="now"><span class="st">●</span>核心字词<span class="now-stamp">学习中</span></li>
+        <li class="todo"><span class="st">○</span>核心句型</li>
+        <li class="todo"><span class="st">○</span>情景对话</li>
+        <li class="todo"><span class="st">○</span>小练习</li>
+        <li class="todo"><span class="st">○</span>本课总结</li>
+      </ul>
+      <a class="jyut-link" href="#">
+        <span class="tile">g</span>
+        粤拼发音速查
+        <svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg>
+      </a>
+    </aside>
+
+    <!-- 学习主区 -->
+    <div class="stage">
+      <h2>核心字词</h2>
+      <p class="goal">目标：能够点一杯饮品，并提出冷热、甜度这样的小要求。</p>
+      <div class="prog">
+        <span>2/6</span>
+        <span class="route"><i style="width:33%;"></i></span>
+        <span>核心字词</span>
+      </div>
+
+      <div class="dish">
+        <span class="code">A1</span>
+        <div class="d-main">
+          <span class="d-word">冻</span>
+          <span class="d-jyut">dung3</span>
+          <span class="d-zh">冷的；加冰的</span>
+        </div>
+        <div class="d-ops">
+          <span class="play-mini solid"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg></span>
+          <span class="fav">
+            <svg viewBox="0 0 24 24"><path d="M7 4h10a1 1 0 0 1 1 1v15l-6-4-6 4V5a1 1 0 0 1 1-1z"/></svg>
+            收藏
+          </span>
+        </div>
+        <div class="d-eg">
+          <span class="yue">我要杯冻奶茶。</span>
+          <span class="jyut">ngo5 jiu3 bui1 dung3 naai5 caa4.</span>
+          <span class="zh-sub">我要一杯冰奶茶。</span>
+          <span class="play-mini"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg></span>
+        </div>
+      </div>
+
+      <div class="dish">
+        <span class="code">A2</span>
+        <div class="d-main">
+          <span class="d-word">少甜</span>
+          <span class="d-jyut">siu2 tim4</span>
+          <span class="d-zh">少放一点糖</span>
+        </div>
+        <div class="d-ops">
+          <span class="play-mini solid"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg></span>
+          <span class="fav">
+            <svg viewBox="0 0 24 24"><path d="M7 4h10a1 1 0 0 1 1 1v15l-6-4-6 4V5a1 1 0 0 1 1-1z"/></svg>
+            收藏
+          </span>
+        </div>
+        <div class="d-eg">
+          <span class="yue">冻柠茶少甜，唔该。</span>
+          <span class="jyut">dung3 ning4 caa4 siu2 tim4, m4 goi1.</span>
+          <span class="zh-sub">冻柠檬茶少甜，麻烦了。</span>
+          <span class="play-mini"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg></span>
+        </div>
+      </div>
+
+      <div class="dish">
+        <span class="code">A3</span>
+        <div class="d-main">
+          <span class="d-word">杯</span>
+          <span class="d-jyut">bui1</span>
+          <span class="d-zh">量词：一杯饮品</span>
+        </div>
+        <div class="d-ops">
+          <span class="play-mini solid"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg></span>
+          <span class="fav">
+            <svg viewBox="0 0 24 24"><path d="M7 4h10a1 1 0 0 1 1 1v15l-6-4-6 4V5a1 1 0 0 1 1-1z"/></svg>
+            收藏
+          </span>
+        </div>
+        <div class="d-eg">
+          <span class="yue">我想要杯热咖啡。</span>
+          <span class="jyut">ngo5 soeng2 jiu3 bui1 jit6 gaa3 fe1.</span>
+          <span class="zh-sub">我想要一杯热咖啡。</span>
+          <span class="play-mini"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg></span>
+        </div>
+      </div>
+
+      <div class="lesson-nav">
+        <a class="btn-outline" href="#">
+          <svg viewBox="0 0 24 24"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+          上一步：场景引入
+        </a>
+        <a class="btn-primary" href="#">
+          下一步：核心句型
+          <svg viewBox="0 0 24 24" style="width:15px;height:15px;stroke:#fff;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  MVP 视觉预览 · 方向一「云上港街」 · 课节学习页（桌面端） · 内容为示范数据
+</footer>
+
+</body>
+</html>
