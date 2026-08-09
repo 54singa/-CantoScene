@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { readdir, readFile } from "node:fs/promises";
+import { mkdir, readdir, readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -67,6 +67,9 @@ export async function startLocalDatabase(options?: {
   port?: number;
 }): Promise<LocalDatabase> {
   const dataDir = options?.dataDir ?? "memory://";
+  if (dataDir !== "memory://" && !dataDir.includes("://")) {
+    await mkdir(dataDir, { recursive: true });
+  }
   const db = await PGlite.create(dataDir);
   await applyLocalMigrations(db);
 
