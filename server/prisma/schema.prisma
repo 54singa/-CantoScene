@@ -1,0 +1,385 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum UserRole {
+  LEARNER
+  EDITOR
+  ADMIN
+}
+
+enum ScriptPreference {
+  SIMPLIFIED
+  TRADITIONAL
+}
+
+enum Difficulty {
+  STARTER
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+}
+
+enum PublishStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+enum VideoStatus {
+  DRAFT
+  PROCESSING
+  REVIEW
+  PUBLISHED
+  ARCHIVED
+}
+
+enum ContentReviewStatus {
+  DRAFT
+  AI_DRAFT
+  REVIEWED
+  PUBLISHED
+}
+
+enum LessonStage {
+  INTRO
+  WORDS
+  PATTERNS
+  DIALOGUE
+  QUIZ
+  SUMMARY
+}
+
+enum LessonItemType {
+  INTRO
+  CHARACTER
+  PHRASE
+  DIALOGUE
+  TIP
+}
+
+enum CourseVideoRelationType {
+  RECOMMENDED
+  PRACTICE
+  RELATED
+}
+
+enum LessonVideoRelationType {
+  PRACTICE
+  EXAMPLE
+  RELATED
+}
+
+enum LearningStatus {
+  SAVED
+  LEARNING
+  MASTERED
+  ARCHIVED
+}
+
+enum ProgressStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  COMPLETED
+}
+
+enum ContentJobType {
+  TRANSCRIBE
+  SUBTITLE_ENRICH
+  TTS
+}
+
+enum ContentJobProvider {
+  LOCAL_WHISPER
+  DEEPSEEK
+  FISH_AUDIO
+}
+
+enum ContentJobStatus {
+  QUEUED
+  RUNNING
+  SUCCEEDED
+  FAILED
+  CANCELLED
+}
+
+model User {
+  id               String           @id @default(uuid()) @db.Uuid
+  email            String?          @unique
+  displayName      String           @map("display_name") @db.VarChar(80)
+  role             UserRole         @default(LEARNER)
+  scriptPreference ScriptPreference @default(SIMPLIFIED) @map("script_preference")
+  createdAt        DateTime         @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt        DateTime         @updatedAt @map("updated_at") @db.Timestamptz(3)
+  favorites        Favorite[]
+  wordbookItems    WordbookItem[]
+  lessonProgress   LessonProgress[]
+  videoProgress    VideoProgress[]
+  reviewedLines    SubtitleLine[]   @relation("SubtitleReviewer")
+  contentJobs      ContentJob[]     @relation("ContentJobCreator")
+
+  @@map("users")
+}
+
+model Course {
+  id                 String            @id @default(uuid()) @db.Uuid
+  slug               String            @unique @db.VarChar(100)
+  position           Int
+  titleSimplified    String            @map("title_simplified")
+  titleTraditional   String            @map("title_traditional")
+  summarySimplified  String            @map("summary_simplified")
+  summaryTraditional String            @map("summary_traditional")
+  coverUrl           String?           @map("cover_url")
+  difficulty         Difficulty        @default(STARTER)
+  estimatedMinutes   Int               @map("estimated_minutes")
+  status             PublishStatus     @default(DRAFT)
+  publishedAt        DateTime?         @map("published_at") @db.Timestamptz(3)
+  createdAt          DateTime          @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt          DateTime          @updatedAt @map("updated_at") @db.Timestamptz(3)
+  lessons            Lesson[]
+  videoLinks         CourseVideoLink[]
+
+  @@index([status, publishedAt(sort: Desc)])
+  @@map("courses")
+}
+
+model Lesson {
+  id                 String            @id @default(uuid()) @db.Uuid
+  courseId           String            @map("course_id") @db.Uuid
+  slug               String            @db.VarChar(100)
+  position           Int
+  titleSimplified    String            @map("title_simplified")
+  titleTraditional   String            @map("title_traditional")
+  summarySimplified  String            @map("summary_simplified")
+  summaryTraditional String            @map("summary_traditional")
+  goalSimplified     String            @map("goal_simplified")
+  goalTraditional    String            @map("goal_traditional")
+  estimatedMinutes   Int               @map("estimated_minutes")
+  status             PublishStatus     @default(DRAFT)
+  createdAt          DateTime          @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt          DateTime          @updatedAt @map("updated_at") @db.Timestamptz(3)
+  course             Course            @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  items              LessonItem[]
+  videoLinks         LessonVideoLink[]
+  progress           LessonProgress[]
+  contentJobs        ContentJob[]
+
+  @@unique([courseId, slug])
+  @@unique([courseId, position])
+  @@map("lessons")
+}
+
+model LessonItem {
+  id         String              @id @default(uuid()) @db.Uuid
+  lessonId   String              @map("lesson_id") @db.Uuid
+  stage      LessonStage
+  itemType   LessonItemType      @map("item_type")
+  position   Int
+  content    Json                @db.JsonB
+  audioUrl   String?             @map("audio_url")
+  status     ContentReviewStatus @default(DRAFT)
+  createdAt  DateTime            @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt  DateTime            @updatedAt @map("updated_at") @db.Timestamptz(3)
+  lesson     Lesson              @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  favorites  Favorite[]
+  wordbook   WordbookItem[]
+  lastViewed LessonProgress[]    @relation("LastLessonItem")
+
+  @@unique([lessonId, position])
+  @@map("lesson_items")
+}
+
+model Video {
+  id                   String            @id @default(uuid()) @db.Uuid
+  slug                 String            @unique @db.VarChar(120)
+  titleSimplified      String            @map("title_simplified")
+  titleTraditional     String            @map("title_traditional")
+  listTitleSimplified  String            @map("list_title_simplified")
+  listTitleTraditional String            @map("list_title_traditional")
+  summarySimplified    String            @map("summary_simplified")
+  summaryTraditional   String            @map("summary_traditional")
+  difficulty           Difficulty        @default(STARTER)
+  durationMs           Int               @map("duration_ms")
+  videoUrl             String            @map("video_url")
+  posterUrl            String            @map("poster_url")
+  tags                 String[]
+  focusPoints          Json              @map("focus_points") @db.JsonB
+  sourceNote           String?           @map("source_note")
+  status               VideoStatus       @default(DRAFT)
+  publishedAt          DateTime?         @map("published_at") @db.Timestamptz(3)
+  createdAt            DateTime          @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt            DateTime          @updatedAt @map("updated_at") @db.Timestamptz(3)
+  courseLinks          CourseVideoLink[]
+  lessonLinks          LessonVideoLink[]
+  subtitleLines        SubtitleLine[]
+  progress             VideoProgress[]
+  contentJobs          ContentJob[]
+
+  @@index([status, publishedAt(sort: Desc)])
+  @@map("videos")
+}
+
+model CourseVideoLink {
+  courseId     String                  @map("course_id") @db.Uuid
+  videoId      String                  @map("video_id") @db.Uuid
+  relationType CourseVideoRelationType @map("relation_type")
+  position     Int
+  course       Course                  @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  video        Video                   @relation(fields: [videoId], references: [id], onDelete: Cascade)
+
+  @@id([courseId, videoId])
+  @@index([courseId, position])
+  @@map("course_video_links")
+}
+
+model LessonVideoLink {
+  lessonId     String                  @map("lesson_id") @db.Uuid
+  videoId      String                  @map("video_id") @db.Uuid
+  relationType LessonVideoRelationType @map("relation_type")
+  position     Int
+  lesson       Lesson                  @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  video        Video                   @relation(fields: [videoId], references: [id], onDelete: Cascade)
+
+  @@id([lessonId, videoId])
+  @@index([lessonId, position])
+  @@map("lesson_video_links")
+}
+
+model SubtitleLine {
+  id                  String              @id @default(uuid()) @db.Uuid
+  videoId             String              @map("video_id") @db.Uuid
+  position            Int
+  startMs             Int                 @map("start_ms")
+  endMs               Int                 @map("end_ms")
+  speaker             String?             @db.VarChar(80)
+  textSimplified      String              @map("text_simplified")
+  textTraditional     String              @map("text_traditional")
+  jyutping            String?
+  mandarinSimplified  String?             @map("mandarin_simplified")
+  mandarinTraditional String?             @map("mandarin_traditional")
+  audioUrl            String?             @map("audio_url")
+  reviewStatus        ContentReviewStatus @default(DRAFT) @map("review_status")
+  asrConfidence       Decimal?            @map("asr_confidence") @db.Decimal(5, 4)
+  aiModel             String?             @map("ai_model") @db.VarChar(100)
+  reviewedBy          String?             @map("reviewed_by") @db.Uuid
+  reviewedAt          DateTime?           @map("reviewed_at") @db.Timestamptz(3)
+  createdAt           DateTime            @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt           DateTime            @updatedAt @map("updated_at") @db.Timestamptz(3)
+  video               Video               @relation(fields: [videoId], references: [id], onDelete: Cascade)
+  reviewer            User?               @relation("SubtitleReviewer", fields: [reviewedBy], references: [id], onDelete: SetNull)
+  favorites           Favorite[]
+  wordbook            WordbookItem[]
+
+  @@unique([videoId, position])
+  @@index([videoId, startMs, endMs])
+  @@map("subtitle_lines")
+}
+
+model Favorite {
+  id             String         @id @default(uuid()) @db.Uuid
+  userId         String         @map("user_id") @db.Uuid
+  subtitleLineId String?        @map("subtitle_line_id") @db.Uuid
+  lessonItemId   String?        @map("lesson_item_id") @db.Uuid
+  learningStatus LearningStatus @default(SAVED) @map("learning_status")
+  note           String?
+  createdAt      DateTime       @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt      DateTime       @updatedAt @map("updated_at") @db.Timestamptz(3)
+  user           User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  subtitleLine   SubtitleLine?  @relation(fields: [subtitleLineId], references: [id], onDelete: Cascade)
+  lessonItem     LessonItem?    @relation(fields: [lessonItemId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, subtitleLineId])
+  @@unique([userId, lessonItemId])
+  @@index([userId, updatedAt(sort: Desc)])
+  @@map("favorites")
+}
+
+model WordbookItem {
+  id                  String         @id @default(uuid()) @db.Uuid
+  userId              String         @map("user_id") @db.Uuid
+  normalizedKey       String         @map("normalized_key") @db.VarChar(200)
+  termSimplified      String         @map("term_simplified")
+  termTraditional     String         @map("term_traditional")
+  jyutping            String?
+  mandarinSimplified  String?        @map("mandarin_simplified")
+  mandarinTraditional String?        @map("mandarin_traditional")
+  exampleSimplified   String?        @map("example_simplified")
+  exampleTraditional  String?        @map("example_traditional")
+  exampleJyutping     String?        @map("example_jyutping")
+  audioUrl            String?        @map("audio_url")
+  subtitleLineId      String?        @map("subtitle_line_id") @db.Uuid
+  lessonItemId        String?        @map("lesson_item_id") @db.Uuid
+  learningStatus      LearningStatus @default(SAVED) @map("learning_status")
+  note                String?
+  createdAt           DateTime       @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt           DateTime       @updatedAt @map("updated_at") @db.Timestamptz(3)
+  user                User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  subtitleLine        SubtitleLine?  @relation(fields: [subtitleLineId], references: [id], onDelete: SetNull)
+  lessonItem          LessonItem?    @relation(fields: [lessonItemId], references: [id], onDelete: SetNull)
+
+  @@unique([userId, normalizedKey])
+  @@index([userId, updatedAt(sort: Desc)])
+  @@map("wordbook_items")
+}
+
+model LessonProgress {
+  userId          String         @map("user_id") @db.Uuid
+  lessonId        String         @map("lesson_id") @db.Uuid
+  status          ProgressStatus @default(NOT_STARTED)
+  progressPercent Int            @default(0) @map("progress_percent") @db.SmallInt
+  lastItemId      String?        @map("last_item_id") @db.Uuid
+  startedAt       DateTime?      @map("started_at") @db.Timestamptz(3)
+  updatedAt       DateTime       @updatedAt @map("updated_at") @db.Timestamptz(3)
+  completedAt     DateTime?      @map("completed_at") @db.Timestamptz(3)
+  user            User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lesson          Lesson         @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  lastItem        LessonItem?    @relation("LastLessonItem", fields: [lastItemId], references: [id], onDelete: SetNull)
+
+  @@id([userId, lessonId])
+  @@index([userId, updatedAt(sort: Desc)])
+  @@map("lesson_progress")
+}
+
+model VideoProgress {
+  userId         String         @map("user_id") @db.Uuid
+  videoId        String         @map("video_id") @db.Uuid
+  status         ProgressStatus @default(NOT_STARTED)
+  lastPositionMs Int            @default(0) @map("last_position_ms")
+  startedAt      DateTime?      @map("started_at") @db.Timestamptz(3)
+  updatedAt      DateTime       @updatedAt @map("updated_at") @db.Timestamptz(3)
+  completedAt    DateTime?      @map("completed_at") @db.Timestamptz(3)
+  user           User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  video          Video          @relation(fields: [videoId], references: [id], onDelete: Cascade)
+
+  @@id([userId, videoId])
+  @@index([userId, updatedAt(sort: Desc)])
+  @@map("video_progress")
+}
+
+model ContentJob {
+  id            String             @id @default(uuid()) @db.Uuid
+  jobType       ContentJobType     @map("job_type")
+  videoId       String?            @map("video_id") @db.Uuid
+  lessonId      String?            @map("lesson_id") @db.Uuid
+  provider      ContentJobProvider
+  status        ContentJobStatus   @default(QUEUED)
+  inputHash     String?            @map("input_hash") @db.VarChar(64)
+  resultSummary Json?              @map("result_summary") @db.JsonB
+  errorCode     String?            @map("error_code") @db.VarChar(80)
+  errorMessage  String?            @map("error_message")
+  createdBy     String             @map("created_by") @db.Uuid
+  createdAt     DateTime           @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt     DateTime           @updatedAt @map("updated_at") @db.Timestamptz(3)
+  finishedAt    DateTime?          @map("finished_at") @db.Timestamptz(3)
+  video         Video?             @relation(fields: [videoId], references: [id], onDelete: Cascade)
+  lesson        Lesson?            @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  creator       User               @relation("ContentJobCreator", fields: [createdBy], references: [id], onDelete: Restrict)
+
+  @@index([status, createdAt])
+  @@map("content_jobs")
+}

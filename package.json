@@ -5,9 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:server": "pnpm --filter @canto-scene/server dev",
     "build": "tsc -b && vite build",
+    "build:server": "pnpm --filter @canto-scene/server build",
     "preview": "vite preview",
-    "typecheck": "tsc -b --pretty false"
+    "typecheck": "tsc -b --pretty false",
+    "typecheck:server": "pnpm --filter @canto-scene/server typecheck"
   },
   "dependencies": {
     "lucide-react": "^0.468.0",

@@ -2,12 +2,16 @@ node_modules/
 .venv-transcribe/
 .cache/
 dist/
+server/dist/
 .pnpm-store/
 *.tsbuildinfo
 vite.config.js
 vite.config.d.ts
 .DS_Store
 *.log
+.env
+server/.env
+server/src/generated/prisma/
 public/videos/*.mp4
 public/videos/*.m4v
 public/videos/*.mov
