@@ -36,10 +36,14 @@ function favoriteView(favorite: {
   subtitleLine: null | {
     id: string;
     videoId: string;
+    position: number;
     startMs: number;
+    endMs: number;
     textSimplified: string;
     textTraditional: string;
     jyutping: string | null;
+    mandarinSimplified: string | null;
+    mandarinTraditional: string | null;
     video: { slug: string };
   };
   lessonItem: null | { id: string; content: unknown };
@@ -55,10 +59,14 @@ function favoriteView(favorite: {
           id: favorite.subtitleLine.id,
           video_id: favorite.subtitleLine.videoId,
           video_slug: favorite.subtitleLine.video.slug,
+          position: favorite.subtitleLine.position,
           start_ms: favorite.subtitleLine.startMs,
+          end_ms: favorite.subtitleLine.endMs,
           text_simplified: favorite.subtitleLine.textSimplified,
           text_traditional: favorite.subtitleLine.textTraditional,
           jyutping: favorite.subtitleLine.jyutping,
+          mandarin_simplified: favorite.subtitleLine.mandarinSimplified,
+          mandarin_traditional: favorite.subtitleLine.mandarinTraditional,
         }
       : null,
     lesson_item: favorite.lessonItem,

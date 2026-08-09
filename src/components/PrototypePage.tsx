@@ -53,7 +53,7 @@ const navRoutes: Record<string, string> = {
 export function PrototypePage({ source, pageId }: { source: string; pageId: string }) {
   const root = useRef<HTMLDivElement>(null)
   const navigate = useNavigate()
-  const { script, setScript, toggleFavorite, isFavorite } = useApp()
+  const { script, setScript, isLoggedIn, user, toggleFavorite, isFavorite, recordVideoProgress } = useApp()
   const pageCss = useMemo(() => extract(source, 'style'), [source])
   const markup = useMemo(() => {
     const prepared = prepareMarkup(source)
@@ -68,6 +68,11 @@ export function PrototypePage({ source, pageId }: { source: string; pageId: stri
     scope.innerHTML = `<style>${baseCss}\n${isolateCss(pageCss)}</style><div class="prototype-body">${markup}</div>`
     window.scrollTo(0, 0)
     const nav = scope.querySelector<HTMLElement>('.nav')
+    const loginButton = scope.querySelector<HTMLAnchorElement>('.login-btn')
+    if (loginButton && isLoggedIn) {
+      loginButton.textContent = user?.display_name ?? (script === 'traditional' ? '我的學習' : '我的学习')
+      loginButton.setAttribute('href', '/my')
+    }
     const onScroll = () => nav?.classList.toggle('scrolled', window.scrollY > 40)
     const onClick = (event: Event) => {
       const anchor = (event.target as HTMLElement).closest<HTMLAnchorElement>('a')
@@ -171,7 +176,9 @@ export function PrototypePage({ source, pageId }: { source: string; pageId: stri
       const onPause = () => {
         scope.querySelector('.big-play')?.classList.remove('is-playing')
         controlIcon?.setAttribute('d', 'M7 4.5v15l13-7.5z')
+        if (video && video.currentTime > 0 && !video.ended) void recordVideoProgress('cha-chaan-teng', video.currentTime)
       }
+      const onEnded = () => { if (video) void recordVideoProgress('cha-chaan-teng', video.duration, true) }
       const onTrackClick = (event: Event) => {
         if (!video || !track || !Number.isFinite(video.duration)) return
         const mouse = event as MouseEvent
@@ -183,6 +190,7 @@ export function PrototypePage({ source, pageId }: { source: string; pageId: stri
       video?.addEventListener('timeupdate', renderTime)
       video?.addEventListener('play', onPlay)
       video?.addEventListener('pause', onPause)
+      video?.addEventListener('ended', onEnded)
       track?.addEventListener('click', onTrackClick)
 
       const updatePostcard = (lineIndex: number, row: HTMLElement) => {
@@ -208,7 +216,18 @@ export function PrototypePage({ source, pageId }: { source: string; pageId: stri
         savedButton.lastChild && (savedButton.lastChild.textContent = saved ? ' 已收藏' : ' 收藏')
         savedButton.classList.toggle('not-saved', !saved)
       }
-      const onSave = () => { toggleFavorite(selectedLine); window.setTimeout(renderSaved) }
+      const onSave = async () => {
+        if (!isLoggedIn) {
+          navigate('/login?next=/watch/cha-chaan-teng')
+          return
+        }
+        try {
+          await toggleFavorite(selectedLine)
+          renderSaved()
+        } catch {
+          if (savedButton?.lastChild) savedButton.lastChild.textContent = ' 保存失败'
+        }
+      }
       savedButton?.addEventListener('click', onSave)
       const replay = postcard?.querySelector<HTMLElement>('.btn-outline')
       const onReplay = () => { if (!video) return; video.currentTime = selectedLine.start; void video.play() }
@@ -229,6 +248,7 @@ export function PrototypePage({ source, pageId }: { source: string; pageId: stri
         video?.removeEventListener('timeupdate', renderTime)
         video?.removeEventListener('play', onPlay)
         video?.removeEventListener('pause', onPause)
+        video?.removeEventListener('ended', onEnded)
         track?.removeEventListener('click', onTrackClick)
         savedButton?.removeEventListener('click', onSave)
         replay?.removeEventListener('click', onReplay)
@@ -241,7 +261,7 @@ export function PrototypePage({ source, pageId }: { source: string; pageId: stri
       tabs.forEach((tab) => tab.removeEventListener('click', onTabClick))
       filters.forEach((filter) => filter.removeEventListener('click', onFilterClick))
     }
-  }, [isFavorite, markup, navigate, pageCss, pageId, script, setScript, toggleFavorite])
+  }, [isFavorite, isLoggedIn, markup, navigate, pageCss, pageId, recordVideoProgress, script, setScript, toggleFavorite, user])
 
   return <div ref={root} className={`prototype-page prototype-${pageId}`} />
 }

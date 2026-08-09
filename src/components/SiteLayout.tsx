@@ -3,7 +3,7 @@ import sharedCss from '../../design/mockup/css/site.css?raw'
 import { useApp } from '../state/AppContext'
 
 export function SiteLayout() {
-  const { script, setScript, isLoggedIn, text } = useApp()
+  const { script, setScript, isLoggedIn, user, text } = useApp()
   const location = useLocation()
   const basicsActive = ['/courses', '/jyutping', '/words'].some((path) => location.pathname.startsWith(path))
 
@@ -28,7 +28,7 @@ export function SiteLayout() {
       </div>
       <div className="nav-right">
         <button className="lang" onClick={() => setScript(script === 'simplified' ? 'traditional' : 'simplified')}>{script === 'simplified' ? '简 / 繁' : '繁 / 简'}</button>
-        <Link className="login-btn" to={isLoggedIn ? '/my' : '/login'}>{isLoggedIn ? '阿 May' : text('登录', '登入')}</Link>
+        <Link className="login-btn" to={isLoggedIn ? '/my' : '/login'}>{isLoggedIn ? user?.display_name : text('登录', '登入')}</Link>
       </div>
     </nav>
     <main><Outlet /></main>

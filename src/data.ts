@@ -13,7 +13,13 @@ export type Subtitle = {
   mandarin: string
 }
 
-export type FavoriteLine = Subtitle & { videoTitle: string; savedAt: string }
+export type FavoriteLine = Subtitle & {
+  videoTitle: string
+  savedAt: string
+  serverId?: string
+  videoId?: string
+  videoSlug?: string
+}
 
 export const subtitles: Subtitle[] = [
   { id: 'line-1', start: 0, end: 4.8, yue: '唔该，想要一杯冻柠茶。', traditional: '唔該，想要一杯凍檸茶。', jyutping: 'm4 goi1, soeng2 jiu3 jat1 bui1 dung3 ning4 caa4.', mandarin: '麻烦，我想要一杯冰柠檬茶。' },
