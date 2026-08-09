@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "dev:server": "pnpm --filter @canto-scene/server dev",
+    "dev:server:local": "pnpm --filter @canto-scene/server dev:local",
     "build": "tsc -b && vite build",
     "build:server": "pnpm --filter @canto-scene/server build",
     "preview": "vite preview",

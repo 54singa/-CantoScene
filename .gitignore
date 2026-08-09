@@ -11,6 +11,7 @@ vite.config.d.ts
 *.log
 .env
 server/.env
+server/.data/
 server/src/generated/prisma/
 public/videos/*.mp4
 public/videos/*.m4v
