@@ -6,6 +6,7 @@ export type AppConfig = {
   port: number;
   databaseUrl: string;
   frontendOrigin: string;
+  jwtAccessSecret: string;
 };
 
 function parsePort(value: string | undefined): number {
@@ -26,6 +27,10 @@ export function loadConfig(): AppConfig {
   if (!databaseUrl) {
     throw new Error("DATABASE_URL is required");
   }
+  const jwtAccessSecret = process.env.JWT_ACCESS_SECRET;
+  if (!jwtAccessSecret || jwtAccessSecret.length < 32) {
+    throw new Error("JWT_ACCESS_SECRET must contain at least 32 characters");
+  }
 
   return {
     nodeEnv: nodeEnv as AppConfig["nodeEnv"],
@@ -33,5 +38,6 @@ export function loadConfig(): AppConfig {
     port: parsePort(process.env.PORT),
     databaseUrl,
     frontendOrigin: process.env.FRONTEND_ORIGIN ?? "http://127.0.0.1:5173",
+    jwtAccessSecret,
   };
 }

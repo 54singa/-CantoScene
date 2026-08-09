@@ -11,6 +11,7 @@ const config: AppConfig = {
   port: 3000,
   databaseUrl: "postgresql://unused:unused@127.0.0.1:5432/unused",
   frontendOrigin: "http://127.0.0.1:5173",
+  jwtAccessSecret: "canto-scene-test-access-secret-00000000",
 };
 
 const database = {

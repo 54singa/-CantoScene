@@ -1,10 +1,14 @@
 import cors from "@fastify/cors";
+import cookie from "@fastify/cookie";
+import jwt from "@fastify/jwt";
 import Fastify, { type FastifyInstance } from "fastify";
 
 import type { AppConfig } from "./config/env.js";
 import type { DatabaseClient } from "./lib/prisma.js";
 import { courseRoutes } from "./routes/courses.js";
+import { authRoutes } from "./routes/auth.js";
 import { healthRoutes } from "./routes/health.js";
+import { learningDataRoutes } from "./routes/learning-data.js";
 import { videoRoutes } from "./routes/videos.js";
 
 export type BuildAppOptions = {
@@ -22,6 +26,11 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
   await app.register(cors, {
     origin: options.config.frontendOrigin,
     credentials: true,
+  });
+  await app.register(cookie);
+  await app.register(jwt, {
+    secret: options.config.jwtAccessSecret,
+    sign: { expiresIn: "15m" },
   });
 
   app.setErrorHandler((error, request, reply) => {
@@ -64,8 +73,12 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
   await app.register(
     async (api) => {
       await api.register(healthRoutes);
+      await authRoutes(api, options.database, options.config);
       await courseRoutes(api, options.database);
       await videoRoutes(api, options.database);
+      await api.register(async (privateApi) => {
+        await learningDataRoutes(privateApi, options.database);
+      });
     },
     { prefix: "/api/v1" },
   );

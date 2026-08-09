@@ -19,6 +19,7 @@ async function start(): Promise<void> {
     port: 3000,
     databaseUrl: localDatabase.databaseUrl,
     frontendOrigin: "http://127.0.0.1:5173",
+    jwtAccessSecret: "canto-scene-local-development-secret-2026",
   };
   const app = await buildApp({ config, database });
 

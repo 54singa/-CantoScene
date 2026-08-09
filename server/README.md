@@ -55,8 +55,19 @@ PGlite 只用于本地开发。生产环境使用标准 PostgreSQL，并执行�
 - `GET /api/v1/videos`
 - `GET /api/v1/videos/:videoSlug`
 - `GET /api/v1/videos/:videoId/subtitles`
+- `POST /api/v1/auth/register`
+- `POST /api/v1/auth/login`
+- `POST /api/v1/auth/refresh`
+- `POST /api/v1/auth/logout`
+- `GET /api/v1/me`
+- `PATCH /api/v1/me/preferences`
+- `GET/PUT/PATCH/DELETE /api/v1/me/favorites/...`
+- `GET/POST/PATCH/DELETE /api/v1/me/wordbook/...`
+- `PUT /api/v1/me/lesson-progress/:lessonId`
+- `PUT /api/v1/me/video-progress/:videoId`
+- `GET /api/v1/me/learning-summary`
 
-用户认证、收藏、生词本、学习进度和内容管理接口会在下一批实现。
+内容管理和 DeepSeek 后台任务接口会在后续批次实现。
 
 ## 数据库命令
 
