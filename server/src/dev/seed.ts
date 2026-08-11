@@ -25,9 +25,52 @@ type Transcript = {
   }>;
 };
 
+type DemoDialogueLine = {
+  id: string;
+  speaker_simplified: string;
+  speaker_traditional: string;
+  simplified: string;
+  traditional: string;
+  jyutping: string;
+  mandarin_simplified: string;
+  audio_id: string;
+};
+
+type DemoLesson = {
+  id: string;
+  slug: string;
+  position: number;
+  title_simplified: string;
+  title_traditional: string;
+  goal_simplified: string;
+  goal_traditional: string;
+  showcase?: boolean;
+  dialogue?: { lines: DemoDialogueLine[] };
+};
+
+type DemoCourse = {
+  slug: string;
+  title_simplified: string;
+  title_traditional: string;
+  summary_simplified: string;
+  summary_traditional: string;
+  estimated_minutes: number;
+  lessons: DemoLesson[];
+};
+
+type AudioManifest = {
+  entries: Array<{ id: string; public_url: string }>;
+};
+
 const toSimplified = Converter({ from: "hk", to: "cn" });
 const transcriptPath = fileURLToPath(
   new URL("../../../content/transcripts/01.compact.json", import.meta.url),
+);
+const demoCoursePath = fileURLToPath(
+  new URL("../../../content/demo/cha-chaan-teng.json", import.meta.url),
+);
+const audioManifestPath = fileURLToPath(
+  new URL("../../../content/audio/fish-audio.demo.json", import.meta.url),
 );
 
 const courseSeeds = [
@@ -36,16 +79,16 @@ const courseSeeds = [
     position: 1,
     titleSimplified: "茶餐厅点餐",
     titleTraditional: "茶餐廳點餐",
-    summarySimplified: "从一杯冻柠茶开始，学会最自然的点餐表达。",
-    summaryTraditional: "從一杯凍檸茶開始，學會最自然的點餐表達。",
+    summarySimplified: "从入座、点饮品到埋单，走完一次香港茶餐厅的基础对话。",
+    summaryTraditional: "從入座、點飲品到埋單，走完一次香港茶餐廳的基礎對話。",
     coverUrl: "/design/assets/city-street.png",
-    lessonTitles: ["点饮品", "礼貌开口", "点主食", "提出要求", "完整情景对话"],
+    lessonTitles: ["进店与入座", "说出你想要什么", "加点食物和数量", "加单与其他要求", "埋单与完整对话"],
     lessonTraditionalTitles: [
-      "點飲品",
-      "禮貌開口",
-      "點主食",
-      "提出要求",
-      "完整情景對話",
+      "進店與入座",
+      "說出你想要什麼",
+      "加點食物和數量",
+      "加單與其他要求",
+      "埋單與完整對話",
     ],
   },
   {
@@ -78,39 +121,6 @@ const courseSeeds = [
   },
 ] as const;
 
-const drinkPhrases = [
-  {
-    simplified: "唔该，想要一杯冻柠茶。",
-    traditional: "唔該，想要一杯凍檸茶。",
-    jyutping: "m4 goi1, soeng2 jiu3 jat1 bui1 dung3 ning4 caa4.",
-    mandarin: "麻烦，我想要一杯冰柠檬茶。",
-  },
-  {
-    simplified: "要唔要少甜呀？",
-    traditional: "要唔要少甜呀？",
-    jyutping: "jiu3 m4 jiu3 siu2 tim4 aa3?",
-    mandarin: "要不要少甜？",
-  },
-  {
-    simplified: "少甜吖，唔该。",
-    traditional: "少甜吖，唔該。",
-    jyutping: "siu2 tim4 aa1, m4 goi1.",
-    mandarin: "少甜，谢谢。",
-  },
-  {
-    simplified: "仲有冇其他嘢要呀？",
-    traditional: "仲有冇其他嘢要呀？",
-    jyutping: "zung6 jau5 mou5 kei4 taa1 je5 jiu3 aa3?",
-    mandarin: "还需要其他东西吗？",
-  },
-  {
-    simplified: "再要一个菠萝油，唔该。",
-    traditional: "再要一個菠蘿油，唔該。",
-    jyutping: "zoi3 jiu3 jat1 go3 bo1 lo4 jau4, m4 goi1.",
-    mandarin: "再要一个菠萝油，谢谢。",
-  },
-] as const;
-
 export type SeedSummary = {
   courses: number;
   lessons: number;
@@ -120,6 +130,22 @@ export type SeedSummary = {
 };
 
 export async function seedDatabase(database: DatabaseClient): Promise<SeedSummary> {
+  const demoCourse = JSON.parse(await readFile(demoCoursePath, "utf8")) as DemoCourse;
+  const audioManifest = JSON.parse(await readFile(audioManifestPath, "utf8")) as AudioManifest;
+  const audioUrls = new Map(audioManifest.entries.map((entry) => [entry.id, entry.public_url]));
+  const showcaseLesson = demoCourse.lessons.find((lesson) => lesson.showcase);
+  if (!showcaseLesson?.dialogue) throw new Error("Restaurant showcase lesson is missing dialogue content");
+  const drinkPhrases = showcaseLesson.dialogue.lines.map((line) => ({
+    sourceId: line.id,
+    speakerSimplified: line.speaker_simplified,
+    speakerTraditional: line.speaker_traditional,
+    simplified: line.simplified,
+    traditional: line.traditional,
+    jyutping: line.jyutping,
+    mandarin: line.mandarin_simplified,
+    audioUrl: audioUrls.get(line.audio_id) ?? null,
+  }));
+
   let firstLessonId: string | undefined;
   const courseIds = new Map<string, string>();
 
@@ -181,7 +207,7 @@ export async function seedDatabase(database: DatabaseClient): Promise<SeedSummar
         },
       });
 
-      if (courseSeed.slug === "restaurant" && index === 0) {
+      if (courseSeed.slug === "restaurant" && index === 1) {
         firstLessonId = lesson.id;
       }
     }
@@ -196,26 +222,34 @@ export async function seedDatabase(database: DatabaseClient): Promise<SeedSummar
       },
       update: {
         content: {
+          source_id: phrase.sourceId,
+          speaker_simplified: phrase.speakerSimplified,
+          speaker_traditional: phrase.speakerTraditional,
           text_simplified: phrase.simplified,
           text_traditional: phrase.traditional,
           jyutping: phrase.jyutping,
           mandarin_simplified: phrase.mandarin,
           mandarin_traditional: phrase.mandarin,
         },
+        audioUrl: phrase.audioUrl,
         status: ContentReviewStatus.PUBLISHED,
       },
       create: {
         lessonId: firstLessonId,
         stage: LessonStage.DIALOGUE,
-        itemType: LessonItemType.PHRASE,
+        itemType: LessonItemType.DIALOGUE,
         position: index + 1,
         content: {
+          source_id: phrase.sourceId,
+          speaker_simplified: phrase.speakerSimplified,
+          speaker_traditional: phrase.speakerTraditional,
           text_simplified: phrase.simplified,
           text_traditional: phrase.traditional,
           jyutping: phrase.jyutping,
           mandarin_simplified: phrase.mandarin,
           mandarin_traditional: phrase.mandarin,
         },
+        audioUrl: phrase.audioUrl,
         status: ContentReviewStatus.PUBLISHED,
       },
     });

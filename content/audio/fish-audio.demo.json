@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "provider": "fish_audio",
+  "locale": "yue-HK",
+  "voice": {
+    "name": "CantoScene Demo Female",
+    "model_id": "be60c03139d94dc7b0c26d83f66550db",
+    "management_url": "https://fish.audio/zh-CN/app/m/be60c03139d94dc7b0c26d83f66550db/"
+  },
+  "generation_policy": {
+    "source_script": "traditional_hk",
+    "format": "mp3",
+    "runtime_tts": false,
+    "review_status": "demo_draft"
+  },
+  "entries": [
+    { "id": "word-m4-goi1", "kind": "word", "text": "唔該", "output": "public/audio/words/m4-goi1.mp3", "public_url": "/audio/words/m4-goi1.mp3" },
+    { "id": "word-dung3", "kind": "word", "text": "凍", "output": "public/audio/words/dung3.mp3", "public_url": "/audio/words/dung3.mp3" },
+    { "id": "word-jit6", "kind": "word", "text": "熱", "output": "public/audio/words/jit6.mp3", "public_url": "/audio/words/jit6.mp3" },
+    { "id": "word-siu2-tim4", "kind": "word", "text": "少甜", "output": "public/audio/words/siu2-tim4.mp3", "public_url": "/audio/words/siu2-tim4.mp3" },
+    { "id": "word-zau2-bing1", "kind": "word", "text": "走冰", "output": "public/audio/words/zau2-bing1.mp3", "public_url": "/audio/words/zau2-bing1.mp3" },
+    { "id": "word-bui1", "kind": "word", "text": "杯", "output": "public/audio/words/bui1.mp3", "public_url": "/audio/words/bui1.mp3" },
+    { "id": "example-order-milk-tea", "kind": "example", "text": "我要杯凍奶茶。", "output": "public/audio/examples/order-milk-tea.mp3", "public_url": "/audio/examples/order-milk-tea.mp3" },
+    { "id": "example-lemon-tea-less-sugar", "kind": "example", "text": "凍檸茶少甜，唔該。", "output": "public/audio/examples/lemon-tea-less-sugar.mp3", "public_url": "/audio/examples/lemon-tea-less-sugar.mp3" },
+    { "id": "example-hot-coffee", "kind": "example", "text": "我想要杯熱咖啡。", "output": "public/audio/examples/hot-coffee.mp3", "public_url": "/audio/examples/hot-coffee.mp3" },
+    { "id": "example-no-ice", "kind": "example", "text": "杯凍奶茶走冰，唔該。", "output": "public/audio/examples/no-ice.mp3", "public_url": "/audio/examples/no-ice.mp3" },
+    { "id": "dialogue-order-drink-1", "kind": "dialogue", "text": "想飲啲咩啊？", "output": "public/audio/dialogue/order-drink-01.mp3", "public_url": "/audio/dialogue/order-drink-01.mp3" },
+    { "id": "dialogue-order-drink-2", "kind": "dialogue", "text": "唔該，我想要杯凍檸茶，少甜。", "output": "public/audio/dialogue/order-drink-02.mp3", "public_url": "/audio/dialogue/order-drink-02.mp3" },
+    { "id": "dialogue-order-drink-3", "kind": "dialogue", "text": "要唔要走冰啊？", "output": "public/audio/dialogue/order-drink-03.mp3", "public_url": "/audio/dialogue/order-drink-03.mp3" },
+    { "id": "dialogue-order-drink-4", "kind": "dialogue", "text": "唔使啦，少冰可以。", "output": "public/audio/dialogue/order-drink-04.mp3", "public_url": "/audio/dialogue/order-drink-04.mp3" },
+    { "id": "dialogue-order-drink-5", "kind": "dialogue", "text": "好，馬上來。", "output": "public/audio/dialogue/order-drink-05.mp3", "public_url": "/audio/dialogue/order-drink-05.mp3" }
+  ]
+}

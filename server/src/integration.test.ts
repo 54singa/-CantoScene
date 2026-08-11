@@ -35,6 +35,22 @@ test("migrations, seed data, and public APIs work together", async () => {
     assert.equal(courses.json().data.length, 3);
     assert.equal(courses.json().data[0].lesson_count, 5);
 
+    const restaurant = await app.inject({
+      method: "GET",
+      url: "/api/v1/courses/restaurant",
+    });
+    assert.equal(restaurant.statusCode, 200);
+    assert.equal(restaurant.json().data.lessons[1].title_simplified, "说出你想要什么");
+    const showcaseLessonId = restaurant.json().data.lessons[1].id as string;
+    const showcaseLesson = await app.inject({
+      method: "GET",
+      url: `/api/v1/lessons/${showcaseLessonId}`,
+    });
+    assert.equal(showcaseLesson.statusCode, 200);
+    assert.equal(showcaseLesson.json().data.items.length, 5);
+    assert.equal(showcaseLesson.json().data.items[0].content.source_id, "dialogue-order-drink-1");
+    assert.equal(showcaseLesson.json().data.items[0].audio_url, "/audio/dialogue/order-drink-01.mp3");
+
     const video = await app.inject({
       method: "GET",
       url: "/api/v1/videos/cha-chaan-teng",

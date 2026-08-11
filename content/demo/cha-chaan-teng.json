@@ -1,0 +1,244 @@
+{
+  "schema_version": 1,
+  "id": "course-restaurant-demo",
+  "slug": "restaurant",
+  "review_status": "demo_draft",
+  "locale": "yue-HK",
+  "title_simplified": "茶餐厅点餐",
+  "title_traditional": "茶餐廳點餐",
+  "summary_simplified": "从入座、点饮品到埋单，走完一次香港茶餐厅的基础对话。",
+  "summary_traditional": "從入座、點飲品到埋單，走完一次香港茶餐廳的基礎對話。",
+  "estimated_minutes": 20,
+  "lessons": [
+    {
+      "id": "restaurant-lesson-1",
+      "slug": "lesson-1",
+      "position": 1,
+      "title_simplified": "进店与入座",
+      "title_traditional": "進店與入座",
+      "goal_simplified": "听懂店员询问人数，并回答几位。",
+      "goal_traditional": "聽懂店員詢問人數，並回答幾位。",
+      "core_lines": ["幾位呀？", "一位，唔該。"]
+    },
+    {
+      "id": "restaurant-lesson-2",
+      "slug": "lesson-2",
+      "position": 2,
+      "title_simplified": "说出你想要什么",
+      "title_traditional": "說出你想要什麼",
+      "goal_simplified": "能够点一杯饮品，并提出冷热、甜度和冰量要求。",
+      "goal_traditional": "能夠點一杯飲品，並提出冷熱、甜度和冰量要求。",
+      "showcase": true,
+      "words": [
+        {
+          "id": "word-m4-goi1",
+          "simplified": "唔该",
+          "traditional": "唔該",
+          "jyutping": "m4 goi1",
+          "meaning_simplified": "劳驾；麻烦你；接受服务时也可表示谢谢",
+          "meaning_traditional": "勞駕；麻煩你；接受服務時也可表示謝謝",
+          "audio_id": "word-m4-goi1"
+        },
+        {
+          "id": "word-dung3",
+          "simplified": "冻",
+          "traditional": "凍",
+          "jyutping": "dung3",
+          "meaning_simplified": "冷的；加冰的",
+          "meaning_traditional": "冷的；加冰的",
+          "audio_id": "word-dung3"
+        },
+        {
+          "id": "word-jit6",
+          "simplified": "热",
+          "traditional": "熱",
+          "jyutping": "jit6",
+          "meaning_simplified": "热的饮品",
+          "meaning_traditional": "熱的飲品",
+          "audio_id": "word-jit6"
+        },
+        {
+          "id": "word-siu2-tim4",
+          "simplified": "少甜",
+          "traditional": "少甜",
+          "jyutping": "siu2 tim4",
+          "meaning_simplified": "少放一点糖",
+          "meaning_traditional": "少放一點糖",
+          "audio_id": "word-siu2-tim4"
+        },
+        {
+          "id": "word-zau2-bing1",
+          "simplified": "走冰",
+          "traditional": "走冰",
+          "jyutping": "zau2 bing1",
+          "meaning_simplified": "不加冰",
+          "meaning_traditional": "不加冰",
+          "audio_id": "word-zau2-bing1"
+        },
+        {
+          "id": "word-bui1",
+          "simplified": "杯",
+          "traditional": "杯",
+          "jyutping": "bui1",
+          "meaning_simplified": "饮品量词：一杯",
+          "meaning_traditional": "飲品量詞：一杯",
+          "audio_id": "word-bui1"
+        }
+      ],
+      "patterns": [
+        {
+          "id": "pattern-order-drink",
+          "simplified": "我想要杯＋饮品。",
+          "traditional": "我想要杯＋飲品。",
+          "jyutping": "ngo5 soeng2 jiu3 bui1 ...",
+          "meaning_simplified": "我想要一杯……"
+        },
+        {
+          "id": "pattern-customize-drink",
+          "simplified": "饮品＋冻／热＋少甜／走冰。",
+          "traditional": "飲品＋凍／熱＋少甜／走冰。",
+          "jyutping": "... dung3 / jit6 ... siu2 tim4 / zau2 bing1",
+          "meaning_simplified": "在饮品后补充冷热、甜度或冰量。"
+        }
+      ],
+      "examples": [
+        {
+          "id": "example-order-milk-tea",
+          "simplified": "我要杯冻奶茶。",
+          "traditional": "我要杯凍奶茶。",
+          "jyutping": "ngo5 jiu3 bui1 dung3 naai5 caa4.",
+          "mandarin_simplified": "我要一杯冰奶茶。",
+          "audio_id": "example-order-milk-tea"
+        },
+        {
+          "id": "example-lemon-tea-less-sugar",
+          "simplified": "冻柠茶少甜，唔该。",
+          "traditional": "凍檸茶少甜，唔該。",
+          "jyutping": "dung3 ning4 caa4 siu2 tim4, m4 goi1.",
+          "mandarin_simplified": "冰柠檬茶少甜，麻烦了。",
+          "audio_id": "example-lemon-tea-less-sugar"
+        },
+        {
+          "id": "example-hot-coffee",
+          "simplified": "我想要杯热咖啡。",
+          "traditional": "我想要杯熱咖啡。",
+          "jyutping": "ngo5 soeng2 jiu3 bui1 jit6 gaa3 fe1.",
+          "mandarin_simplified": "我想要一杯热咖啡。",
+          "audio_id": "example-hot-coffee"
+        },
+        {
+          "id": "example-no-ice",
+          "simplified": "杯冻奶茶走冰，唔该。",
+          "traditional": "杯凍奶茶走冰，唔該。",
+          "jyutping": "bui1 dung3 naai5 caa4 zau2 bing1, m4 goi1.",
+          "mandarin_simplified": "这杯冰奶茶不要加冰，麻烦了。",
+          "audio_id": "example-no-ice"
+        }
+      ],
+      "dialogue": {
+        "id": "dialogue-order-drink",
+        "title_simplified": "在茶餐厅点饮品",
+        "title_traditional": "在茶餐廳點飲品",
+        "lines": [
+          {
+            "id": "dialogue-order-drink-1",
+            "speaker_simplified": "店员",
+            "speaker_traditional": "店員",
+            "simplified": "想饮啲咩啊？",
+            "traditional": "想飲啲咩啊？",
+            "jyutping": "soeng2 jam2 di1 me1 aa3?",
+            "mandarin_simplified": "想喝点什么？",
+            "audio_id": "dialogue-order-drink-1"
+          },
+          {
+            "id": "dialogue-order-drink-2",
+            "speaker_simplified": "顾客",
+            "speaker_traditional": "顧客",
+            "simplified": "唔该，我想要杯冻柠茶，少甜。",
+            "traditional": "唔該，我想要杯凍檸茶，少甜。",
+            "jyutping": "m4 goi1, ngo5 soeng2 jiu3 bui1 dung3 ning4 caa4, siu2 tim4.",
+            "mandarin_simplified": "麻烦来一杯少甜的冰柠檬茶。",
+            "audio_id": "dialogue-order-drink-2"
+          },
+          {
+            "id": "dialogue-order-drink-3",
+            "speaker_simplified": "店员",
+            "speaker_traditional": "店員",
+            "simplified": "要唔要走冰啊？",
+            "traditional": "要唔要走冰啊？",
+            "jyutping": "jiu3 m4 jiu3 zau2 bing1 aa3?",
+            "mandarin_simplified": "要不要去冰？",
+            "audio_id": "dialogue-order-drink-3"
+          },
+          {
+            "id": "dialogue-order-drink-4",
+            "speaker_simplified": "顾客",
+            "speaker_traditional": "顧客",
+            "simplified": "唔使啦，少冰可以。",
+            "traditional": "唔使啦，少冰可以。",
+            "jyutping": "m4 sai2 laa1, siu2 bing1 ho2 ji5.",
+            "mandarin_simplified": "不用了，少冰就行。",
+            "audio_id": "dialogue-order-drink-4"
+          },
+          {
+            "id": "dialogue-order-drink-5",
+            "speaker_simplified": "店员",
+            "speaker_traditional": "店員",
+            "simplified": "好，马上来。",
+            "traditional": "好，馬上來。",
+            "jyutping": "hou2, maa5 soeng6 lei4.",
+            "mandarin_simplified": "好，马上来。",
+            "audio_id": "dialogue-order-drink-5"
+          }
+        ]
+      },
+      "exercises": [
+        {
+          "id": "exercise-less-sugar",
+          "type": "choice",
+          "prompt_simplified": "“少放一点糖”用粤语怎么说？",
+          "options": ["走冰", "少甜", "埋单"],
+          "answer_index": 1
+        },
+        {
+          "id": "exercise-no-ice",
+          "type": "true_false",
+          "prompt_simplified": "想把冰去掉，可以说“走冰”。",
+          "answer": true
+        }
+      ]
+    },
+    {
+      "id": "restaurant-lesson-3",
+      "slug": "lesson-3",
+      "position": 3,
+      "title_simplified": "加点食物和数量",
+      "title_traditional": "加點食物和數量",
+      "goal_simplified": "使用“一个”“一份”加点简单食物。",
+      "goal_traditional": "使用「一個」「一份」加點簡單食物。",
+      "core_lines": ["再要一個菠蘿油，唔該。"]
+    },
+    {
+      "id": "restaurant-lesson-4",
+      "slug": "lesson-4",
+      "position": 4,
+      "title_simplified": "加单与其他要求",
+      "title_traditional": "加單與其他要求",
+      "goal_simplified": "听懂店员询问是否还需要其他东西。",
+      "goal_traditional": "聽懂店員詢問是否還需要其他東西。",
+      "core_lines": ["仲有冇其他嘢要呀？"]
+    },
+    {
+      "id": "restaurant-lesson-5",
+      "slug": "lesson-5",
+      "position": 5,
+      "title_simplified": "埋单与完整对话",
+      "title_traditional": "埋單與完整對話",
+      "goal_simplified": "用“埋单，唔该”完成结账，并串联全部表达。",
+      "goal_traditional": "用「埋單，唔該」完成結帳，並串聯全部表達。",
+      "core_lines": ["埋單，唔該。"]
+    }
+  ],
+  "related_video_slug": "cha-chaan-teng",
+  "content_note_simplified": "Demo 内容草稿，粤拼和表达在正式发布前仍需人工核验。"
+}

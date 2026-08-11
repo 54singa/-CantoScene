@@ -9,6 +9,8 @@
     "dev:server:local": "pnpm --filter @canto-scene/server dev:local",
     "build": "tsc -b && vite build",
     "build:server": "pnpm --filter @canto-scene/server build",
+    "content:check": "node scripts/validate-demo-content.mjs",
+    "content:check:audio": "node scripts/validate-demo-content.mjs --require-files",
     "preview": "vite preview",
     "typecheck": "tsc -b --pretty false",
     "typecheck:server": "pnpm --filter @canto-scene/server typecheck"
