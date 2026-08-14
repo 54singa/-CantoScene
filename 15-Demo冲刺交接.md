@@ -290,3 +290,4 @@ pnpm dev:server:local
 - [x] 加入严格 JSON 校验、30 秒硬超时、输入长度限制、每 IP 简单限流和字幕 ID + prompt 版本内存缓存；
 - [x] 项目负责人已在本地配置 `DEEPSEEK_API_KEY`，真实 API 冒烟测试与重复请求缓存测试均通过；
 - [x] 根据官方模型列表将 Demo 默认模型调整为 `deepseek-v4-flash`，设置 30 秒硬超时；
+- [x] 关闭字幕讲解不需要的思考模式并检测截断，避免推理 token 挤占结构化 JSON 输出；

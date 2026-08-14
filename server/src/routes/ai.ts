@@ -67,7 +67,7 @@ export async function aiRoutes(app: FastifyInstance, explainer: SubtitleExplaine
         cache.set(cacheKey, result);
         return dataResponse({ ...result, cached: false, prompt_version: AI_PROMPT_VERSION }, request.id);
       } catch (error) {
-        request.log.warn({ error }, "subtitle explanation failed");
+        request.log.warn({ err: error }, "subtitle explanation failed");
         return reply.code(502).send({ error: { code: "AI_UPSTREAM_FAILED", message: "AI 讲解暂时不可用，请稍后重试", request_id: request.id } });
       }
     },

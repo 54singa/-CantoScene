@@ -68,7 +68,8 @@ export function createDeepSeekExplainer(options: DeepSeekOptions): SubtitleExpla
         body: JSON.stringify({
           model,
           temperature: 0.2,
-          max_tokens: 600,
+          max_tokens: 800,
+          thinking: { type: "disabled" },
           response_format: { type: "json_object" },
           messages: [
             {
@@ -90,8 +91,10 @@ export function createDeepSeekExplainer(options: DeepSeekOptions): SubtitleExpla
       });
 
       if (!response.ok) throw new Error(`DeepSeek request failed with status ${response.status}`);
-      const payload = await response.json() as { choices?: Array<{ message?: { content?: unknown } }> };
-      const content = payload.choices?.[0]?.message?.content;
+      const payload = await response.json() as { choices?: Array<{ finish_reason?: string; message?: { content?: unknown } }> };
+      const choice = payload.choices?.[0];
+      if (choice?.finish_reason === "length") throw new DeepSeekResponseError("DeepSeek response was truncated");
+      const content = choice?.message?.content;
       if (typeof content !== "string") throw new DeepSeekResponseError("DeepSeek response has no content");
       let parsed: unknown;
       try { parsed = JSON.parse(content); } catch { throw new DeepSeekResponseError("DeepSeek response is not valid JSON"); }
