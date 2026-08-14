@@ -45,7 +45,7 @@ export function loadConfig(): AppConfig {
     jwtAccessSecret,
     deepseekApiKey: process.env.DEEPSEEK_API_KEY || undefined,
     deepseekBaseUrl: process.env.DEEPSEEK_BASE_URL ?? "https://api.deepseek.com",
-    deepseekModel: process.env.DEEPSEEK_MODEL ?? "deepseek-v4-pro",
-    deepseekTimeoutMs: Number(process.env.DEEPSEEK_TIMEOUT_MS ?? 12_000),
+    deepseekModel: process.env.DEEPSEEK_MODEL ?? "deepseek-v4-flash",
+    deepseekTimeoutMs: Number(process.env.DEEPSEEK_TIMEOUT_MS ?? 30_000),
   };
 }

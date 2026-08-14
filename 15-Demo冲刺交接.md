@@ -287,5 +287,6 @@ pnpm dev:server:local
 ### 2026-08-14｜第二阶段
 
 - [x] 新增 DeepSeek 后端代理与字幕卡“AI 讲解这句”入口；
-- [x] 加入严格 JSON 校验、12 秒超时、输入长度限制、每 IP 简单限流和字幕 ID + prompt 版本内存缓存；
-- [ ] 项目负责人在后端本地环境文件配置 `DEEPSEEK_API_KEY` 后完成真实 API 冒烟测试；
+- [x] 加入严格 JSON 校验、30 秒硬超时、输入长度限制、每 IP 简单限流和字幕 ID + prompt 版本内存缓存；
+- [x] 项目负责人已在本地配置 `DEEPSEEK_API_KEY`，真实 API 冒烟测试与重复请求缓存测试均通过；
+- [x] 根据官方模型列表将 Demo 默认模型调整为 `deepseek-v4-flash`，设置 30 秒硬超时；

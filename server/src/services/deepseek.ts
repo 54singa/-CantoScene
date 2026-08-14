@@ -53,8 +53,8 @@ type DeepSeekOptions = {
 
 export function createDeepSeekExplainer(options: DeepSeekOptions): SubtitleExplainer {
   const baseUrl = (options.baseUrl ?? "https://api.deepseek.com").replace(/\/$/, "");
-  const model = options.model ?? "deepseek-v4-pro";
-  const timeoutMs = options.timeoutMs ?? 12_000;
+  const model = options.model ?? "deepseek-v4-flash";
+  const timeoutMs = options.timeoutMs ?? 30_000;
 
   return {
     async explain(input) {
