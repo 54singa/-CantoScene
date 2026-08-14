@@ -4,6 +4,7 @@ import test from "node:test";
 import { buildApp } from "./app.js";
 import type { AppConfig } from "./config/env.js";
 import type { DatabaseClient } from "./lib/prisma.js";
+import type { SubtitleExplainer } from "./services/deepseek.js";
 
 const config: AppConfig = {
   nodeEnv: "test",
@@ -86,5 +87,48 @@ test("subtitle endpoint rejects an invalid cursor before querying the database",
   assert.equal(response.statusCode, 422);
   assert.equal(response.json().error.code, "VALIDATION_ERROR");
 
+  await app.close();
+});
+
+test("subtitle explanation validates input and caches successful AI output", async () => {
+  let calls = 0;
+  const aiExplainer: SubtitleExplainer = {
+    async explain() {
+      calls += 1;
+      return {
+        meaning: "在当前场景中表示礼貌地提出请求。",
+        learning_points: ["“唔该”常用于接受服务或麻烦别人。"],
+        usage_note: "语气自然礼貌，适合点餐。",
+        similar_expression: "唔该，畀杯冻柠茶我。",
+      };
+    },
+  };
+  const app = await buildApp({ config, database, logger: false, aiExplainer });
+  const body = {
+    subtitle_id: "line-1",
+    text_simplified: "唔该，我想要杯冻柠茶。",
+  };
+
+  const first = await app.inject({ method: "POST", url: "/api/v1/ai/explain-subtitle", payload: body });
+  const second = await app.inject({ method: "POST", url: "/api/v1/ai/explain-subtitle", payload: body });
+  assert.equal(first.statusCode, 200);
+  assert.equal(first.json().data.cached, false);
+  assert.equal(second.json().data.cached, true);
+  assert.equal(calls, 1);
+
+  const invalid = await app.inject({ method: "POST", url: "/api/v1/ai/explain-subtitle", payload: { subtitle_id: "line-2", text_simplified: "" } });
+  assert.equal(invalid.statusCode, 422);
+  await app.close();
+});
+
+test("subtitle explanation reports missing server-side AI configuration", async () => {
+  const app = await buildApp({ config, database, logger: false });
+  const response = await app.inject({
+    method: "POST",
+    url: "/api/v1/ai/explain-subtitle",
+    payload: { subtitle_id: "line-1", text_simplified: "唔该。" },
+  });
+  assert.equal(response.statusCode, 503);
+  assert.equal(response.json().error.code, "AI_NOT_CONFIGURED");
   await app.close();
 });

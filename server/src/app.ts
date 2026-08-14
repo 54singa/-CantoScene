@@ -10,11 +10,14 @@ import { authRoutes } from "./routes/auth.js";
 import { healthRoutes } from "./routes/health.js";
 import { learningDataRoutes } from "./routes/learning-data.js";
 import { videoRoutes } from "./routes/videos.js";
+import { aiRoutes } from "./routes/ai.js";
+import { createDeepSeekExplainer, type SubtitleExplainer } from "./services/deepseek.js";
 
 export type BuildAppOptions = {
   config: AppConfig;
   database: DatabaseClient;
   logger?: boolean;
+  aiExplainer?: SubtitleExplainer;
 };
 
 export async function buildApp(options: BuildAppOptions): Promise<FastifyInstance> {
@@ -73,6 +76,12 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
   await app.register(
     async (api) => {
       await api.register(healthRoutes);
+      await aiRoutes(api, options.aiExplainer ?? (options.config.deepseekApiKey ? createDeepSeekExplainer({
+        apiKey: options.config.deepseekApiKey,
+        baseUrl: options.config.deepseekBaseUrl,
+        model: options.config.deepseekModel,
+        timeoutMs: options.config.deepseekTimeoutMs,
+      }) : null));
       await authRoutes(api, options.database, options.config);
       await courseRoutes(api, options.database);
       await videoRoutes(api, options.database);

@@ -89,6 +89,15 @@ export type LearningSummary = {
   continue_learning: { type: 'video'; video_slug: string; current_ms: number } | null
 }
 
+export type SubtitleExplanation = {
+  meaning: string
+  learning_points: string[]
+  usage_note: string
+  similar_expression: string
+  cached: boolean
+  prompt_version: string
+}
+
 type Session = { user: User; access_token: string }
 
 export const api = {
@@ -129,5 +138,8 @@ export const api = {
   async getSummary() { return (await request<Envelope<LearningSummary>>('/me/learning-summary', {}, true)).data },
   async saveVideoProgress(videoId: string, currentMs: number, status: 'in_progress' | 'completed' = 'in_progress') {
     return request(`/me/video-progress/${videoId}`, { method: 'PUT', body: JSON.stringify({ status, current_ms: currentMs }) }, true)
+  },
+  async explainSubtitle(input: { subtitle_id: string; text_simplified: string; text_traditional?: string; jyutping?: string; mandarin?: string; context?: string }) {
+    return (await request<Envelope<SubtitleExplanation>>('/ai/explain-subtitle', { method: 'POST', body: JSON.stringify(input) })).data
   },
 }

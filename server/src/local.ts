@@ -1,3 +1,4 @@
+import "dotenv/config";
 import path from "node:path";
 
 import { buildApp } from "./app.js";
@@ -20,6 +21,10 @@ async function start(): Promise<void> {
     databaseUrl: localDatabase.databaseUrl,
     frontendOrigin: "http://127.0.0.1:5173",
     jwtAccessSecret: "canto-scene-local-development-secret-2026",
+    deepseekApiKey: process.env.DEEPSEEK_API_KEY || undefined,
+    deepseekBaseUrl: process.env.DEEPSEEK_BASE_URL ?? "https://api.deepseek.com",
+    deepseekModel: process.env.DEEPSEEK_MODEL ?? "deepseek-v4-pro",
+    deepseekTimeoutMs: Number(process.env.DEEPSEEK_TIMEOUT_MS ?? 12_000),
   };
   const app = await buildApp({ config, database });
 

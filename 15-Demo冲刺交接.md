@@ -283,3 +283,9 @@ pnpm dev:server:local
 - [x] 项目负责人已用既定 Fish Audio 女声生成前 3 条试听，文件已按 manifest 导入；
 - [x] 已导入全部 15 条 MP3，并执行 `pnpm content:check:audio` 完整验收；
 - [x] 完成第 2 课示范页：6 个核心字词、2 个句型、4 个例句、5 句对话、小练习与 15 条静态音频均已接入；
+
+### 2026-08-14｜第二阶段
+
+- [x] 新增 DeepSeek 后端代理与字幕卡“AI 讲解这句”入口；
+- [x] 加入严格 JSON 校验、12 秒超时、输入长度限制、每 IP 简单限流和字幕 ID + prompt 版本内存缓存；
+- [ ] 项目负责人在后端本地环境文件配置 `DEEPSEEK_API_KEY` 后完成真实 API 冒烟测试；

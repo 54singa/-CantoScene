@@ -2,6 +2,7 @@ import { Converter } from 'opencc-js/cn2t'
 import { useEffect, useMemo, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import sharedCss from '../../design/mockup/css/site.css?raw'
+import { api } from '../api/client'
 import { formatTime, video01Subtitles } from '../data'
 import { toggleAudio } from '../lib/audio'
 import { useApp } from '../state/AppContext'
@@ -180,6 +181,61 @@ export function PrototypePage({ source, pageId }: { source: string; pageId: stri
       }
       let selectedLine = lines[0]
       let activeIndex = -1
+      const aiButton = postcard?.querySelector<HTMLButtonElement>('.ai-explain')
+      const aiCard = postcard?.querySelector<HTMLElement>('.ai-card')
+
+      const resetAiCard = () => {
+        aiCard?.replaceChildren()
+        aiCard?.classList.remove('visible')
+        if (aiButton) {
+          aiButton.disabled = false
+          aiButton.textContent = 'AI 讲解这句'
+        }
+      }
+
+      const onExplain = async () => {
+        if (!aiButton || !aiCard) return
+        aiButton.disabled = true
+        aiButton.textContent = 'AI 正在讲解…'
+        aiCard.classList.add('visible')
+        aiCard.replaceChildren('正在整理这句的口语重点…')
+        try {
+          const explanation = await api.explainSubtitle({
+            subtitle_id: selectedLine.id,
+            text_simplified: selectedLine.yue,
+            text_traditional: selectedLine.traditional,
+            jyutping: selectedLine.jyutping,
+            mandarin: selectedLine.mandarin,
+            context: '香港影视对白，面向粤语初学者。',
+          })
+          const label = document.createElement('div')
+          label.className = 'ai-label'
+          label.textContent = 'AI 辅助解释 · 内容待核验'
+          const meaning = document.createElement('p')
+          meaning.textContent = explanation.meaning
+          const points = document.createElement('ul')
+          explanation.learning_points.forEach((point) => {
+            const item = document.createElement('li')
+            item.textContent = point
+            points.append(item)
+          })
+          const usage = document.createElement('p')
+          usage.textContent = `使用提示：${explanation.usage_note}`
+          const similar = document.createElement('p')
+          similar.textContent = `类似表达：${explanation.similar_expression}`
+          const note = document.createElement('div')
+          note.className = 'ai-note'
+          note.textContent = explanation.cached ? '已读取缓存结果' : '由 DeepSeek 生成'
+          aiCard.replaceChildren(label, meaning, points, usage, similar, note)
+          aiButton.textContent = '重新查看讲解'
+        } catch {
+          aiCard.replaceChildren('AI 讲解暂时不可用，请稍后重试。视频、字幕和收藏不受影响。')
+          aiButton.textContent = '重试 AI 讲解'
+        } finally {
+          aiButton.disabled = false
+        }
+      }
+      aiButton?.addEventListener('click', onExplain)
 
       const renderTime = () => {
         const current = video?.currentTime ?? 0
@@ -232,6 +288,7 @@ export function PrototypePage({ source, pageId }: { source: string; pageId: stri
 
       const updatePostcard = (lineIndex: number, row: HTMLElement) => {
         selectedLine = lines[Math.min(lineIndex, lines.length - 1)]
+        resetAiCard()
         postcard?.querySelector<HTMLElement>('.t')?.replaceChildren(formatTime(selectedLine.start))
         postcard?.querySelector<HTMLElement>('.speaker')?.replaceChildren('对白')
         postcard?.querySelector<HTMLElement>('.yue')?.replaceChildren(script === 'traditional' ? selectedLine.traditional : selectedLine.yue)
@@ -289,6 +346,7 @@ export function PrototypePage({ source, pageId }: { source: string; pageId: stri
         track?.removeEventListener('click', onTrackClick)
         savedButton?.removeEventListener('click', onSave)
         replay?.removeEventListener('click', onReplay)
+        aiButton?.removeEventListener('click', onExplain)
       }
     }
     onScroll()

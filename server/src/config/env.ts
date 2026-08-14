@@ -7,6 +7,10 @@ export type AppConfig = {
   databaseUrl: string;
   frontendOrigin: string;
   jwtAccessSecret: string;
+  deepseekApiKey?: string | undefined;
+  deepseekBaseUrl?: string | undefined;
+  deepseekModel?: string | undefined;
+  deepseekTimeoutMs?: number | undefined;
 };
 
 function parsePort(value: string | undefined): number {
@@ -39,5 +43,9 @@ export function loadConfig(): AppConfig {
     databaseUrl,
     frontendOrigin: process.env.FRONTEND_ORIGIN ?? "http://127.0.0.1:5173",
     jwtAccessSecret,
+    deepseekApiKey: process.env.DEEPSEEK_API_KEY || undefined,
+    deepseekBaseUrl: process.env.DEEPSEEK_BASE_URL ?? "https://api.deepseek.com",
+    deepseekModel: process.env.DEEPSEEK_MODEL ?? "deepseek-v4-pro",
+    deepseekTimeoutMs: Number(process.env.DEEPSEEK_TIMEOUT_MS ?? 12_000),
   };
 }
