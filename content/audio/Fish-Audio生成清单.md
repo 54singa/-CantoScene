@@ -21,28 +21,28 @@
 | [x] | 唔該 | `m4-goi1.mp3` | `public/audio/words/` |
 | [x] | 凍 | `dung3.mp3` | `public/audio/words/` |
 | [x] | 熱 | `jit6.mp3` | `public/audio/words/` |
-| [ ] | 少甜 | `siu2-tim4.mp3` | `public/audio/words/` |
-| [ ] | 走冰 | `zau2-bing1.mp3` | `public/audio/words/` |
-| [ ] | 杯 | `bui1.mp3` | `public/audio/words/` |
+| [x] | 少甜 | `siu2-tim4.mp3` | `public/audio/words/` |
+| [x] | 走冰 | `zau2-bing1.mp3` | `public/audio/words/` |
+| [x] | 杯 | `bui1.mp3` | `public/audio/words/` |
 
 ## B. 课程例句（4 条）
 
 | 状态 | 生成文本 | 文件名 | 放置目录 |
 |---|---|---|---|
-| [ ] | 我要杯凍奶茶。 | `order-milk-tea.mp3` | `public/audio/examples/` |
-| [ ] | 凍檸茶少甜，唔該。 | `lemon-tea-less-sugar.mp3` | `public/audio/examples/` |
-| [ ] | 我想要杯熱咖啡。 | `hot-coffee.mp3` | `public/audio/examples/` |
-| [ ] | 杯凍奶茶走冰，唔該。 | `no-ice.mp3` | `public/audio/examples/` |
+| [x] | 我要杯凍奶茶。 | `order-milk-tea.mp3` | `public/audio/examples/` |
+| [x] | 凍檸茶少甜，唔該。 | `lemon-tea-less-sugar.mp3` | `public/audio/examples/` |
+| [x] | 我想要杯熱咖啡。 | `hot-coffee.mp3` | `public/audio/examples/` |
+| [x] | 杯凍奶茶走冰，唔該。 | `no-ice.mp3` | `public/audio/examples/` |
 
 ## C. 情景对话（5 条）
 
 | 状态 | 角色 | 生成文本 | 文件名 | 放置目录 |
 |---|---|---|---|---|
-| [ ] | 店员 | 想飲啲咩啊？ | `order-drink-01.mp3` | `public/audio/dialogue/` |
-| [ ] | 顾客 | 唔該，我想要杯凍檸茶，少甜。 | `order-drink-02.mp3` | `public/audio/dialogue/` |
-| [ ] | 店员 | 要唔要走冰啊？ | `order-drink-03.mp3` | `public/audio/dialogue/` |
-| [ ] | 顾客 | 唔使啦，少冰可以。 | `order-drink-04.mp3` | `public/audio/dialogue/` |
-| [ ] | 店员 | 好，馬上來。 | `order-drink-05.mp3` | `public/audio/dialogue/` |
+| [x] | 店员 | 想飲啲咩啊？ | `order-drink-01.mp3` | `public/audio/dialogue/` |
+| [x] | 顾客 | 唔該，我想要杯凍檸茶，少甜。 | `order-drink-02.mp3` | `public/audio/dialogue/` |
+| [x] | 店员 | 要唔要走冰啊？ | `order-drink-03.mp3` | `public/audio/dialogue/` |
+| [x] | 顾客 | 唔使啦，少冰可以。 | `order-drink-04.mp3` | `public/audio/dialogue/` |
+| [x] | 店员 | 好，馬上來。 | `order-drink-05.mp3` | `public/audio/dialogue/` |
 
 ## 导入后验收
 

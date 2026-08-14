@@ -69,6 +69,9 @@ export const wordAudioUrls: Record<string, string> = {
   '唔该': '/audio/words/m4-goi1.mp3',
   '冻': '/audio/words/dung3.mp3',
   '热': '/audio/words/jit6.mp3',
+  '少甜': '/audio/words/siu2-tim4.mp3',
+  '走冰': '/audio/words/zau2-bing1.mp3',
+  '杯': '/audio/words/bui1.mp3',
 }
 
 export const dialogue = [

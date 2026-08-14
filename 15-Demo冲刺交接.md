@@ -281,5 +281,5 @@ pnpm dev:server:local
 - [x] 新增 15 条 Fish Audio 机器可读 manifest 和人工生成清单；
 - [x] 新增内容与音频引用自动校验 `pnpm content:check`；
 - [x] 项目负责人已用既定 Fish Audio 女声生成前 3 条试听，文件已按 manifest 导入；
-- [ ] 导入全部 15 条 MP3 后执行 `pnpm content:check:audio`；
-- [ ] 将剩余静态音频接入完整示范课（当前“凍”已可在课节页播放）；
+- [x] 已导入全部 15 条 MP3，并执行 `pnpm content:check:audio` 完整验收；
+- [ ] 将完整静态音频接入示范课（当前页面已有的 3 个字词和 3 个例句已接通，对话区块待实现）；
