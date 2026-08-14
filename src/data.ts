@@ -65,6 +65,12 @@ export const commonWords = [
   ['我唔明', '我唔明', 'ngo5 m4 ming4', '我不明白', '唔好意思，我唔明。'],
 ]
 
+export const wordAudioUrls: Record<string, string> = {
+  '唔该': '/audio/words/m4-goi1.mp3',
+  '冻': '/audio/words/dung3.mp3',
+  '热': '/audio/words/jit6.mp3',
+}
+
 export const dialogue = [
   { role: '店员', traditionalRole: '店員', text: '早晨，几位呀？', traditional: '早晨，幾位呀？', jyutping: 'zou2 san4, gei2 wai2 aa3?' },
   { role: '你', traditionalRole: '你', text: '一位，唔该。', traditional: '一位，唔該。', jyutping: 'jat1 wai2, m4 goi1.' },

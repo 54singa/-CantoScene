@@ -139,6 +139,9 @@ a{text-decoration:none;color:inherit;}
 .play-mini svg{width:11px;height:11px;fill:var(--sky-deep);margin-left:1px;}
 .play-mini.solid{background:var(--sky);border-color:var(--sky);}
 .play-mini.solid svg{fill:#fff;}
+.play-mini[data-audio-src]{cursor:pointer;}
+.play-mini.is-playing svg{animation:audio-pulse .65s ease infinite alternate;}
+@keyframes audio-pulse{to{transform:scale(1.28);}}
 
 /* 路线式进度（虚线路线 + 已完成实线段） */
 .route{

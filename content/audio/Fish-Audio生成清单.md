@@ -18,9 +18,9 @@
 
 | 状态 | 生成文本 | 文件名 | 放置目录 |
 |---|---|---|---|
-| [ ] | 唔該 | `m4-goi1.mp3` | `public/audio/words/` |
-| [ ] | 凍 | `dung3.mp3` | `public/audio/words/` |
-| [ ] | 熱 | `jit6.mp3` | `public/audio/words/` |
+| [x] | 唔該 | `m4-goi1.mp3` | `public/audio/words/` |
+| [x] | 凍 | `dung3.mp3` | `public/audio/words/` |
+| [x] | 熱 | `jit6.mp3` | `public/audio/words/` |
 | [ ] | 少甜 | `siu2-tim4.mp3` | `public/audio/words/` |
 | [ ] | 走冰 | `zau2-bing1.mp3` | `public/audio/words/` |
 | [ ] | 杯 | `bui1.mp3` | `public/audio/words/` |

@@ -280,6 +280,6 @@ pnpm dev:server:local
 - [x] 新增结构化课程源数据 `content/demo/cha-chaan-teng.json`；
 - [x] 新增 15 条 Fish Audio 机器可读 manifest 和人工生成清单；
 - [x] 新增内容与音频引用自动校验 `pnpm content:check`；
-- [ ] 需项目负责人用已确定女声生成前 3 条音频并试听；
+- [x] 项目负责人已用既定 Fish Audio 女声生成前 3 条试听，文件已按 manifest 导入；
 - [ ] 导入全部 15 条 MP3 后执行 `pnpm content:check:audio`；
-- [ ] 将静态音频接入完整示范课。
+- [ ] 将剩余静态音频接入完整示范课（当前“凍”已可在课节页播放）；

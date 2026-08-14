@@ -3,6 +3,7 @@ import { useEffect, useMemo, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import sharedCss from '../../design/mockup/css/site.css?raw'
 import { formatTime, video01Subtitles } from '../data'
+import { toggleAudio } from '../lib/audio'
 import { useApp } from '../state/AppContext'
 
 const toHongKongTraditional = Converter({ from: 'cn', to: 'hk' })
@@ -109,6 +110,25 @@ export function PrototypePage({ source, pageId }: { source: string; pageId: stri
       ;(event.currentTarget as HTMLElement).classList.add('on')
     }
     filters.forEach((filter) => filter.addEventListener('click', onFilterClick))
+
+    const lessonAudioButtons = pageId === 'lesson'
+      ? [...scope.querySelectorAll<HTMLElement>('[data-audio-src]')]
+      : []
+    const lessonAudioHandlers = lessonAudioButtons.map((button) => () => {
+      const source = button.dataset.audioSrc
+      if (!source) return
+      toggleAudio(source, (playing) => {
+        button.classList.toggle('is-playing', playing)
+        button.setAttribute('aria-pressed', String(playing))
+      })
+    })
+    lessonAudioButtons.forEach((button, index) => {
+      button.setAttribute('role', 'button')
+      button.setAttribute('tabindex', '0')
+      button.setAttribute('aria-label', button.dataset.audioLabel ?? '播放发音')
+      button.setAttribute('aria-pressed', 'false')
+      button.addEventListener('click', lessonAudioHandlers[index])
+    })
 
     if (pageId === 'video-study') {
       const playButtons = [...scope.querySelectorAll<HTMLElement>('.big-play,.ctrl-btn')]
@@ -260,6 +280,7 @@ export function PrototypePage({ source, pageId }: { source: string; pageId: stri
       scope.removeEventListener('click', onClick)
       tabs.forEach((tab) => tab.removeEventListener('click', onTabClick))
       filters.forEach((filter) => filter.removeEventListener('click', onFilterClick))
+      lessonAudioButtons.forEach((button, index) => button.removeEventListener('click', lessonAudioHandlers[index]))
     }
   }, [isFavorite, isLoggedIn, markup, navigate, pageCss, pageId, recordVideoProgress, script, setScript, toggleFavorite, user])
 

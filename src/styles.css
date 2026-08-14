@@ -184,6 +184,7 @@ main { min-height: 70vh; }
 .login-card label + label { margin-top: 14px; }
 .login-card .auth-error { margin: 13px 0 0; padding: 10px 12px; color: #9d3e32; background: var(--peach-wash); font-size: 12px; }
 .auth-loading { min-height: 55vh; display: grid; place-items: center; color: var(--ink-soft); }
+.audio-button:disabled { cursor: not-allowed; opacity: .35; }
 
 @media (max-width: 1050px) {
   .nav-links { gap: 19px; }.site-nav { padding-inline: 24px; }.nav-actions { min-width: 175px; }.brand { min-width: 165px; }
