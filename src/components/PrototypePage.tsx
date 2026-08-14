@@ -86,6 +86,11 @@ export function PrototypePage({ source, pageId }: { source: string; pageId: stri
       if (!anchor) return
       const label = anchor.textContent?.trim().replace(/\s+/g, ' ') ?? ''
       const href = anchor.getAttribute('href') ?? ''
+      if (href.startsWith('#') && href.length > 1) {
+        event.preventDefault()
+        scope.querySelector<HTMLElement>(href)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        return
+      }
       const target = navRoutes[label] ?? (href.startsWith('/') ? href : '')
       if (target) {
         event.preventDefault()
@@ -129,6 +134,18 @@ export function PrototypePage({ source, pageId }: { source: string; pageId: stri
       button.setAttribute('aria-pressed', 'false')
       button.addEventListener('click', lessonAudioHandlers[index])
     })
+
+    const quizOptions = [...scope.querySelectorAll<HTMLButtonElement>('.quiz-option')]
+    const quizHandlers = quizOptions.map((option) => () => {
+      const card = option.closest<HTMLElement>('.quiz-card')
+      if (!card) return
+      const isCorrect = option.textContent?.trim() === card.dataset.answer
+      card.querySelectorAll('.quiz-option').forEach((item) => item.classList.remove('correct', 'wrong'))
+      option.classList.add(isCorrect ? 'correct' : 'wrong')
+      const feedback = card.querySelector<HTMLElement>('.quiz-feedback')
+      if (feedback) feedback.textContent = isCorrect ? '答对了。' : `再想一下，正确答案是“${card.dataset.answer}”。`
+    })
+    quizOptions.forEach((option, index) => option.addEventListener('click', quizHandlers[index]))
 
     if (pageId === 'video-study') {
       const playButtons = [...scope.querySelectorAll<HTMLElement>('.big-play,.ctrl-btn')]
@@ -281,6 +298,7 @@ export function PrototypePage({ source, pageId }: { source: string; pageId: stri
       tabs.forEach((tab) => tab.removeEventListener('click', onTabClick))
       filters.forEach((filter) => filter.removeEventListener('click', onFilterClick))
       lessonAudioButtons.forEach((button, index) => button.removeEventListener('click', lessonAudioHandlers[index]))
+      quizOptions.forEach((option, index) => option.removeEventListener('click', quizHandlers[index]))
     }
   }, [isFavorite, isLoggedIn, markup, navigate, pageCss, pageId, recordVideoProgress, script, setScript, toggleFavorite, user])
 

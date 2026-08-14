@@ -114,6 +114,33 @@
   .lesson-nav{
     margin-top:26px;display:flex;align-items:center;justify-content:space-between;
   }
+  .lesson-section{scroll-margin-top:84px;margin-top:48px;padding-top:34px;border-top:1px solid var(--line);}
+  .section-kicker{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--sky-deep);}
+  .lesson-section h2{margin-top:7px;}
+  .section-note{margin:5px 0 22px;font-size:14px;color:var(--ink-soft);}
+  .pattern-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .pattern-card{padding:22px;background:var(--sky-wash);border:1px solid rgba(47,143,196,.18);border-radius:var(--radius);}
+  .pattern-card b{display:block;font-family:var(--serif);font-size:18px;color:#22394C;}
+  .pattern-card .jyut{display:block;margin:9px 0 5px;font-size:12px;}
+  .pattern-card p{font-size:13px;color:var(--ink-soft);}
+  .dialogue-card{position:relative;padding:25px 24px 12px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 8px 24px rgba(51,64,79,.06);}
+  .dialogue-line{display:grid;grid-template-columns:54px minmax(0,1fr) 34px;gap:14px;align-items:center;padding:15px 0;border-bottom:1px dashed rgba(51,64,79,.14);}
+  .dialogue-line:last-child{border-bottom:0;}
+  .dialogue-line .speaker{font-size:12px;font-weight:700;color:var(--peach-deep);}
+  .dialogue-line .yue{font-size:17px;}
+  .dialogue-line .jyut{margin-top:3px;font-size:11.5px;}
+  .dialogue-line .zh-sub{margin-top:2px;font-size:12.5px;}
+  .quiz-card{margin-top:14px;padding:21px 22px;background:var(--butter-wash);border:1px solid rgba(217,174,78,.3);border-radius:var(--radius);}
+  .quiz-card b{font-family:var(--serif);font-size:17px;}
+  .quiz-options{display:flex;gap:10px;flex-wrap:wrap;margin-top:15px;}
+  .quiz-option{border:1px solid rgba(51,64,79,.2);border-radius:999px;padding:7px 15px;background:#fff;cursor:pointer;color:var(--ink);}
+  .quiz-option.correct{border-color:var(--green);background:var(--green-wash);color:var(--green-deep);}
+  .quiz-option.wrong{border-color:var(--peach);background:var(--peach-wash);color:var(--peach-deep);}
+  .quiz-feedback{min-height:20px;margin-top:10px;font-size:12px;color:var(--ink-soft);}
+  .summary-card{display:flex;align-items:center;justify-content:space-between;gap:25px;padding:26px;background:var(--green-wash);border:1px solid rgba(76,175,142,.28);border-radius:var(--radius);}
+  .summary-card h2{font-size:22px;}
+  .summary-card p{margin-top:5px;font-size:13px;color:var(--ink-soft);}
+  @media(max-width:760px){.lesson{grid-template-columns:1fr}.menu{position:static}.pattern-grid{grid-template-columns:1fr}.summary-card{align-items:flex-start;flex-direction:column}.dish{grid-template-columns:44px minmax(0,1fr)}.dish .d-ops{grid-column:2}.dish .d-eg{grid-column:2}.lesson-head .meta{display:none}}
 </style>
 </head>
 <body>
@@ -153,11 +180,11 @@
       </div>
       <ul>
         <li class="done"><span class="st">✓</span>场景引入</li>
-        <li class="now"><span class="st">●</span>核心字词<span class="now-stamp">学习中</span></li>
-        <li class="todo"><span class="st">○</span>核心句型</li>
-        <li class="todo"><span class="st">○</span>情景对话</li>
-        <li class="todo"><span class="st">○</span>小练习</li>
-        <li class="todo"><span class="st">○</span>本课总结</li>
+        <li class="now"><span class="st">●</span><a href="#words">核心字词</a><span class="now-stamp">学习中</span></li>
+        <li class="todo"><span class="st">○</span><a href="#patterns">核心句型</a></li>
+        <li class="todo"><span class="st">○</span><a href="#dialogue">情景对话</a></li>
+        <li class="todo"><span class="st">○</span><a href="#exercise">小练习</a></li>
+        <li class="todo"><span class="st">○</span><a href="#summary">本课总结</a></li>
       </ul>
       <a class="jyut-link" href="#">
         <span class="tile">g</span>
@@ -167,12 +194,12 @@
     </aside>
 
     <!-- 学习主区 -->
-    <div class="stage">
+    <div class="stage" id="words">
       <h2>核心字词</h2>
       <p class="goal">目标：能够点一杯饮品，并提出冷热、甜度这样的小要求。</p>
       <div class="prog">
-        <span>2/6</span>
-        <span class="route"><i style="width:33%;"></i></span>
+        <span>6/6</span>
+        <span class="route"><i style="width:100%;"></i></span>
         <span>核心字词</span>
       </div>
 
@@ -241,6 +268,94 @@
           <span class="play-mini" data-audio-src="/audio/examples/hot-coffee.mp3" data-audio-label="播放例句‘我想要杯热咖啡’"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg></span>
         </div>
       </div>
+
+      <div class="dish">
+        <span class="code">A4</span>
+        <div class="d-main">
+          <span class="d-word">唔该</span>
+          <span class="d-jyut">m4 goi1</span>
+          <span class="d-zh">劳驾；麻烦你；接受服务时表示谢谢</span>
+        </div>
+        <div class="d-ops">
+          <span class="play-mini solid" data-audio-src="/audio/words/m4-goi1.mp3" data-audio-label="播放‘唔该’的发音"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg></span>
+          <span class="fav"><svg viewBox="0 0 24 24"><path d="M7 4h10a1 1 0 0 1 1 1v15l-6-4-6 4V5a1 1 0 0 1 1-1z"/></svg>收藏</span>
+        </div>
+      </div>
+
+      <div class="dish">
+        <span class="code">A5</span>
+        <div class="d-main">
+          <span class="d-word">热</span>
+          <span class="d-jyut">jit6</span>
+          <span class="d-zh">热的饮品</span>
+        </div>
+        <div class="d-ops">
+          <span class="play-mini solid" data-audio-src="/audio/words/jit6.mp3" data-audio-label="播放‘热’的发音"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg></span>
+          <span class="fav"><svg viewBox="0 0 24 24"><path d="M7 4h10a1 1 0 0 1 1 1v15l-6-4-6 4V5a1 1 0 0 1 1-1z"/></svg>收藏</span>
+        </div>
+      </div>
+
+      <div class="dish">
+        <span class="code">A6</span>
+        <div class="d-main">
+          <span class="d-word">走冰</span>
+          <span class="d-jyut">zau2 bing1</span>
+          <span class="d-zh">不加冰</span>
+        </div>
+        <div class="d-ops">
+          <span class="play-mini solid" data-audio-src="/audio/words/zau2-bing1.mp3" data-audio-label="播放‘走冰’的发音"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg></span>
+          <span class="fav"><svg viewBox="0 0 24 24"><path d="M7 4h10a1 1 0 0 1 1 1v15l-6-4-6 4V5a1 1 0 0 1 1-1z"/></svg>收藏</span>
+        </div>
+        <div class="d-eg">
+          <span class="yue">杯冻奶茶走冰，唔该。</span>
+          <span class="jyut">bui1 dung3 naai5 caa4 zau2 bing1, m4 goi1.</span>
+          <span class="zh-sub">这杯冰奶茶不要加冰，麻烦了。</span>
+          <span class="play-mini" data-audio-src="/audio/examples/no-ice.mp3" data-audio-label="播放例句‘杯冻奶茶走冰，唔该’"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg></span>
+        </div>
+      </div>
+
+      <section class="lesson-section" id="patterns">
+        <span class="section-kicker">02 · CORE PATTERNS</span>
+        <h2>核心句型</h2>
+        <p class="section-note">先套用句型，再替换饮品和要求。</p>
+        <div class="pattern-grid">
+          <article class="pattern-card">
+            <b>我想要杯＋饮品。</b>
+            <span class="jyut">ngo5 soeng2 jiu3 bui1 ...</span>
+            <p>表示“我想要一杯……”。</p>
+          </article>
+          <article class="pattern-card">
+            <b>饮品＋冻／热＋少甜／走冰。</b>
+            <span class="jyut">... dung3 / jit6 ... siu2 tim4 / zau2 bing1</span>
+            <p>在饮品后补充冷热、甜度或冰量要求。</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="lesson-section" id="dialogue">
+        <span class="section-kicker">03 · REAL DIALOGUE</span>
+        <h2>情景对话</h2>
+        <p class="section-note">把刚学的表达放回一次完整点单。</p>
+        <div class="dialogue-card">
+          <div class="dialogue-line"><span class="speaker">店员</span><div><div class="yue">想饮啲咩啊？</div><div class="jyut">soeng2 jam2 di1 me1 aa3?</div><div class="zh-sub">想喝点什么？</div></div><span class="play-mini solid" data-audio-src="/audio/dialogue/order-drink-01.mp3" data-audio-label="播放第一句对话"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg></span></div>
+          <div class="dialogue-line"><span class="speaker">顾客</span><div><div class="yue">唔该，我想要杯冻柠茶，少甜。</div><div class="jyut">m4 goi1, ngo5 soeng2 jiu3 bui1 dung3 ning4 caa4, siu2 tim4.</div><div class="zh-sub">麻烦来一杯少甜的冰柠檬茶。</div></div><span class="play-mini solid" data-audio-src="/audio/dialogue/order-drink-02.mp3" data-audio-label="播放第二句对话"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg></span></div>
+          <div class="dialogue-line"><span class="speaker">店员</span><div><div class="yue">要唔要走冰啊？</div><div class="jyut">jiu3 m4 jiu3 zau2 bing1 aa3?</div><div class="zh-sub">要不要去冰？</div></div><span class="play-mini solid" data-audio-src="/audio/dialogue/order-drink-03.mp3" data-audio-label="播放第三句对话"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg></span></div>
+          <div class="dialogue-line"><span class="speaker">顾客</span><div><div class="yue">唔使啦，少冰可以。</div><div class="jyut">m4 sai2 laa1, siu2 bing1 ho2 ji5.</div><div class="zh-sub">不用了，少冰就行。</div></div><span class="play-mini solid" data-audio-src="/audio/dialogue/order-drink-04.mp3" data-audio-label="播放第四句对话"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg></span></div>
+          <div class="dialogue-line"><span class="speaker">店员</span><div><div class="yue">好，马上来。</div><div class="jyut">hou2, maa5 soeng6 lei4.</div><div class="zh-sub">好，马上来。</div></div><span class="play-mini solid" data-audio-src="/audio/dialogue/order-drink-05.mp3" data-audio-label="播放第五句对话"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg></span></div>
+        </div>
+      </section>
+
+      <section class="lesson-section" id="exercise">
+        <span class="section-kicker">04 · QUICK CHECK</span>
+        <h2>小练习</h2>
+        <div class="quiz-card" data-answer="少甜"><b>“少放一点糖”用粤语怎么说？</b><div class="quiz-options"><button class="quiz-option">走冰</button><button class="quiz-option">少甜</button><button class="quiz-option">埋单</button></div><p class="quiz-feedback"></p></div>
+        <div class="quiz-card" data-answer="对"><b>想把冰去掉，可以说“走冰”。</b><div class="quiz-options"><button class="quiz-option">对</button><button class="quiz-option">不对</button></div><p class="quiz-feedback"></p></div>
+      </section>
+
+      <section class="lesson-section" id="summary">
+        <span class="section-kicker">05 · LESSON SUMMARY</span>
+        <div class="summary-card"><div><h2>你已经完成一次茶餐厅点饮品。</h2><p>现在去短片里再听一次，看看能不能认出“冻、少甜、走冰”。</p></div><a class="btn-primary" href="video-study.html">去影视练习</a></div>
+      </section>
 
       <div class="lesson-nav">
         <a class="btn-outline" href="#">
