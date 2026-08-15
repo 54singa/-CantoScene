@@ -53,6 +53,10 @@ VITE_VIDEO_NESTLE_URL=https://视频存储域名/nestle-coffee-cantonese.mp4
 
 ## 5. 后端部署命令
 
+仓库根目录已提供 `render.yaml`。在 Render 选择 **Blueprint** 并连接 GitHub 仓库后，平台会自动使用新加坡区、免费 Web Service、构建命令、启动命令和健康检查配置。首次创建时只需在 Render 页面私密填写 `DATABASE_URL` 与 `DEEPSEEK_API_KEY`。
+
+Blueprint 实际执行：
+
 ```bash
 pnpm install --frozen-lockfile
 pnpm build:server

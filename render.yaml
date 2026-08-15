@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: cantoscene-api
+    runtime: node
+    region: singapore
+    plan: free
+    branch: main
+    buildCommand: corepack enable && pnpm install --frozen-lockfile && pnpm build:server && pnpm --filter @canto-scene/server db:deploy && pnpm --filter @canto-scene/server db:seed
+    startCommand: pnpm --filter @canto-scene/server start
+    healthCheckPath: /api/v1/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: HOST
+        value: 0.0.0.0
+      - key: FRONTEND_ORIGIN
+        value: https://example.com
+      - key: JWT_ACCESS_SECRET
+        generateValue: true
+      - key: DATABASE_URL
+        sync: false
+      - key: DEEPSEEK_API_KEY
+        sync: false
+      - key: DEEPSEEK_BASE_URL
+        value: https://api.deepseek.com
+      - key: DEEPSEEK_MODEL
+        value: deepseek-v4-flash
+      - key: DEEPSEEK_TIMEOUT_MS
+        value: "30000"
