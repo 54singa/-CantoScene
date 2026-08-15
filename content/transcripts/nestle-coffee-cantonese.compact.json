@@ -1,0 +1,328 @@
+{
+  "source": "nestle-coffee-cantonese.mp4",
+  "duration": 120.093,
+  "method": "burned-in-subtitle OCR cross-checked with Cantonese ASR",
+  "review_status": "demo-draft",
+  "segments": [
+    {
+      "id": "line-1",
+      "start": 1.26,
+      "end": 5.58,
+      "text": "有時愈努力，反而會唔記得，應該點樣去努力。",
+      "jyutping": "jau5 si4 jyu6 nou5 lik6, faan2 ji4 wui5 m4 gei3 dak1, jing1 goi1 dim2 joeng2 heoi3 nou5 lik6.",
+      "mandarin": "有时候越努力，反而会忘记，应该怎么去努力。"
+    },
+    {
+      "id": "line-2",
+      "start": 6.68,
+      "end": 9.1,
+      "text": "又見工呀？畀心機",
+      "jyutping": "jau6 gin3 gung1 aa3? bei2 sam1 gei1",
+      "mandarin": "又去面试啊？加油。"
+    },
+    {
+      "id": "line-3",
+      "start": 9.28,
+      "end": 11.9,
+      "text": "我相信我可以為呢間公司帶嚟一啲……",
+      "jyutping": "ngo5 soeng1 seon3 ngo5 ho2 ji5 wai6 ni1 gaan1 gung1 si1 daai3 lai4 jat1 di1……",
+      "mandarin": "我相信我可以为这家公司带来一些……"
+    },
+    {
+      "id": "line-4",
+      "start": 11.9,
+      "end": 13.06,
+      "text": "喂，小心呀！",
+      "jyutping": "wai3, siu2 sam1 aa3!",
+      "mandarin": "喂，小心啊！"
+    },
+    {
+      "id": "line-5",
+      "start": 15.18,
+      "end": 16.44,
+      "text": "我啲咖啡呀！",
+      "jyutping": "ngo5 di1 gaa3 fe1 aa3!",
+      "mandarin": "我的咖啡啊！"
+    },
+    {
+      "id": "line-6",
+      "start": 17.98,
+      "end": 18.86,
+      "text": "你無事呀嘛？",
+      "jyutping": "nei5 mou5 si6 aa3 maa3?",
+      "mandarin": "你没事吧？"
+    },
+    {
+      "id": "line-7",
+      "start": 19.32,
+      "end": 19.54,
+      "text": "無事",
+      "jyutping": "mou5 si6",
+      "mandarin": "没事。"
+    },
+    {
+      "id": "line-8",
+      "start": 19.54,
+      "end": 21.12,
+      "text": "對唔住呀，我趕住去見工呀！",
+      "jyutping": "deoi3 m4 zyu6 aa3, ngo5 gon2 zyu6 heoi3 gin3 gung1 aa3!",
+      "mandarin": "对不起啊，我赶着去面试呢！"
+    },
+    {
+      "id": "line-9",
+      "start": 22.38,
+      "end": 26.14,
+      "text": "記住，每個人都可以比本份做多一分㗎。",
+      "jyutping": "gei3 zyu6, mui5 go3 jan4 dou1 ho2 ji5 bei2 bun2 fan6 zou6 do1 jat1 fan1 gaa3.",
+      "mandarin": "记住，每个人都可以比本分多做一分。"
+    },
+    {
+      "id": "line-10",
+      "start": 26.48,
+      "end": 27.62,
+      "text": "吓？唔過海呀？",
+      "jyutping": "haa2? m4 gwo3 hoi2 aa3?",
+      "mandarin": "啊？不过海吗？"
+    },
+    {
+      "id": "line-11",
+      "start": 27.86,
+      "end": 30.56,
+      "text": "吓？又唔過海？有冇人可以幫到我呀？",
+      "jyutping": "haa2? jau6 m4 gwo3 hoi2? jau5 mou5 jan4 ho2 ji5 bong1 dou3 ngo5 aa3?",
+      "mandarin": "啊？又不过海？有没有人能帮帮我呀？"
+    },
+    {
+      "id": "line-12",
+      "start": 31.92,
+      "end": 32.96,
+      "text": "嚟啦，上車。",
+      "jyutping": "lai4 laa1, soeng5 ce1.",
+      "mandarin": "来吧，上车。"
+    },
+    {
+      "id": "line-13",
+      "start": 33.56,
+      "end": 34.26,
+      "text": "你要去邊呀？",
+      "jyutping": "nei5 jiu3 heoi3 bin1 aa3?",
+      "mandarin": "你要去哪里呀？"
+    },
+    {
+      "id": "line-14",
+      "start": 34.68,
+      "end": 35.42,
+      "text": "最近車站啦。",
+      "jyutping": "zeoi3 gan6 ce1 zaam6 laa1.",
+      "mandarin": "最近的车站啦。"
+    },
+    {
+      "id": "line-15",
+      "start": 35.42,
+      "end": 36.82,
+      "text": "好，冇問題！",
+      "jyutping": "hou2, mou5 man6 tai4!",
+      "mandarin": "好，没问题！"
+    },
+    {
+      "id": "line-16",
+      "start": 36.82,
+      "end": 38.3,
+      "text": "坐穩喇，揀啱就落訂喇。",
+      "jyutping": "co5 wan2 laa3, gaan2 ngaam1 zau6 lok6 deng6 laa3.",
+      "mandarin": "坐稳了，挑中合适的就付订金吧。"
+    },
+    {
+      "id": "line-17",
+      "start": 40.76,
+      "end": 43.14,
+      "text": "咁大件事，應該諗清楚嘅。",
+      "jyutping": "gam3 daai6 gin6 si6, jing1 goi1 nam2 cing1 co2 ge3.",
+      "mandarin": "这么大的事，应该想清楚的。"
+    },
+    {
+      "id": "line-18",
+      "start": 43.14,
+      "end": 44.88,
+      "text": "睇多幾個再諗都得㗎。",
+      "jyutping": "tai2 do1 gei2 go3 zoi3 nam2 dou1 dak1 gaa3.",
+      "mandarin": "多看几个再想也可以的。"
+    },
+    {
+      "id": "line-19",
+      "start": 45.96,
+      "end": 49.54,
+      "text": "醒神啲！幫到人唔會蝕底嘅。",
+      "jyutping": "sing2 san4 di1! bong1 dou3 jan4 m4 wui5 sit6 dai2 ge3.",
+      "mandarin": "精神点！帮到人不会吃亏的。"
+    },
+    {
+      "id": "line-20",
+      "start": 49.64,
+      "end": 50.66,
+      "text": "唉，趕住交更呀。",
+      "jyutping": "aai1, gon2 zyu6 gaau1 gaang1 aa3.",
+      "mandarin": "唉，赶着交班呢。"
+    },
+    {
+      "id": "line-21",
+      "start": 51.16,
+      "end": 52.96,
+      "text": "喂，載埋佢啦。",
+      "jyutping": "wai3, zoi3 maai4 keoi5 laa1.",
+      "mandarin": "喂，顺便载上他吧。"
+    },
+    {
+      "id": "line-22",
+      "start": 52.96,
+      "end": 53.98,
+      "text": "一程好快啫。",
+      "jyutping": "jat1 cing4 hou2 faai3 ze1.",
+      "mandarin": "一趟很快的。"
+    },
+    {
+      "id": "line-23",
+      "start": 54.46,
+      "end": 55.96,
+      "text": "上車！Last 一個車埋你",
+      "jyutping": "soeng5 ce1! Last jat1 go3 ce1 maai4 nei5",
+      "mandarin": "上车！最后一个，顺便载你。"
+    },
+    {
+      "id": "line-24",
+      "start": 56.48,
+      "end": 58.18,
+      "text": "就呢度啦！拜拜。",
+      "jyutping": "zau6 ni1 dou6 laa1! baai1 baai3.",
+      "mandarin": "就这里吧！拜拜。"
+    },
+    {
+      "id": "line-25",
+      "start": 61.12,
+      "end": 63.8,
+      "text": "做好本份，唔係我哋停低嘅理由。",
+      "jyutping": "zou6 hou2 bun2 fan6, m4 hai6 ngo5 dei6 ting4 dai1 ge3 lei5 jau4.",
+      "mandarin": "做好本分，不是我们停下来的理由。"
+    },
+    {
+      "id": "line-26",
+      "start": 66.26,
+      "end": 68.24,
+      "text": "如果每個人都可以做多少少，",
+      "jyutping": "jyu4 gwo2 mui5 go3 jan4 dou1 ho2 ji5 zou6 do1 siu2 siu2,",
+      "mandarin": "如果每个人都可以多做一点点，"
+    },
+    {
+      "id": "line-27",
+      "start": 68.78,
+      "end": 70.8,
+      "text": "我哋一定可以一齊行得更遠。",
+      "jyutping": "ngo5 dei6 jat1 ding6 ho2 ji5 jat1 cai4 haang4 dak1 gang3 jyun5.",
+      "mandarin": "我们一定可以一起走得更远。"
+    },
+    {
+      "id": "line-28",
+      "start": 72,
+      "end": 74.18,
+      "text": "所以努力緊嘅你，繼續呀。",
+      "jyutping": "so2 ji5 nou5 lik6 gan2 ge3 nei5, gai3 zuk6 aa3.",
+      "mandarin": "所以正在努力的你，继续吧。"
+    },
+    {
+      "id": "line-29",
+      "start": 74.8,
+      "end": 76.88,
+      "text": "覺得攰嘅你，唔好放棄。",
+      "jyutping": "gok3 dak1 gui6 ge3 nei5, m4 hou2 fong3 hei3.",
+      "mandarin": "觉得累的你，不要放弃。"
+    },
+    {
+      "id": "line-30",
+      "start": 79.42,
+      "end": 80.81,
+      "text": "咁多位，一齊努力啦！",
+      "jyutping": "gam3 do1 wai2, jat1 cai4 nou5 lik6 laa1!",
+      "mandarin": "各位，一起努力吧！"
+    },
+    {
+      "id": "line-31",
+      "start": 90.8,
+      "end": 91.86,
+      "text": "對唔住，我遲咗。",
+      "jyutping": "deoi3 m4 zyu6, ngo5 ci4 zo2.",
+      "mandarin": "对不起，我迟到了。"
+    },
+    {
+      "id": "line-32",
+      "start": 91.86,
+      "end": 95.63,
+      "text": "連準時都未做到，仲要冇學歷、冇經驗。",
+      "jyutping": "lin4 zeon2 si4 dou1 mei6 zou6 dou3, zung6 jiu3 mou5 hok6 lik6, mou5 ging1 jim6.",
+      "mandarin": "连准时都做不到，还没有学历、没有经验。"
+    },
+    {
+      "id": "line-33",
+      "start": 96.26,
+      "end": 97.62,
+      "text": "唔好再嘥大家。",
+      "jyutping": "m4 hou2 zoi3 saai1 daai6 gaa1.",
+      "mandarin": "不要再浪费大家的时间。"
+    },
+    {
+      "id": "line-34",
+      "start": 97.62,
+      "end": 102.56,
+      "text": "原來，我哋一直都忘記咗最重要嘅嘢。",
+      "jyutping": "jyun4 loi4, ngo5 dei6 jat1 zik6 dou1 mong4 gei3 zo2 zeoi3 zung6 jiu3 ge3 je5.",
+      "mandarin": "原来，我们一直都忘记了最重要的东西。"
+    },
+    {
+      "id": "line-35",
+      "start": 103.3,
+      "end": 105.68,
+      "text": "準備好，我哋就開始啦。",
+      "jyutping": "zeon2 bei6 hou2, ngo5 dei6 zau6 hoi1 ci2 laa1.",
+      "mandarin": "准备好，我们就开始啦。"
+    },
+    {
+      "id": "line-36",
+      "start": 107.23,
+      "end": 110.13,
+      "text": "真正醒神，就係俾本份做多一分。",
+      "jyutping": "zan1 zing3 sing2 san4, zau6 hai6 bei2 bun2 fan6 zou6 do1 jat1 fan1.",
+      "mandarin": "真正的醒神，就是在本分之外多做一分。"
+    },
+    {
+      "id": "line-37",
+      "start": 110.59,
+      "end": 112.97,
+      "text": "NESCAFÉ 同你一齊行多步。",
+      "jyutping": "NESCAFÉ tung4 nei5 jat1 cai4 haang4 do1 bou6.",
+      "mandarin": "NESCAFÉ 和你一起多走一步。"
+    },
+    {
+      "id": "line-38",
+      "start": 112.97,
+      "end": 114.61,
+      "text": "依家每罐送你 10 Asia Miles，",
+      "jyutping": "ji1 gaa1 mui5 gun3 sung3 nei5 10 Asia Miles,",
+      "mandarin": "现在每罐送你10 Asia Miles，"
+    },
+    {
+      "id": "line-39",
+      "start": 114.61,
+      "end": 117.41,
+      "text": "仲有每週大抽獎，贏取 20,000 里數。",
+      "jyutping": "zung6 jau5 mui5 zau1 daai6 cau1 zoeng2, jeng4 ceoi2 20,000 lei5 sou3.",
+      "mandarin": "还有每周大抽奖，赢取20,000里数。"
+    },
+    {
+      "id": "line-40",
+      "start": 117.41,
+      "end": 118.77,
+      "text": "等緊你呀。",
+      "jyutping": "dang2 gan2 nei5 aa3.",
+      "mandarin": "等着你呀。"
+    }
+  ]
+}

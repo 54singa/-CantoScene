@@ -22,6 +22,8 @@ type Transcript = {
     start: number;
     end: number;
     text: string;
+    jyutping?: string;
+    mandarin?: string;
   }>;
 };
 
@@ -65,6 +67,9 @@ type AudioManifest = {
 const toSimplified = Converter({ from: "hk", to: "cn" });
 const transcriptPath = fileURLToPath(
   new URL("../../../content/transcripts/01.compact.json", import.meta.url),
+);
+const nestleCoffeeTranscriptPath = fileURLToPath(
+  new URL("../../../content/transcripts/nestle-coffee-cantonese.compact.json", import.meta.url),
 );
 const demoCoursePath = fileURLToPath(
   new URL("../../../content/demo/cha-chaan-teng.json", import.meta.url),
@@ -325,6 +330,59 @@ export async function seedDatabase(database: DatabaseClient): Promise<SeedSummar
     })),
     skipDuplicates: true,
   });
+
+  const nestleCoffeeTranscript = JSON.parse(
+    await readFile(nestleCoffeeTranscriptPath, "utf8"),
+  ) as Transcript;
+  const nestleCoffeeVideo = await database.video.upsert({
+    where: { slug: "nestle-coffee" },
+    update: {
+      durationMs: Math.round(nestleCoffeeTranscript.duration * 1000),
+      status: VideoStatus.PUBLISHED,
+    },
+    create: {
+      slug: "nestle-coffee",
+      titleSimplified: "影视片段 02：一齐行多步",
+      titleTraditional: "影視片段 02：一齊行多步",
+      listTitleSimplified: "一齐行多步",
+      listTitleTraditional: "一齊行多步",
+      summarySimplified: "从见工、搭车到互相帮忙，听懂一段香港粤语动画广告。",
+      summaryTraditional: "從見工、搭車到互相幫忙，聽懂一段香港粵語動畫廣告。",
+      difficulty: Difficulty.BEGINNER,
+      durationMs: Math.round(nestleCoffeeTranscript.duration * 1000),
+      videoUrl: "/videos/nestle-coffee-cantonese.mp4",
+      posterUrl: "/design/assets/nestle-coffee-cover.png",
+      tags: ["动画广告", "职场", "香港日常"],
+      focusPoints: ["听辨粤语口语", "逐句重播", "画面字幕对照"],
+      sourceNote: "Demo 素材；字幕由画面 OCR 与本地粤语语音识别交叉生成，仍需语言校对。",
+      status: VideoStatus.PUBLISHED,
+      publishedAt: new Date("2026-08-14T00:00:00.000Z"),
+    },
+  });
+
+  await Promise.all(nestleCoffeeTranscript.segments.map((segment, index) => {
+    const data = {
+      startMs: Math.round(segment.start * 1000),
+      endMs: Math.round(segment.end * 1000),
+      textSimplified: toSimplified(segment.text),
+      textTraditional: segment.text,
+      jyutping: segment.jyutping ?? null,
+      mandarinSimplified: segment.mandarin ?? null,
+      reviewStatus: ContentReviewStatus.PUBLISHED,
+      aiModel: "vision-ocr+whisper-small+deepseek-v4-flash",
+    };
+    return database.subtitleLine.upsert({
+      where: {
+        videoId_position: { videoId: nestleCoffeeVideo.id, position: index + 1 },
+      },
+      update: data,
+      create: {
+        videoId: nestleCoffeeVideo.id,
+        position: index + 1,
+        ...data,
+      },
+    });
+  }));
 
   const [courses, lessons, lessonItems, videos, subtitles] = await Promise.all([
     database.course.count(),

@@ -1,9 +1,9 @@
 import { Converter } from 'opencc-js/cn2t'
 import { useEffect, useMemo, useRef } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import sharedCss from '../../design/mockup/css/site.css?raw'
 import { api } from '../api/client'
-import { formatTime, video01Subtitles } from '../data'
+import { formatTime, videoStudies } from '../data'
 import { toggleAudio } from '../lib/audio'
 import { useApp } from '../state/AppContext'
 
@@ -55,6 +55,8 @@ const navRoutes: Record<string, string> = {
 export function PrototypePage({ source, pageId }: { source: string; pageId: string }) {
   const root = useRef<HTMLDivElement>(null)
   const navigate = useNavigate()
+  const { videoId } = useParams()
+  const videoStudy = videoStudies[videoId ?? 'cha-chaan-teng'] ?? videoStudies['cha-chaan-teng']
   const { script, setScript, isLoggedIn, user, toggleFavorite, isFavorite, recordVideoProgress } = useApp()
   const pageCss = useMemo(() => extract(source, 'style'), [source])
   const markup = useMemo(() => {
@@ -160,7 +162,37 @@ export function PrototypePage({ source, pageId }: { source: string; pageId: stri
       const subtitlesBody = scope.querySelector<HTMLElement>('.subs-body')
       const postcard = scope.querySelector<HTMLElement>('.postcard')
       const subtitlesHead = scope.querySelector<HTMLElement>('.subs-head')
-      const lines = video01Subtitles
+      const lines = videoStudy.subtitles
+      const pageTitle = scope.querySelector<HTMLElement>('.subhead h1')
+      const subtitleStatus = scope.querySelector<HTMLElement>('.subhead .level-chip')
+      const subtitleCount = scope.querySelector<HTMLElement>('.subhead .meta span:last-child')
+      const focusChips = scope.querySelector<HTMLElement>('.focus-chips')
+      const learned = scope.querySelector<HTMLElement>('.learned')
+      const note = scope.querySelector<HTMLElement>('.note-band p')
+      const noteStatus = scope.querySelector<HTMLElement>('.note-band .more')
+      const studyFooter = scope.querySelector<HTMLElement>('footer')
+      if (video) {
+        video.src = videoStudy.videoUrl
+        video.poster = videoStudy.posterUrl
+      }
+      if (pageTitle) pageTitle.textContent = script === 'traditional' ? videoStudy.traditionalTitle : videoStudy.title
+      if (subtitleStatus) subtitleStatus.textContent = videoStudy.subtitleStatus
+      if (subtitleCount) subtitleCount.textContent = `${lines.length} 句对白`
+      if (focusChips) {
+        const chips = videoStudy.tags.map((tag) => {
+          const chip = document.createElement('span')
+          chip.className = 'chip'
+          chip.textContent = tag
+          return chip
+        })
+        focusChips.replaceChildren(document.createTextNode('本段场景 '), ...chips)
+      }
+      const learnedLabel = learned && [...learned.childNodes].find((node) => node.nodeType === Node.TEXT_NODE)
+      if (learnedLabel) learnedLabel.textContent = `共 ${lines.length} 句对白 `
+      if (note) note.textContent = videoStudy.note
+      const noteStatusLabel = noteStatus && [...noteStatus.childNodes].find((node) => node.nodeType === Node.TEXT_NODE)
+      if (noteStatusLabel) noteStatusLabel.textContent = `${videoStudy.subtitleStatus} `
+      if (studyFooter) studyFooter.textContent = `粤见 CantoScene · 影视学习页 · ${videoStudy.subtitleStatus}`
       const rows = lines.map((line) => {
         const row = document.createElement('div')
         row.className = 'row'
@@ -206,7 +238,7 @@ export function PrototypePage({ source, pageId }: { source: string; pageId: stri
             text_traditional: selectedLine.traditional,
             jyutping: selectedLine.jyutping,
             mandarin: selectedLine.mandarin,
-            context: '香港影视对白，面向粤语初学者。',
+            context: `${videoStudy.title}，香港粤语影视对白，面向粤语初学者。`,
           })
           const label = document.createElement('div')
           label.className = 'ai-label'
@@ -269,9 +301,9 @@ export function PrototypePage({ source, pageId }: { source: string; pageId: stri
       const onPause = () => {
         scope.querySelector('.big-play')?.classList.remove('is-playing')
         controlIcon?.setAttribute('d', 'M7 4.5v15l13-7.5z')
-        if (video && video.currentTime > 0 && !video.ended) void recordVideoProgress('cha-chaan-teng', video.currentTime)
+        if (video && video.currentTime > 0 && !video.ended) void recordVideoProgress(videoStudy.slug, video.currentTime)
       }
-      const onEnded = () => { if (video) void recordVideoProgress('cha-chaan-teng', video.duration, true) }
+      const onEnded = () => { if (video) void recordVideoProgress(videoStudy.slug, video.duration, true) }
       const onTrackClick = (event: Event) => {
         if (!video || !track || !Number.isFinite(video.duration)) return
         const mouse = event as MouseEvent
@@ -302,6 +334,7 @@ export function PrototypePage({ source, pageId }: { source: string; pageId: stri
       }
       const rowHandlers = rows.map((row, index) => () => updatePostcard(index, row))
       rows.forEach((row, index) => row.addEventListener('click', rowHandlers[index]))
+      if (rows[0]) updatePostcard(0, rows[0])
 
       const savedButton = postcard?.querySelector<HTMLElement>('.stamped')
       const renderSaved = () => {
@@ -312,11 +345,11 @@ export function PrototypePage({ source, pageId }: { source: string; pageId: stri
       }
       const onSave = async () => {
         if (!isLoggedIn) {
-          navigate('/login?next=/watch/cha-chaan-teng')
+          navigate(`/login?next=/watch/${videoStudy.slug}`)
           return
         }
         try {
-          await toggleFavorite(selectedLine)
+          await toggleFavorite(selectedLine, videoStudy.title)
           renderSaved()
         } catch {
           if (savedButton?.lastChild) savedButton.lastChild.textContent = ' 保存失败'
@@ -358,7 +391,7 @@ export function PrototypePage({ source, pageId }: { source: string; pageId: stri
       lessonAudioButtons.forEach((button, index) => button.removeEventListener('click', lessonAudioHandlers[index]))
       quizOptions.forEach((option, index) => option.removeEventListener('click', quizHandlers[index]))
     }
-  }, [isFavorite, isLoggedIn, markup, navigate, pageCss, pageId, recordVideoProgress, script, setScript, toggleFavorite, user])
+  }, [isFavorite, isLoggedIn, markup, navigate, pageCss, pageId, recordVideoProgress, script, setScript, toggleFavorite, user, videoStudy])
 
   return <div ref={root} className={`prototype-page prototype-${pageId}`} />
 }

@@ -26,8 +26,8 @@ test("migrations, seed data, and public APIs work together", async () => {
       courses: 3,
       lessons: 14,
       lessonItems: 5,
-      videos: 1,
-      subtitles: 350,
+      videos: 2,
+      subtitles: 390,
     });
 
     const courses = await app.inject({ method: "GET", url: "/api/v1/courses" });
@@ -57,6 +57,24 @@ test("migrations, seed data, and public APIs work together", async () => {
     });
     assert.equal(video.statusCode, 200);
     assert.equal(video.json().data.subtitle_count, 350);
+
+    const nestleCoffeeVideo = await app.inject({
+      method: "GET",
+      url: "/api/v1/videos/nestle-coffee",
+    });
+    assert.equal(nestleCoffeeVideo.statusCode, 200);
+    assert.equal(nestleCoffeeVideo.json().data.subtitle_count, 40);
+    assert.equal(nestleCoffeeVideo.json().data.video_url, "/videos/nestle-coffee-cantonese.mp4");
+
+    const nestleCoffeeSubtitles = await app.inject({
+      method: "GET",
+      url: `/api/v1/videos/${nestleCoffeeVideo.json().data.id as string}/subtitles?limit=40`,
+    });
+    assert.equal(nestleCoffeeSubtitles.statusCode, 200);
+    assert.equal(nestleCoffeeSubtitles.json().data.length, 40);
+    assert.equal(nestleCoffeeSubtitles.json().data[1].text_traditional, "又見工呀？畀心機");
+    assert.equal(nestleCoffeeSubtitles.json().data[5].jyutping, "nei5 mou5 si6 aa3 maa3?");
+    assert.equal(nestleCoffeeSubtitles.json().data[15].mandarin_simplified, "坐稳了，挑中合适的就付订金吧。");
 
     const videoId = video.json().data.id as string;
     const subtitles = await app.inject({

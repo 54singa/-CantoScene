@@ -35,7 +35,7 @@ function readLegacyFavorites(): FavoriteLine[] {
 }
 
 function linePosition(id: string) {
-  const match = id.match(/^line-(\d+)$/)
+  const match = id.match(/line-(\d+)$/)
   return match ? Number(match[1]) : undefined
 }
 
@@ -43,7 +43,7 @@ function favoriteLine(item: ApiFavorite): FavoriteLine | null {
   const line = item.subtitle_line
   if (!line) return null
   return {
-    id: `line-${line.position}`,
+    id: `${line.video_slug}:line-${line.position}`,
     serverId: item.id,
     videoId: line.video_id,
     videoSlug: line.video_slug,
@@ -67,20 +67,22 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [summary, setSummary] = useState<LearningSummary | null>(null)
   const favoritesRef = useRef<FavoriteLine[]>([])
   const wordbookRef = useRef<WordbookItem[]>([])
-  const catalogRef = useRef<{ videoId: string; lines: ApiSubtitle[] } | null>(null)
-  const catalogPromiseRef = useRef<Promise<{ videoId: string; lines: ApiSubtitle[] }> | null>(null)
+  const catalogRef = useRef(new Map<string, { videoId: string; lines: ApiSubtitle[] }>())
+  const catalogPromiseRef = useRef(new Map<string, Promise<{ videoId: string; lines: ApiSubtitle[] }>>())
   const legacyFavorites = useRef(readLegacyFavorites())
 
-  const loadCatalog = useCallback(async () => {
-    if (catalogRef.current) return catalogRef.current
-    if (!catalogPromiseRef.current) {
-      catalogPromiseRef.current = api.getVideo('cha-chaan-teng').then(async (video) => {
+  const loadCatalog = useCallback(async (slug = 'cha-chaan-teng') => {
+    const cached = catalogRef.current.get(slug)
+    if (cached) return cached
+    if (!catalogPromiseRef.current.has(slug)) {
+      const pending = api.getVideo(slug).then(async (video) => {
         const catalog = { videoId: video.id, lines: await api.getSubtitles(video.id) }
-        catalogRef.current = catalog
+        catalogRef.current.set(slug, catalog)
         return catalog
-      }).finally(() => { catalogPromiseRef.current = null })
+      }).finally(() => { catalogPromiseRef.current.delete(slug) })
+      catalogPromiseRef.current.set(slug, pending)
     }
-    return catalogPromiseRef.current
+    return catalogPromiseRef.current.get(slug)!
   }, [])
 
   const refreshPrivateData = useCallback(async () => {
@@ -97,7 +99,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   const migrateLegacyFavorites = useCallback(async () => {
     if (!legacyFavorites.current.length) return
-    const catalog = await loadCatalog()
+    const catalog = await loadCatalog('cha-chaan-teng')
     for (const legacy of legacyFavorites.current) {
       const position = linePosition(legacy.id)
       const serverLine = catalog.lines.find((line) => line.position === position)
@@ -162,7 +164,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       setFavorites(favoritesRef.current)
       return true
     }
-    const catalog = await loadCatalog()
+    const catalog = await loadCatalog(line.videoSlug ?? 'cha-chaan-teng')
     const position = linePosition(line.id)
     const serverLine = catalog.lines.find((item) => item.position === position)
       ?? catalog.lines.find((item) => Math.abs(item.start_ms / 1000 - line.start) < 0.05)
@@ -200,7 +202,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const recordVideoProgress = useCallback(async (slug: string, seconds: number, completed = false) => {
     if (!user) return
     try {
-      const catalog = slug === 'cha-chaan-teng' ? await loadCatalog() : { videoId: (await api.getVideo(slug)).id }
+      const catalog = await loadCatalog(slug)
       await api.saveVideoProgress(catalog.videoId, Math.max(0, Math.round(seconds * 1000)), completed ? 'completed' : 'in_progress')
       setSummary(await api.getSummary())
     } catch { /* 进度同步失败不应中断播放 */ }

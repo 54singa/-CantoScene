@@ -1,0 +1,2065 @@
+{
+  "source": "香港雀巢咖啡粤语&日语动画宣传广告 p01 粤语版 [BV12z4y197pz_p1].mp4",
+  "model": "small",
+  "detected_language": "zh",
+  "language_probability": 1,
+  "duration": 120.093625,
+  "segments": [
+    {
+      "id": "line-1",
+      "start": 1.26,
+      "end": 5.58,
+      "text": "有時越努力,反而會忘記,應該怎樣去努力。",
+      "words": [
+        {
+          "start": 1.26,
+          "end": 1.76,
+          "word": "有",
+          "probability": 0.7679
+        },
+        {
+          "start": 1.76,
+          "end": 1.92,
+          "word": "時",
+          "probability": 0.6249
+        },
+        {
+          "start": 1.92,
+          "end": 2.06,
+          "word": "越",
+          "probability": 0.8149
+        },
+        {
+          "start": 2.06,
+          "end": 2.26,
+          "word": "努",
+          "probability": 0.9854
+        },
+        {
+          "start": 2.26,
+          "end": 2.54,
+          "word": "力,",
+          "probability": 0.9992
+        },
+        {
+          "start": 2.94,
+          "end": 3.2,
+          "word": "反",
+          "probability": 0.4959
+        },
+        {
+          "start": 3.2,
+          "end": 3.34,
+          "word": "而",
+          "probability": 0.9978
+        },
+        {
+          "start": 3.34,
+          "end": 3.48,
+          "word": "會",
+          "probability": 0.5745
+        },
+        {
+          "start": 3.48,
+          "end": 3.64,
+          "word": "忘",
+          "probability": 0.6511
+        },
+        {
+          "start": 3.64,
+          "end": 3.9,
+          "word": "記,",
+          "probability": 0.7743
+        },
+        {
+          "start": 4.16,
+          "end": 4.4,
+          "word": "應該",
+          "probability": 0.7798
+        },
+        {
+          "start": 4.4,
+          "end": 4.6,
+          "word": "怎樣",
+          "probability": 0.5321
+        },
+        {
+          "start": 4.6,
+          "end": 4.86,
+          "word": "去",
+          "probability": 0.8573
+        },
+        {
+          "start": 4.86,
+          "end": 5.02,
+          "word": "努",
+          "probability": 0.9977
+        },
+        {
+          "start": 5.02,
+          "end": 5.58,
+          "word": "力。",
+          "probability": 0.9999
+        }
+      ]
+    },
+    {
+      "id": "line-2",
+      "start": 6.68,
+      "end": 9.1,
+      "text": "又見公民,你真厲害啊!",
+      "words": [
+        {
+          "start": 6.68,
+          "end": 7.12,
+          "word": "又",
+          "probability": 0.3814
+        },
+        {
+          "start": 7.12,
+          "end": 7.38,
+          "word": "見",
+          "probability": 0.7298
+        },
+        {
+          "start": 7.38,
+          "end": 7.62,
+          "word": "公",
+          "probability": 0.1815
+        },
+        {
+          "start": 7.62,
+          "end": 7.82,
+          "word": "民,",
+          "probability": 0.3626
+        },
+        {
+          "start": 8.0,
+          "end": 8.1,
+          "word": "你",
+          "probability": 0.3307
+        },
+        {
+          "start": 8.1,
+          "end": 8.26,
+          "word": "真",
+          "probability": 0.3043
+        },
+        {
+          "start": 8.26,
+          "end": 8.46,
+          "word": "厲害",
+          "probability": 0.1381
+        },
+        {
+          "start": 8.46,
+          "end": 9.1,
+          "word": "啊!",
+          "probability": 0.3197
+        }
+      ]
+    },
+    {
+      "id": "line-3",
+      "start": 9.28,
+      "end": 11.9,
+      "text": "我相信我可以為這間公司帶來…",
+      "words": [
+        {
+          "start": 9.28,
+          "end": 9.48,
+          "word": "我",
+          "probability": 0.9222
+        },
+        {
+          "start": 9.48,
+          "end": 9.76,
+          "word": "相信",
+          "probability": 0.9941
+        },
+        {
+          "start": 9.76,
+          "end": 10.26,
+          "word": "我",
+          "probability": 0.5367
+        },
+        {
+          "start": 10.26,
+          "end": 10.52,
+          "word": "可以",
+          "probability": 0.9281
+        },
+        {
+          "start": 10.52,
+          "end": 10.66,
+          "word": "為",
+          "probability": 0.9545
+        },
+        {
+          "start": 10.66,
+          "end": 10.82,
+          "word": "這",
+          "probability": 0.93
+        },
+        {
+          "start": 10.82,
+          "end": 10.98,
+          "word": "間",
+          "probability": 0.5927
+        },
+        {
+          "start": 10.98,
+          "end": 11.12,
+          "word": "公",
+          "probability": 0.9942
+        },
+        {
+          "start": 11.12,
+          "end": 11.28,
+          "word": "司",
+          "probability": 0.9927
+        },
+        {
+          "start": 11.28,
+          "end": 11.52,
+          "word": "帶",
+          "probability": 0.9276
+        },
+        {
+          "start": 11.52,
+          "end": 11.7,
+          "word": "來",
+          "probability": 0.8473
+        },
+        {
+          "start": 11.7,
+          "end": 11.9,
+          "word": "…",
+          "probability": 0.0995
+        }
+      ]
+    },
+    {
+      "id": "line-4",
+      "start": 11.9,
+      "end": 13.06,
+      "text": "喂!小心啊!",
+      "words": [
+        {
+          "start": 11.9,
+          "end": 12.12,
+          "word": "喂!",
+          "probability": 0.3435
+        },
+        {
+          "start": 12.4,
+          "end": 12.6,
+          "word": "小心",
+          "probability": 0.94
+        },
+        {
+          "start": 12.6,
+          "end": 13.06,
+          "word": "啊!",
+          "probability": 0.7656
+        }
+      ]
+    },
+    {
+      "id": "line-5",
+      "start": 15.18,
+      "end": 16.44,
+      "text": "我的咖啡啊!",
+      "words": [
+        {
+          "start": 15.18,
+          "end": 15.62,
+          "word": "我的",
+          "probability": 0.4901
+        },
+        {
+          "start": 15.62,
+          "end": 15.92,
+          "word": "咖",
+          "probability": 0.9528
+        },
+        {
+          "start": 15.92,
+          "end": 16.12,
+          "word": "啡",
+          "probability": 0.9996
+        },
+        {
+          "start": 16.12,
+          "end": 16.44,
+          "word": "啊!",
+          "probability": 0.6938
+        }
+      ]
+    },
+    {
+      "id": "line-6",
+      "start": 17.98,
+      "end": 18.86,
+      "text": "你沒事吧?",
+      "words": [
+        {
+          "start": 17.98,
+          "end": 18.42,
+          "word": "你",
+          "probability": 0.8033
+        },
+        {
+          "start": 18.42,
+          "end": 18.62,
+          "word": "沒事",
+          "probability": 0.9727
+        },
+        {
+          "start": 18.62,
+          "end": 18.86,
+          "word": "吧?",
+          "probability": 0.674
+        }
+      ]
+    },
+    {
+      "id": "line-7",
+      "start": 19.32,
+      "end": 19.54,
+      "text": "沒事",
+      "words": [
+        {
+          "start": 19.32,
+          "end": 19.54,
+          "word": "沒事",
+          "probability": 0.3917
+        }
+      ]
+    },
+    {
+      "id": "line-8",
+      "start": 19.54,
+      "end": 21.12,
+      "text": "對不起,我說著見公啊!",
+      "words": [
+        {
+          "start": 19.54,
+          "end": 19.76,
+          "word": "對不起,",
+          "probability": 0.2655
+        },
+        {
+          "start": 20.08,
+          "end": 20.3,
+          "word": "我說",
+          "probability": 0.1527
+        },
+        {
+          "start": 20.3,
+          "end": 20.5,
+          "word": "著",
+          "probability": 0.5332
+        },
+        {
+          "start": 20.5,
+          "end": 20.68,
+          "word": "見",
+          "probability": 0.9273
+        },
+        {
+          "start": 20.68,
+          "end": 20.82,
+          "word": "公",
+          "probability": 0.9916
+        },
+        {
+          "start": 20.82,
+          "end": 21.12,
+          "word": "啊!",
+          "probability": 0.616
+        }
+      ]
+    },
+    {
+      "id": "line-9",
+      "start": 22.38,
+      "end": 26.14,
+      "text": "記住,每個人都可以給本分,做多一分的!",
+      "words": [
+        {
+          "start": 22.38,
+          "end": 22.6,
+          "word": "記",
+          "probability": 0.7472
+        },
+        {
+          "start": 22.6,
+          "end": 22.86,
+          "word": "住,",
+          "probability": 0.7896
+        },
+        {
+          "start": 23.22,
+          "end": 23.36,
+          "word": "每",
+          "probability": 0.984
+        },
+        {
+          "start": 23.36,
+          "end": 23.72,
+          "word": "個人",
+          "probability": 0.9497
+        },
+        {
+          "start": 23.72,
+          "end": 24.16,
+          "word": "都",
+          "probability": 0.7314
+        },
+        {
+          "start": 24.16,
+          "end": 24.32,
+          "word": "可以",
+          "probability": 0.8374
+        },
+        {
+          "start": 24.32,
+          "end": 24.42,
+          "word": "給",
+          "probability": 0.7626
+        },
+        {
+          "start": 24.42,
+          "end": 24.64,
+          "word": "本",
+          "probability": 0.2943
+        },
+        {
+          "start": 24.64,
+          "end": 24.94,
+          "word": "分,",
+          "probability": 0.4914
+        },
+        {
+          "start": 25.3,
+          "end": 25.54,
+          "word": "做",
+          "probability": 0.5539
+        },
+        {
+          "start": 25.54,
+          "end": 25.64,
+          "word": "多",
+          "probability": 0.6799
+        },
+        {
+          "start": 25.64,
+          "end": 25.76,
+          "word": "一",
+          "probability": 0.9001
+        },
+        {
+          "start": 25.76,
+          "end": 25.98,
+          "word": "分",
+          "probability": 0.6843
+        },
+        {
+          "start": 25.98,
+          "end": 26.14,
+          "word": "的!",
+          "probability": 0.6306
+        }
+      ]
+    },
+    {
+      "id": "line-10",
+      "start": 26.48,
+      "end": 27.62,
+      "text": "又見過海啊!",
+      "words": [
+        {
+          "start": 26.48,
+          "end": 26.58,
+          "word": "又",
+          "probability": 0.5662
+        },
+        {
+          "start": 26.58,
+          "end": 26.88,
+          "word": "見",
+          "probability": 0.5199
+        },
+        {
+          "start": 26.88,
+          "end": 27.06,
+          "word": "過",
+          "probability": 0.9758
+        },
+        {
+          "start": 27.06,
+          "end": 27.38,
+          "word": "海",
+          "probability": 0.9514
+        },
+        {
+          "start": 27.38,
+          "end": 27.62,
+          "word": "啊!",
+          "probability": 0.4882
+        }
+      ]
+    },
+    {
+      "id": "line-11",
+      "start": 27.86,
+      "end": 30.56,
+      "text": "又不過海,又沒人可以幫我啊!",
+      "words": [
+        {
+          "start": 27.86,
+          "end": 28.3,
+          "word": "又",
+          "probability": 0.9879
+        },
+        {
+          "start": 28.3,
+          "end": 28.54,
+          "word": "不",
+          "probability": 0.3551
+        },
+        {
+          "start": 28.54,
+          "end": 28.68,
+          "word": "過",
+          "probability": 0.9122
+        },
+        {
+          "start": 28.68,
+          "end": 29.0,
+          "word": "海,",
+          "probability": 0.9942
+        },
+        {
+          "start": 29.3,
+          "end": 29.42,
+          "word": "又",
+          "probability": 0.9128
+        },
+        {
+          "start": 29.42,
+          "end": 29.52,
+          "word": "沒",
+          "probability": 0.5557
+        },
+        {
+          "start": 29.52,
+          "end": 29.62,
+          "word": "人",
+          "probability": 0.9821
+        },
+        {
+          "start": 29.62,
+          "end": 29.78,
+          "word": "可以",
+          "probability": 0.7372
+        },
+        {
+          "start": 29.78,
+          "end": 29.94,
+          "word": "幫",
+          "probability": 0.9367
+        },
+        {
+          "start": 29.94,
+          "end": 30.28,
+          "word": "我",
+          "probability": 0.6374
+        },
+        {
+          "start": 30.28,
+          "end": 30.56,
+          "word": "啊!",
+          "probability": 0.8753
+        }
+      ]
+    },
+    {
+      "id": "line-12",
+      "start": 31.92,
+      "end": 32.96,
+      "text": "來吧 上車",
+      "words": [
+        {
+          "start": 31.92,
+          "end": 32.32,
+          "word": "來",
+          "probability": 0.4649
+        },
+        {
+          "start": 32.32,
+          "end": 32.5,
+          "word": "吧",
+          "probability": 0.2384
+        },
+        {
+          "start": 32.6,
+          "end": 32.8,
+          "word": " 上",
+          "probability": 0.9451
+        },
+        {
+          "start": 32.8,
+          "end": 32.96,
+          "word": "車",
+          "probability": 0.9871
+        }
+      ]
+    },
+    {
+      "id": "line-13",
+      "start": 33.56,
+      "end": 34.26,
+      "text": "你要去哪裡",
+      "words": [
+        {
+          "start": 33.56,
+          "end": 33.96,
+          "word": "你要",
+          "probability": 0.3148
+        },
+        {
+          "start": 33.96,
+          "end": 34.08,
+          "word": "去",
+          "probability": 0.9407
+        },
+        {
+          "start": 34.08,
+          "end": 34.26,
+          "word": "哪裡",
+          "probability": 0.4052
+        }
+      ]
+    },
+    {
+      "id": "line-14",
+      "start": 34.68,
+      "end": 35.42,
+      "text": "最近車站",
+      "words": [
+        {
+          "start": 34.68,
+          "end": 35.08,
+          "word": "最近",
+          "probability": 0.1823
+        },
+        {
+          "start": 35.08,
+          "end": 35.28,
+          "word": "車",
+          "probability": 0.816
+        },
+        {
+          "start": 35.28,
+          "end": 35.42,
+          "word": "站",
+          "probability": 0.9534
+        }
+      ]
+    },
+    {
+      "id": "line-15",
+      "start": 35.42,
+      "end": 37.16,
+      "text": "沒問題 坐吧",
+      "words": [
+        {
+          "start": 35.42,
+          "end": 35.74,
+          "word": "沒",
+          "probability": 0.0549
+        },
+        {
+          "start": 35.74,
+          "end": 36.18,
+          "word": "問題",
+          "probability": 0.9814
+        },
+        {
+          "start": 36.38,
+          "end": 36.7,
+          "word": " 坐",
+          "probability": 0.8039
+        },
+        {
+          "start": 36.7,
+          "end": 37.16,
+          "word": "吧",
+          "probability": 0.5056
+        }
+      ]
+    },
+    {
+      "id": "line-16",
+      "start": 37.16,
+      "end": 38.3,
+      "text": "選對了就下車",
+      "words": [
+        {
+          "start": 37.16,
+          "end": 37.54,
+          "word": "選",
+          "probability": 0.0582
+        },
+        {
+          "start": 37.54,
+          "end": 37.78,
+          "word": "對了",
+          "probability": 0.4277
+        },
+        {
+          "start": 37.78,
+          "end": 37.96,
+          "word": "就",
+          "probability": 0.5324
+        },
+        {
+          "start": 37.96,
+          "end": 38.12,
+          "word": "下",
+          "probability": 0.2727
+        },
+        {
+          "start": 38.12,
+          "end": 38.3,
+          "word": "車",
+          "probability": 0.3353
+        }
+      ]
+    },
+    {
+      "id": "line-17",
+      "start": 40.76,
+      "end": 43.14,
+      "text": "這麼大件事應該想清楚",
+      "words": [
+        {
+          "start": 40.76,
+          "end": 41.16,
+          "word": "這麼",
+          "probability": 0.0116
+        },
+        {
+          "start": 41.16,
+          "end": 41.56,
+          "word": "大",
+          "probability": 0.4123
+        },
+        {
+          "start": 41.56,
+          "end": 41.76,
+          "word": "件",
+          "probability": 0.5681
+        },
+        {
+          "start": 41.76,
+          "end": 42.12,
+          "word": "事",
+          "probability": 0.9919
+        },
+        {
+          "start": 42.12,
+          "end": 42.6,
+          "word": "應該",
+          "probability": 0.7251
+        },
+        {
+          "start": 42.6,
+          "end": 42.76,
+          "word": "想",
+          "probability": 0.6809
+        },
+        {
+          "start": 42.76,
+          "end": 43.14,
+          "word": "清楚",
+          "probability": 0.9825
+        }
+      ]
+    },
+    {
+      "id": "line-18",
+      "start": 43.14,
+      "end": 44.88,
+      "text": "看多幾個再想都行",
+      "words": [
+        {
+          "start": 43.14,
+          "end": 43.72,
+          "word": "看",
+          "probability": 0.1941
+        },
+        {
+          "start": 43.72,
+          "end": 43.86,
+          "word": "多",
+          "probability": 0.8404
+        },
+        {
+          "start": 43.86,
+          "end": 44.02,
+          "word": "幾",
+          "probability": 0.9362
+        },
+        {
+          "start": 44.02,
+          "end": 44.24,
+          "word": "個",
+          "probability": 0.7846
+        },
+        {
+          "start": 44.24,
+          "end": 44.44,
+          "word": "再",
+          "probability": 0.2352
+        },
+        {
+          "start": 44.44,
+          "end": 44.6,
+          "word": "想",
+          "probability": 0.9264
+        },
+        {
+          "start": 44.6,
+          "end": 44.7,
+          "word": "都",
+          "probability": 0.4024
+        },
+        {
+          "start": 44.7,
+          "end": 44.88,
+          "word": "行",
+          "probability": 0.5483
+        }
+      ]
+    },
+    {
+      "id": "line-19",
+      "start": 45.96,
+      "end": 49.54,
+      "text": "醒神一點 幫到人 不會吃虧的",
+      "words": [
+        {
+          "start": 45.96,
+          "end": 46.36,
+          "word": "醒",
+          "probability": 0.2575
+        },
+        {
+          "start": 46.36,
+          "end": 46.56,
+          "word": "神",
+          "probability": 0.8184
+        },
+        {
+          "start": 46.56,
+          "end": 46.82,
+          "word": "一點",
+          "probability": 0.5353
+        },
+        {
+          "start": 47.08,
+          "end": 47.3,
+          "word": " 幫",
+          "probability": 0.8268
+        },
+        {
+          "start": 47.3,
+          "end": 47.46,
+          "word": "到",
+          "probability": 0.5887
+        },
+        {
+          "start": 47.46,
+          "end": 47.66,
+          "word": "人",
+          "probability": 0.942
+        },
+        {
+          "start": 47.66,
+          "end": 48.12,
+          "word": " 不",
+          "probability": 0.2249
+        },
+        {
+          "start": 48.12,
+          "end": 48.22,
+          "word": "會",
+          "probability": 0.925
+        },
+        {
+          "start": 48.22,
+          "end": 48.32,
+          "word": "吃",
+          "probability": 0.1138
+        },
+        {
+          "start": 48.32,
+          "end": 48.5,
+          "word": "虧",
+          "probability": 0.9611
+        },
+        {
+          "start": 48.5,
+          "end": 49.54,
+          "word": "的",
+          "probability": 0.544
+        }
+      ]
+    },
+    {
+      "id": "line-20",
+      "start": 49.64,
+      "end": 50.66,
+      "text": "我按照教教",
+      "words": [
+        {
+          "start": 49.64,
+          "end": 49.84,
+          "word": "我",
+          "probability": 0.0987
+        },
+        {
+          "start": 49.84,
+          "end": 50.08,
+          "word": "按",
+          "probability": 0.1106
+        },
+        {
+          "start": 50.08,
+          "end": 50.16,
+          "word": "照",
+          "probability": 0.337
+        },
+        {
+          "start": 50.16,
+          "end": 50.34,
+          "word": "教",
+          "probability": 0.7006
+        },
+        {
+          "start": 50.34,
+          "end": 50.66,
+          "word": "教",
+          "probability": 0.2037
+        }
+      ]
+    },
+    {
+      "id": "line-21",
+      "start": 51.16,
+      "end": 52.96,
+      "text": "喂 載他吧",
+      "words": [
+        {
+          "start": 51.16,
+          "end": 51.56,
+          "word": "喂",
+          "probability": 0.0193
+        },
+        {
+          "start": 51.94,
+          "end": 52.02,
+          "word": " 載",
+          "probability": 0.7105
+        },
+        {
+          "start": 52.02,
+          "end": 52.28,
+          "word": "他",
+          "probability": 0.4429
+        },
+        {
+          "start": 52.28,
+          "end": 52.96,
+          "word": "吧",
+          "probability": 0.3253
+        }
+      ]
+    },
+    {
+      "id": "line-22",
+      "start": 52.96,
+      "end": 53.98,
+      "text": "這一集不太精",
+      "words": [
+        {
+          "start": 52.96,
+          "end": 53.16,
+          "word": "這一",
+          "probability": 0.121
+        },
+        {
+          "start": 53.16,
+          "end": 53.38,
+          "word": "集",
+          "probability": 0.7473
+        },
+        {
+          "start": 53.38,
+          "end": 53.56,
+          "word": "不",
+          "probability": 0.2678
+        },
+        {
+          "start": 53.56,
+          "end": 53.74,
+          "word": "太",
+          "probability": 0.5901
+        },
+        {
+          "start": 53.74,
+          "end": 53.98,
+          "word": "精",
+          "probability": 0.6806
+        }
+      ]
+    },
+    {
+      "id": "line-23",
+      "start": 54.46,
+      "end": 55.96,
+      "text": "老姐 最後一輛車載你",
+      "words": [
+        {
+          "start": 54.46,
+          "end": 54.86,
+          "word": "老",
+          "probability": 0.0023
+        },
+        {
+          "start": 54.86,
+          "end": 55.0,
+          "word": "姐",
+          "probability": 0.2822
+        },
+        {
+          "start": 55.22,
+          "end": 55.3,
+          "word": " 最後",
+          "probability": 0.0832
+        },
+        {
+          "start": 55.3,
+          "end": 55.48,
+          "word": "一",
+          "probability": 0.4132
+        },
+        {
+          "start": 55.48,
+          "end": 55.52,
+          "word": "輛",
+          "probability": 0.5816
+        },
+        {
+          "start": 55.52,
+          "end": 55.66,
+          "word": "車",
+          "probability": 0.9814
+        },
+        {
+          "start": 55.66,
+          "end": 55.78,
+          "word": "載",
+          "probability": 0.5221
+        },
+        {
+          "start": 55.78,
+          "end": 55.96,
+          "word": "你",
+          "probability": 0.2072
+        }
+      ]
+    },
+    {
+      "id": "line-24",
+      "start": 56.48,
+      "end": 58.12,
+      "text": "就這裡了 再見",
+      "words": [
+        {
+          "start": 56.48,
+          "end": 56.7,
+          "word": "就",
+          "probability": 0.278
+        },
+        {
+          "start": 57.12,
+          "end": 57.34,
+          "word": "這裡",
+          "probability": 0.5694
+        },
+        {
+          "start": 57.34,
+          "end": 57.84,
+          "word": "了",
+          "probability": 0.4213
+        },
+        {
+          "start": 57.84,
+          "end": 58.12,
+          "word": " 再見",
+          "probability": 0.5256
+        }
+      ]
+    },
+    {
+      "id": "line-25",
+      "start": 58.12,
+      "end": 58.18,
+      "text": "再見",
+      "words": [
+        {
+          "start": 58.12,
+          "end": 58.18,
+          "word": "再見",
+          "probability": 0.0681
+        }
+      ]
+    },
+    {
+      "id": "line-26",
+      "start": 61.12,
+      "end": 63.8,
+      "text": "本分不是我們停下的理由",
+      "words": [
+        {
+          "start": 61.12,
+          "end": 61.56,
+          "word": "本",
+          "probability": 0.0028
+        },
+        {
+          "start": 61.94,
+          "end": 62.38,
+          "word": "分",
+          "probability": 0.4822
+        },
+        {
+          "start": 62.38,
+          "end": 62.74,
+          "word": "不是",
+          "probability": 0.797
+        },
+        {
+          "start": 62.74,
+          "end": 63.0,
+          "word": "我們",
+          "probability": 0.9068
+        },
+        {
+          "start": 63.0,
+          "end": 63.2,
+          "word": "停",
+          "probability": 0.9402
+        },
+        {
+          "start": 63.2,
+          "end": 63.36,
+          "word": "下",
+          "probability": 0.5552
+        },
+        {
+          "start": 63.36,
+          "end": 63.5,
+          "word": "的",
+          "probability": 0.9637
+        },
+        {
+          "start": 63.5,
+          "end": 63.66,
+          "word": "理",
+          "probability": 0.9733
+        },
+        {
+          "start": 63.66,
+          "end": 63.8,
+          "word": "由",
+          "probability": 0.8901
+        }
+      ]
+    },
+    {
+      "id": "line-27",
+      "start": 66.26,
+      "end": 68.24,
+      "text": "如果每個人都可以做多一點",
+      "words": [
+        {
+          "start": 66.26,
+          "end": 66.7,
+          "word": "如果",
+          "probability": 0.9269
+        },
+        {
+          "start": 66.7,
+          "end": 67.14,
+          "word": "每",
+          "probability": 0.9177
+        },
+        {
+          "start": 67.14,
+          "end": 67.36,
+          "word": "個人",
+          "probability": 0.978
+        },
+        {
+          "start": 67.36,
+          "end": 67.48,
+          "word": "都",
+          "probability": 0.8982
+        },
+        {
+          "start": 67.48,
+          "end": 67.64,
+          "word": "可以",
+          "probability": 0.7923
+        },
+        {
+          "start": 67.64,
+          "end": 67.8,
+          "word": "做",
+          "probability": 0.5855
+        },
+        {
+          "start": 67.8,
+          "end": 68.0,
+          "word": "多",
+          "probability": 0.804
+        },
+        {
+          "start": 68.0,
+          "end": 68.24,
+          "word": "一點",
+          "probability": 0.9118
+        }
+      ]
+    },
+    {
+      "id": "line-28",
+      "start": 68.78,
+      "end": 70.8,
+      "text": "我們一定可以一起走得更遠",
+      "words": [
+        {
+          "start": 68.78,
+          "end": 69.22,
+          "word": "我們",
+          "probability": 0.9068
+        },
+        {
+          "start": 69.22,
+          "end": 69.44,
+          "word": "一定",
+          "probability": 0.8696
+        },
+        {
+          "start": 69.44,
+          "end": 69.66,
+          "word": "可以",
+          "probability": 0.8645
+        },
+        {
+          "start": 69.66,
+          "end": 69.92,
+          "word": "一起",
+          "probability": 0.9345
+        },
+        {
+          "start": 69.92,
+          "end": 70.26,
+          "word": "走",
+          "probability": 0.7693
+        },
+        {
+          "start": 70.26,
+          "end": 70.4,
+          "word": "得",
+          "probability": 0.9687
+        },
+        {
+          "start": 70.4,
+          "end": 70.58,
+          "word": "更",
+          "probability": 0.9749
+        },
+        {
+          "start": 70.58,
+          "end": 70.8,
+          "word": "遠",
+          "probability": 0.9804
+        }
+      ]
+    },
+    {
+      "id": "line-29",
+      "start": 72.0,
+      "end": 73.58,
+      "text": "所以努力的你",
+      "words": [
+        {
+          "start": 72.0,
+          "end": 72.44,
+          "word": "所以",
+          "probability": 0.9584
+        },
+        {
+          "start": 72.44,
+          "end": 72.88,
+          "word": "努",
+          "probability": 0.7777
+        },
+        {
+          "start": 72.88,
+          "end": 73.06,
+          "word": "力",
+          "probability": 1.0
+        },
+        {
+          "start": 73.06,
+          "end": 73.28,
+          "word": "的",
+          "probability": 0.5424
+        },
+        {
+          "start": 73.28,
+          "end": 73.58,
+          "word": "你",
+          "probability": 0.95
+        }
+      ]
+    },
+    {
+      "id": "line-30",
+      "start": 73.58,
+      "end": 74.18,
+      "text": "繼續",
+      "words": [
+        {
+          "start": 73.58,
+          "end": 74.18,
+          "word": "繼續",
+          "probability": 0.6635
+        }
+      ]
+    },
+    {
+      "id": "line-31",
+      "start": 74.8,
+      "end": 75.92,
+      "text": "覺得累的你",
+      "words": [
+        {
+          "start": 74.8,
+          "end": 75.24,
+          "word": "覺得",
+          "probability": 0.2852
+        },
+        {
+          "start": 75.24,
+          "end": 75.54,
+          "word": "累",
+          "probability": 0.9786
+        },
+        {
+          "start": 75.54,
+          "end": 75.68,
+          "word": "的",
+          "probability": 0.9536
+        },
+        {
+          "start": 75.68,
+          "end": 75.92,
+          "word": "你",
+          "probability": 0.9849
+        }
+      ]
+    },
+    {
+      "id": "line-32",
+      "start": 75.92,
+      "end": 76.88,
+      "text": "不要放棄",
+      "words": [
+        {
+          "start": 75.92,
+          "end": 76.4,
+          "word": "不要",
+          "probability": 0.7945
+        },
+        {
+          "start": 76.4,
+          "end": 76.6,
+          "word": "放",
+          "probability": 0.9913
+        },
+        {
+          "start": 76.6,
+          "end": 76.88,
+          "word": "棄",
+          "probability": 0.999
+        }
+      ]
+    },
+    {
+      "id": "line-33",
+      "start": 79.42,
+      "end": 80.48,
+      "text": "一起努力",
+      "words": [
+        {
+          "start": 79.42,
+          "end": 79.86,
+          "word": "一起",
+          "probability": 0.9313
+        },
+        {
+          "start": 79.86,
+          "end": 80.24,
+          "word": "努",
+          "probability": 0.9986
+        },
+        {
+          "start": 80.24,
+          "end": 80.48,
+          "word": "力",
+          "probability": 0.9999
+        }
+      ]
+    },
+    {
+      "id": "line-34",
+      "start": 80.48,
+      "end": 91.86,
+      "text": "對不起我遲早",
+      "words": [
+        {
+          "start": 80.48,
+          "end": 81.34,
+          "word": "對不起",
+          "probability": 0.0747
+        },
+        {
+          "start": 91.1,
+          "end": 91.44,
+          "word": "我",
+          "probability": 0.4258
+        },
+        {
+          "start": 91.44,
+          "end": 91.56,
+          "word": "遲",
+          "probability": 0.6522
+        },
+        {
+          "start": 91.56,
+          "end": 91.86,
+          "word": "早",
+          "probability": 0.3925
+        }
+      ]
+    },
+    {
+      "id": "line-35",
+      "start": 91.86,
+      "end": 94.84,
+      "text": "連準時都還沒做到",
+      "words": [
+        {
+          "start": 91.86,
+          "end": 92.68,
+          "word": "連",
+          "probability": 0.5128
+        },
+        {
+          "start": 93.52,
+          "end": 93.64,
+          "word": "準",
+          "probability": 0.9561
+        },
+        {
+          "start": 93.64,
+          "end": 93.78,
+          "word": "時",
+          "probability": 0.9987
+        },
+        {
+          "start": 93.78,
+          "end": 93.92,
+          "word": "都",
+          "probability": 0.7116
+        },
+        {
+          "start": 93.92,
+          "end": 94.02,
+          "word": "還",
+          "probability": 0.3446
+        },
+        {
+          "start": 94.02,
+          "end": 94.04,
+          "word": "沒",
+          "probability": 0.6728
+        },
+        {
+          "start": 94.04,
+          "end": 94.26,
+          "word": "做",
+          "probability": 0.9834
+        },
+        {
+          "start": 94.26,
+          "end": 94.84,
+          "word": "到",
+          "probability": 0.8868
+        }
+      ]
+    },
+    {
+      "id": "line-36",
+      "start": 94.84,
+      "end": 96.26,
+      "text": "還要沒有學歷沒有經驗",
+      "words": [
+        {
+          "start": 94.84,
+          "end": 95.04,
+          "word": "還",
+          "probability": 0.8826
+        },
+        {
+          "start": 95.04,
+          "end": 95.16,
+          "word": "要",
+          "probability": 0.7486
+        },
+        {
+          "start": 95.16,
+          "end": 95.28,
+          "word": "沒有",
+          "probability": 0.4101
+        },
+        {
+          "start": 95.28,
+          "end": 95.48,
+          "word": "學",
+          "probability": 0.9678
+        },
+        {
+          "start": 95.48,
+          "end": 95.6,
+          "word": "歷",
+          "probability": 0.9762
+        },
+        {
+          "start": 95.6,
+          "end": 95.8,
+          "word": "沒有",
+          "probability": 0.6277
+        },
+        {
+          "start": 95.8,
+          "end": 95.98,
+          "word": "經",
+          "probability": 0.9887
+        },
+        {
+          "start": 95.98,
+          "end": 96.26,
+          "word": "驗",
+          "probability": 0.9993
+        }
+      ]
+    },
+    {
+      "id": "line-37",
+      "start": 96.26,
+      "end": 97.62,
+      "text": "別再失敗了",
+      "words": [
+        {
+          "start": 96.26,
+          "end": 96.72,
+          "word": "別",
+          "probability": 0.3641
+        },
+        {
+          "start": 96.72,
+          "end": 96.86,
+          "word": "再",
+          "probability": 0.9728
+        },
+        {
+          "start": 96.86,
+          "end": 96.98,
+          "word": "失",
+          "probability": 0.0601
+        },
+        {
+          "start": 96.98,
+          "end": 97.14,
+          "word": "敗",
+          "probability": 0.6409
+        },
+        {
+          "start": 97.14,
+          "end": 97.62,
+          "word": "了",
+          "probability": 0.7263
+        }
+      ]
+    },
+    {
+      "id": "line-38",
+      "start": 97.62,
+      "end": 102.56,
+      "text": "原來我們一直都忘記了最重要的東西",
+      "words": [
+        {
+          "start": 97.62,
+          "end": 98.12,
+          "word": "原",
+          "probability": 0.8808
+        },
+        {
+          "start": 100.42,
+          "end": 100.6,
+          "word": "來",
+          "probability": 0.9987
+        },
+        {
+          "start": 100.6,
+          "end": 100.8,
+          "word": "我們",
+          "probability": 0.9539
+        },
+        {
+          "start": 100.8,
+          "end": 101.06,
+          "word": "一直",
+          "probability": 0.8774
+        },
+        {
+          "start": 101.06,
+          "end": 101.26,
+          "word": "都",
+          "probability": 0.8818
+        },
+        {
+          "start": 101.26,
+          "end": 101.4,
+          "word": "忘",
+          "probability": 0.8712
+        },
+        {
+          "start": 101.4,
+          "end": 101.54,
+          "word": "記",
+          "probability": 0.9311
+        },
+        {
+          "start": 101.54,
+          "end": 101.78,
+          "word": "了",
+          "probability": 0.8887
+        },
+        {
+          "start": 101.78,
+          "end": 101.98,
+          "word": "最",
+          "probability": 0.9866
+        },
+        {
+          "start": 101.98,
+          "end": 102.24,
+          "word": "重要",
+          "probability": 0.9955
+        },
+        {
+          "start": 102.24,
+          "end": 102.4,
+          "word": "的",
+          "probability": 0.9873
+        },
+        {
+          "start": 102.4,
+          "end": 102.56,
+          "word": "東西",
+          "probability": 0.3973
+        }
+      ]
+    },
+    {
+      "id": "line-39",
+      "start": 103.3,
+      "end": 105.68,
+      "text": "準備好,我們就開始了",
+      "words": [
+        {
+          "start": 103.3,
+          "end": 103.72,
+          "word": "準備",
+          "probability": 0.6068
+        },
+        {
+          "start": 103.72,
+          "end": 104.02,
+          "word": "好,",
+          "probability": 0.9191
+        },
+        {
+          "start": 104.42,
+          "end": 105.0,
+          "word": "我們",
+          "probability": 0.8413
+        },
+        {
+          "start": 105.0,
+          "end": 105.18,
+          "word": "就",
+          "probability": 0.8278
+        },
+        {
+          "start": 105.18,
+          "end": 105.44,
+          "word": "開始",
+          "probability": 0.9511
+        },
+        {
+          "start": 105.44,
+          "end": 105.68,
+          "word": "了",
+          "probability": 0.6502
+        }
+      ]
+    },
+    {
+      "id": "line-40",
+      "start": 107.23,
+      "end": 110.13,
+      "text": "真正省神,就是給本份做多一份",
+      "words": [
+        {
+          "start": 107.23,
+          "end": 107.65,
+          "word": "真",
+          "probability": 0.3686
+        },
+        {
+          "start": 107.65,
+          "end": 107.91,
+          "word": "正",
+          "probability": 0.9988
+        },
+        {
+          "start": 107.91,
+          "end": 108.11,
+          "word": "省",
+          "probability": 0.6269
+        },
+        {
+          "start": 108.11,
+          "end": 108.39,
+          "word": "神,",
+          "probability": 0.9312
+        },
+        {
+          "start": 108.63,
+          "end": 108.85,
+          "word": "就是",
+          "probability": 0.8093
+        },
+        {
+          "start": 108.85,
+          "end": 108.99,
+          "word": "給",
+          "probability": 0.6272
+        },
+        {
+          "start": 108.99,
+          "end": 109.17,
+          "word": "本",
+          "probability": 0.9837
+        },
+        {
+          "start": 109.17,
+          "end": 109.37,
+          "word": "份",
+          "probability": 0.5356
+        },
+        {
+          "start": 109.37,
+          "end": 109.63,
+          "word": "做",
+          "probability": 0.4285
+        },
+        {
+          "start": 109.63,
+          "end": 109.77,
+          "word": "多",
+          "probability": 0.9802
+        },
+        {
+          "start": 109.77,
+          "end": 109.91,
+          "word": "一",
+          "probability": 0.9472
+        },
+        {
+          "start": 109.91,
+          "end": 110.13,
+          "word": "份",
+          "probability": 0.8973
+        }
+      ]
+    },
+    {
+      "id": "line-41",
+      "start": 110.59,
+      "end": 112.97,
+      "text": "NASCAFE跟你一起行多一步",
+      "words": [
+        {
+          "start": 110.59,
+          "end": 111.01,
+          "word": "N",
+          "probability": 0.6235
+        },
+        {
+          "start": 111.01,
+          "end": 111.09,
+          "word": "AS",
+          "probability": 0.1829
+        },
+        {
+          "start": 111.09,
+          "end": 111.29,
+          "word": "CA",
+          "probability": 0.1096
+        },
+        {
+          "start": 111.29,
+          "end": 111.43,
+          "word": "FE",
+          "probability": 0.632
+        },
+        {
+          "start": 111.43,
+          "end": 111.69,
+          "word": "跟你",
+          "probability": 0.3017
+        },
+        {
+          "start": 111.69,
+          "end": 112.05,
+          "word": "一起",
+          "probability": 0.9631
+        },
+        {
+          "start": 112.05,
+          "end": 112.35,
+          "word": "行",
+          "probability": 0.5163
+        },
+        {
+          "start": 112.35,
+          "end": 112.53,
+          "word": "多",
+          "probability": 0.6491
+        },
+        {
+          "start": 112.53,
+          "end": 112.63,
+          "word": "一",
+          "probability": 0.5322
+        },
+        {
+          "start": 112.63,
+          "end": 112.97,
+          "word": "步",
+          "probability": 0.9743
+        }
+      ]
+    },
+    {
+      "id": "line-42",
+      "start": 112.97,
+      "end": 114.61,
+      "text": "現在每罐送你10HM",
+      "words": [
+        {
+          "start": 112.97,
+          "end": 113.19,
+          "word": "現在",
+          "probability": 0.778
+        },
+        {
+          "start": 113.19,
+          "end": 113.45,
+          "word": "每",
+          "probability": 0.9654
+        },
+        {
+          "start": 113.45,
+          "end": 113.63,
+          "word": "罐",
+          "probability": 0.8459
+        },
+        {
+          "start": 113.63,
+          "end": 113.81,
+          "word": "送",
+          "probability": 0.9807
+        },
+        {
+          "start": 113.81,
+          "end": 113.97,
+          "word": "你",
+          "probability": 0.9122
+        },
+        {
+          "start": 113.97,
+          "end": 114.23,
+          "word": "10",
+          "probability": 0.7326
+        },
+        {
+          "start": 114.23,
+          "end": 114.43,
+          "word": "H",
+          "probability": 0.4916
+        },
+        {
+          "start": 114.43,
+          "end": 114.61,
+          "word": "M",
+          "probability": 0.2878
+        }
+      ]
+    },
+    {
+      "id": "line-43",
+      "start": 114.61,
+      "end": 117.41,
+      "text": "還有每周大抽獎,贏取兩萬里數",
+      "words": [
+        {
+          "start": 114.61,
+          "end": 115.17,
+          "word": "還有",
+          "probability": 0.5736
+        },
+        {
+          "start": 115.17,
+          "end": 115.47,
+          "word": "每",
+          "probability": 0.9923
+        },
+        {
+          "start": 115.47,
+          "end": 115.67,
+          "word": "周",
+          "probability": 0.5778
+        },
+        {
+          "start": 115.67,
+          "end": 115.87,
+          "word": "大",
+          "probability": 0.8859
+        },
+        {
+          "start": 115.87,
+          "end": 116.03,
+          "word": "抽",
+          "probability": 0.9823
+        },
+        {
+          "start": 116.03,
+          "end": 116.27,
+          "word": "獎,",
+          "probability": 0.9964
+        },
+        {
+          "start": 116.37,
+          "end": 116.49,
+          "word": "贏",
+          "probability": 0.83
+        },
+        {
+          "start": 116.49,
+          "end": 116.63,
+          "word": "取",
+          "probability": 0.9679
+        },
+        {
+          "start": 116.63,
+          "end": 116.83,
+          "word": "兩",
+          "probability": 0.7539
+        },
+        {
+          "start": 116.83,
+          "end": 117.03,
+          "word": "萬",
+          "probability": 0.9929
+        },
+        {
+          "start": 117.03,
+          "end": 117.17,
+          "word": "里",
+          "probability": 0.4494
+        },
+        {
+          "start": 117.17,
+          "end": 117.41,
+          "word": "數",
+          "probability": 0.9451
+        }
+      ]
+    },
+    {
+      "id": "line-44",
+      "start": 117.41,
+      "end": 118.77,
+      "text": "正在等你",
+      "words": [
+        {
+          "start": 117.41,
+          "end": 118.23,
+          "word": "正",
+          "probability": 0.255
+        },
+        {
+          "start": 118.23,
+          "end": 118.59,
+          "word": "在",
+          "probability": 0.8735
+        },
+        {
+          "start": 118.59,
+          "end": 118.59,
+          "word": "等",
+          "probability": 0.9922
+        },
+        {
+          "start": 118.59,
+          "end": 118.77,
+          "word": "你",
+          "probability": 0.8635
+        }
+      ]
+    }
+  ]
+}
