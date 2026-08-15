@@ -3,6 +3,8 @@ import video01Transcript from '../content/transcripts/01.compact.json'
 import nestleCoffeeTranscript from '../content/transcripts/nestle-coffee-cantonese.compact.json'
 
 const toSimplifiedChinese = Converter({ from: 'hk', to: 'cn' })
+const video01Url = (import.meta.env.VITE_VIDEO_01_URL as string | undefined) ?? '/videos/01.mp4'
+const nestleCoffeeVideoUrl = (import.meta.env.VITE_VIDEO_NESTLE_URL as string | undefined) ?? '/videos/nestle-coffee-cantonese.mp4'
 
 export type Subtitle = {
   id: string
@@ -70,7 +72,7 @@ export const videoStudies: Record<string, VideoStudy> = {
     slug: 'cha-chaan-teng',
     title: '影视片段 01：粤语对白练习',
     traditionalTitle: '影視片段 01：粵語對白練習',
-    videoUrl: '/videos/01.mp4',
+    videoUrl: video01Url,
     posterUrl: '/design/assets/video-01-cover.png',
     tags: ['职场', '律师楼', '日常对白'],
     subtitleStatus: '自动转写初稿',
@@ -81,7 +83,7 @@ export const videoStudies: Record<string, VideoStudy> = {
     slug: 'nestle-coffee',
     title: '影视片段 02：一齐行多步',
     traditionalTitle: '影視片段 02：一齊行多步',
-    videoUrl: '/videos/nestle-coffee-cantonese.mp4',
+    videoUrl: nestleCoffeeVideoUrl,
     posterUrl: '/design/assets/nestle-coffee-cover.png',
     tags: ['动画广告', '职场', '香港日常'],
     subtitleStatus: '用户校对版',
