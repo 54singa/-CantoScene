@@ -14,7 +14,7 @@ services:
       - key: HOST
         value: 0.0.0.0
       - key: FRONTEND_ORIGIN
-        value: https://example.com
+        value: https://cantoscene-web.onrender.com
       - key: JWT_ACCESS_SECRET
         generateValue: true
       - key: DATABASE_URL
@@ -27,3 +27,17 @@ services:
         value: deepseek-v4-flash
       - key: DEEPSEEK_TIMEOUT_MS
         value: "30000"
+
+  - type: web
+    name: cantoscene-web
+    runtime: static
+    branch: main
+    buildCommand: corepack enable && pnpm install --frozen-lockfile && pnpm build
+    staticPublishPath: ./dist
+    envVars:
+      - key: VITE_API_BASE_URL
+        value: https://cantoscene-api.onrender.com/api/v1
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
