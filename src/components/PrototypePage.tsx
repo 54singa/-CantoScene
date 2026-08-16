@@ -1,6 +1,9 @@
 import { Converter } from 'opencc-js/cn2t'
 import { useEffect, useMemo, useRef } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import heroHomeUrl from '../../design/assets/hero-hk-street-v2.png'
+import nestleCoffeeCoverUrl from '../../design/assets/nestle-coffee-cover.png'
+import video01CoverUrl from '../../design/assets/video-01-cover.png'
 import sharedCss from '../../design/mockup/css/site.css?raw'
 import { api } from '../api/client'
 import { formatTime, videoStudies } from '../data'
@@ -17,7 +20,9 @@ function extract(source: string, tag: 'style' | 'body') {
 function prepareMarkup(source: string) {
   return extract(source, 'body')
     .replace(/<script[\s\S]*?<\/script>/gi, '')
-    .replaceAll('../assets/', '/design/assets/')
+    .replaceAll('../assets/hero-hk-street-v2.png', heroHomeUrl)
+    .replaceAll('../assets/nestle-coffee-cover.png', nestleCoffeeCoverUrl)
+    .replaceAll('../assets/video-01-cover.png', video01CoverUrl)
     .replaceAll('href="home.html"', 'href="/"')
     .replaceAll('href="courses.html"', 'href="/courses"')
     .replaceAll('href="lesson.html"', 'href="/lessons/restaurant-1"')
