@@ -32,6 +32,26 @@ test("GET /api/v1/health returns the API envelope", async () => {
   await app.close();
 });
 
+test("CORS preflight allows browser write methods from the frontend", async () => {
+  const app = await buildApp({ config, database, logger: false });
+  const response = await app.inject({
+    method: "OPTIONS",
+    url: "/api/v1/me/favorites/subtitles/subtitle-id",
+    headers: {
+      origin: config.frontendOrigin,
+      "access-control-request-method": "PUT",
+      "access-control-request-headers": "authorization,content-type",
+    },
+  });
+
+  assert.equal(response.statusCode, 204);
+  assert.match(response.headers["access-control-allow-methods"] ?? "", /PUT/);
+  assert.equal(response.headers["access-control-allow-origin"], config.frontendOrigin);
+  assert.equal(response.headers["access-control-allow-credentials"], "true");
+
+  await app.close();
+});
+
 test("unknown routes use the stable error envelope", async () => {
   const app = await buildApp({ config, database, logger: false });
   const response = await app.inject({ method: "GET", url: "/api/v1/missing" });

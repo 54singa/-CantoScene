@@ -29,6 +29,7 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
   await app.register(cors, {
     origin: options.config.frontendOrigin,
     credentials: true,
+    methods: ["GET", "HEAD", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
   });
   await app.register(cookie);
   await app.register(jwt, {
