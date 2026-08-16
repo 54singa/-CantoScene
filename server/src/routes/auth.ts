@@ -11,6 +11,17 @@ import type { DatabaseClient } from "../lib/prisma.js";
 const refreshCookie = "canto_refresh";
 const refreshLifetimeSeconds = 30 * 24 * 60 * 60;
 
+function refreshCookieOptions(config: AppConfig) {
+  const crossSite = config.nodeEnv === "production";
+  return {
+    path: "/api/v1/auth",
+    httpOnly: true,
+    sameSite: crossSite ? ("none" as const) : ("lax" as const),
+    secure: crossSite,
+    partitioned: crossSite,
+  };
+}
+
 type CredentialsBody = {
   email: string;
   password: string;
@@ -61,10 +72,7 @@ async function issueSession(
     },
   });
   reply.setCookie(refreshCookie, refreshToken, {
-    path: "/api/v1/auth",
-    httpOnly: true,
-    sameSite: "lax",
-    secure: config.nodeEnv === "production",
+    ...refreshCookieOptions(config),
     maxAge: refreshLifetimeSeconds,
   });
   return accessToken;
@@ -156,7 +164,7 @@ export async function authRoutes(
       include: { user: true },
     });
     if (!session || session.revokedAt || session.expiresAt <= new Date()) {
-      reply.clearCookie(refreshCookie, { path: "/api/v1/auth" });
+      reply.clearCookie(refreshCookie, refreshCookieOptions(config));
       return reply.code(401).send({ error: { code: "AUTH_REQUIRED", message: "登录已过期", request_id: request.id } });
     }
     await database.refreshSession.delete({ where: { id: session.id } });
@@ -167,7 +175,7 @@ export async function authRoutes(
   app.post("/auth/logout", async (request, reply) => {
     const rawToken = request.cookies[refreshCookie];
     if (rawToken) await database.refreshSession.deleteMany({ where: { tokenHash: tokenHash(rawToken) } });
-    reply.clearCookie(refreshCookie, { path: "/api/v1/auth" });
+    reply.clearCookie(refreshCookie, refreshCookieOptions(config));
     return reply.code(204).send();
   });
 

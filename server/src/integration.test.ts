@@ -12,7 +12,7 @@ test("migrations, seed data, and public APIs work together", async () => {
   const database = createPrismaClient(local.databaseUrl);
   const seed = await seedDatabase(database);
   const config: AppConfig = {
-    nodeEnv: "test",
+    nodeEnv: "production",
     host: "127.0.0.1",
     port: 3000,
     databaseUrl: local.databaseUrl,
@@ -117,7 +117,11 @@ test("migrations, seed data, and public APIs work together", async () => {
     assert.equal(preference.statusCode, 200);
     assert.equal(preference.json().data.script_preference, "traditional");
 
-    const cookie = registration.headers["set-cookie"]?.split(";")[0];
+    const setCookie = registration.headers["set-cookie"];
+    assert.match(setCookie ?? "", /SameSite=None/i);
+    assert.match(setCookie ?? "", /Secure/i);
+    assert.match(setCookie ?? "", /Partitioned/i);
+    const cookie = setCookie?.split(";")[0];
     assert.ok(cookie);
     const refreshed = await app.inject({
       method: "POST",
