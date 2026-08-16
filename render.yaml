@@ -37,6 +37,10 @@ services:
     envVars:
       - key: VITE_API_BASE_URL
         value: https://cantoscene-api.onrender.com/api/v1
+      - key: VITE_VIDEO_01_URL
+        value: https://github.com/54singa/-CantoScene/releases/latest/download/01.mp4
+      - key: VITE_VIDEO_NESTLE_URL
+        value: https://github.com/54singa/-CantoScene/releases/latest/download/nestle-coffee-cantonese.mp4
     routes:
       - type: rewrite
         source: /*
