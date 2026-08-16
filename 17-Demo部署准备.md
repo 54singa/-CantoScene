@@ -7,12 +7,23 @@
 | 部分 | 推荐平台 | 原因 |
 |---|---|---|
 | 代码托管 | GitHub | 保存代码、文档和部署配置；MP4 不进普通 Git |
-| 前端 | Vercel | 直接构建 Vite，配置简单 |
+| 前端 | Render Static Site | 与后端共用一个 Blueprint，减少 Demo 期平台账号和配置 |
 | 后端 | Render | 可长期运行 Fastify 服务并连接外部 PostgreSQL |
 | 数据库 | Neon PostgreSQL | 标准 PostgreSQL，兼容现有 Prisma migration |
-| 视频 | Cloudflare R2 或其他公开对象存储 | 适合 201 MB 视频与 Range 请求，不拖慢 Git 和应用部署 |
+| 视频 | GitHub Releases（Demo 临时方案） | 无需支付方式；大文件不进入 Git 历史，后续通过环境变量迁移到对象存储 |
 
 平台可以替换，但必须保留“标准 PostgreSQL + 后端私有密钥 + 视频对象存储”三个边界。
+
+## 1.1 当前线上环境（2026-08-16）
+
+- 前端：<https://cantoscene-web.onrender.com>
+- 后端：<https://cantoscene-api.onrender.com>
+- 健康检查：<https://cantoscene-api.onrender.com/api/v1/health>
+- 数据库：Neon PostgreSQL，生产密钥仅保存在 Render 环境变量中；
+- 视频：GitHub Release `demo-media-v1`，两个公开直链由 `VITE_VIDEO_01_URL` 与 `VITE_VIDEO_NESTLE_URL` 注入；
+- 部署：GitHub `main` → Render Blueprint 手动同步；前端和后端均由根目录 `render.yaml` 管理。
+
+GitHub Releases 仅用于低流量 Demo。正式公开运营前应迁移到支持视频分发的对象存储或 CDN，前端代码无需修改，只替换两个视频环境变量。
 
 ## 2. 上线顺序
 
@@ -87,10 +98,13 @@ pnpm build
 7. 退出再登录后收藏和进度仍存在；
 8. 直接刷新课程、登录和视频详情路径不出现平台 404。
 
-## 8. 当前尚需项目负责人提供
+## 8. 当前部署状态
 
-- 一个空的 GitHub 仓库地址；
-- 选定部署平台并完成账号登录；
-- 视频对象存储空间，或可公开访问且支持视频播放的 HTTPS 地址。
-
-DeepSeek Key 已由项目负责人本地配置；部署时只需在后端平台重新添加，不要发送到聊天中。
+- [x] GitHub 仓库已创建并推送 `main`；
+- [x] Neon PostgreSQL 已创建并完成 migration 与 Demo seed；
+- [x] Render 后端已部署并通过健康检查；
+- [x] Render 静态前端已部署，SPA 直接刷新正常；
+- [x] 两个 MP4 已发布到 GitHub Release，并验证支持浏览器播放与 Range 请求；
+- [x] DeepSeek Key 已仅配置在 Render 后端环境变量中；
+- [ ] 使用一个新账号完成公开地址上的注册、收藏、生词本、进度与重新登录验收；
+- [ ] 正式运营前把视频从 GitHub Releases 迁移到生产对象存储／CDN。

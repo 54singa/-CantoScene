@@ -1,8 +1,8 @@
 # 粤见 CantoScene｜Demo 冲刺交接文档
 
-> 文档日期：2026-08-15
-> 当前分支：`codex/mvp-frontend-baseline`  
-> 当前 Demo 内容基线：`dabfbc4 feat: add reviewed Cantonese video lesson`
+> 文档日期：2026-08-16
+> 当前分支：`main`
+> 当前 Demo 已部署；实际平台与公开地址见《17-Demo部署准备》。
 > 本文档是新任务的第一读取入口。它仅收缩 Demo 的范围与时间，不推翻《01—14》已确定的产品、设计、数据库和接口原则。
 
 ## 1. 本次目标
@@ -77,6 +77,8 @@ Demo 的目标不是做成可大规模公开运营的正式产品，而是让体
 | DeepSeek | “AI 讲解这句”已通过后端接入并完成浏览器验收 | 保留结构校验、缓存、超时与失败降级 |
 | Fish Audio | 15 条课程音频已生成、导入并通过内容校验 | 后续新增内容继续沿用稳定 ID 与 manifest |
 | Git | 当前工作树干净，有可回退阶段提交 | 每完成一个冲刺阶段就验收并提交 |
+
+截至 2026-08-16，生产环境已使用 Render Static Site + Render Web Service + Neon PostgreSQL 上线；两个 MP4 暂由 GitHub Release `demo-media-v1` 承载。前后端、数据库、DeepSeek 与视频播放已经分别通过公网检查，尚需完成一次新用户端到端验收。
 
 当前冲刺已经进入第三阶段“部署和演示准备”。根目录 `README.md` 与 `17-Demo部署准备.md` 记录最新启动、生产环境变量、视频对象存储和上线验收要求。
 

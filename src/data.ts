@@ -1,6 +1,11 @@
 import { Converter } from 'opencc-js/t2cn'
 import video01Transcript from '../content/transcripts/01.compact.json'
 import nestleCoffeeTranscript from '../content/transcripts/nestle-coffee-cantonese.compact.json'
+import cityBuildingsUrl from '../design/assets/city-buildings.png'
+import cityStreetUrl from '../design/assets/city-street.png'
+import heroStreetUrl from '../design/assets/hero-hk-street.png'
+import nestleCoffeeCoverUrl from '../design/assets/nestle-coffee-cover.png'
+import video01CoverUrl from '../design/assets/video-01-cover.png'
 
 const toSimplifiedChinese = Converter({ from: 'hk', to: 'cn' })
 const video01Url = (import.meta.env.VITE_VIDEO_01_URL as string | undefined) ?? '/videos/01.mp4'
@@ -73,7 +78,7 @@ export const videoStudies: Record<string, VideoStudy> = {
     title: '影视片段 01：粤语对白练习',
     traditionalTitle: '影視片段 01：粵語對白練習',
     videoUrl: video01Url,
-    posterUrl: '/design/assets/video-01-cover.png',
+    posterUrl: video01CoverUrl,
     tags: ['职场', '律师楼', '日常对白'],
     subtitleStatus: '自动转写初稿',
     note: '当前字幕由本地语音识别自动生成，时间轴可用，但粤语口语、人名和快速对话仍可能有同音错字。校对后再生成粤拼和普通话释义。',
@@ -84,7 +89,7 @@ export const videoStudies: Record<string, VideoStudy> = {
     title: '影视片段 02：一齐行多步',
     traditionalTitle: '影視片段 02：一齊行多步',
     videoUrl: nestleCoffeeVideoUrl,
-    posterUrl: '/design/assets/nestle-coffee-cover.png',
+    posterUrl: nestleCoffeeCoverUrl,
     tags: ['动画广告', '职场', '香港日常'],
     subtitleStatus: '用户校对版',
     note: '字幕以视频画面中的繁体粤语字幕为主，并结合本地语音识别校准时间轴；粤语正文已经用户逐句校对，粤拼与普通话释义为 AI 辅助初稿。',
@@ -99,10 +104,10 @@ export const courseUnits = [
 ]
 
 export const videos = [
-  { id: 'cha-chaan-teng', title: '第一次在茶餐厅点餐', traditional: '第一次在茶餐廳點餐', eyebrow: '茶餐厅 · 23 秒', level: '入门', image: '/design/assets/city-street.png', desc: '冻柠茶、少甜、菠萝油——先听懂一段真实点餐。' },
-  { id: 'nestle-coffee', title: '一齐行多步', traditional: '一齊行多步', eyebrow: '动画广告 · 2 分钟', level: '基础', image: '/design/assets/nestle-coffee-cover.png', desc: '从见工、搭车到互相帮忙，听懂一段香港粤语动画。' },
-  { id: 'morning', title: '香港人的一声早晨', traditional: '香港人的一聲早晨', eyebrow: '街头 · 35 秒', level: '入门', image: '/design/assets/hero-hk-street.png', desc: '从打招呼开始，听见语气里的亲切和距离。' },
-  { id: 'minibus', title: '小巴落车要点讲？', traditional: '小巴落車要點講？', eyebrow: '交通 · 42 秒', level: '进阶', image: '/design/assets/city-buildings.png', desc: '一句“有落”，是许多初学者的香港生活第一课。' },
+  { id: 'cha-chaan-teng', title: '第一次在茶餐厅点餐', traditional: '第一次在茶餐廳點餐', eyebrow: '茶餐厅 · 23 秒', level: '入门', image: cityStreetUrl, desc: '冻柠茶、少甜、菠萝油——先听懂一段真实点餐。' },
+  { id: 'nestle-coffee', title: '一齐行多步', traditional: '一齊行多步', eyebrow: '动画广告 · 2 分钟', level: '基础', image: nestleCoffeeCoverUrl, desc: '从见工、搭车到互相帮忙，听懂一段香港粤语动画。' },
+  { id: 'morning', title: '香港人的一声早晨', traditional: '香港人的一聲早晨', eyebrow: '街头 · 35 秒', level: '入门', image: heroStreetUrl, desc: '从打招呼开始，听见语气里的亲切和距离。' },
+  { id: 'minibus', title: '小巴落车要点讲？', traditional: '小巴落車要點講？', eyebrow: '交通 · 42 秒', level: '进阶', image: cityBuildingsUrl, desc: '一句“有落”，是许多初学者的香港生活第一课。' },
 ]
 
 export const jyutpingGroups = [
