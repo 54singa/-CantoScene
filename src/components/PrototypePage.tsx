@@ -331,7 +331,7 @@ export function PrototypePage({ source, pageId }: { source: string; pageId: stri
         renderVolume()
       }
       const renderFullscreen = () => {
-        const active = document.fullscreenElement === theater
+        const active = scope.fullscreenElement === theater || document.fullscreenElement === theater
         fullscreenButton?.classList.toggle('is-active', active)
         fullscreenButton?.setAttribute('aria-pressed', String(active))
         fullscreenButton?.setAttribute('aria-label', active ? '退出全屏' : '进入全屏')
@@ -340,7 +340,7 @@ export function PrototypePage({ source, pageId }: { source: string; pageId: stri
       const onFullscreen = async () => {
         if (!video || !theater) return
         try {
-          if (document.fullscreenElement === theater) {
+          if (scope.fullscreenElement === theater || document.fullscreenElement === theater) {
             await document.exitFullscreen?.()
           } else if (theater.requestFullscreen) {
             await theater.requestFullscreen()

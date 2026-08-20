@@ -36,6 +36,7 @@
     position:relative;aspect-ratio:16/9;
     display:flex;align-items:center;justify-content:center;
   }
+  a.cover{color:inherit;text-decoration:none;cursor:pointer;}
   .cover .cover-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
   .c-sky{background:var(--sky-wash);}
   .c-peach{background:var(--peach-wash);}
@@ -125,12 +126,12 @@
 
   <div class="grid">
     <div class="vcard">
-      <div class="cover c-sky">
+      <a class="cover c-sky" href="video-study.html" aria-label="打开影视片段 01">
         <img class="cover-image" src="../assets/video-01-cover.png" alt="影视片段 01 封面">
         <span class="level chip chip-butter">进阶</span>
         <span class="play"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg></span>
         <span class="dur">18:19</span>
-      </div>
+      </a>
       <div class="vbody">
         <h3>影视片段 01：律师楼初见</h3>
         <div class="tags">
@@ -149,12 +150,12 @@
     </div>
 
     <div class="vcard">
-      <div class="cover c-peach">
+      <a class="cover c-peach" href="/watch/nestle-coffee" aria-label="打开影视片段 02">
         <img class="cover-image" src="../assets/nestle-coffee-cover.png" alt="影视片段 02 封面">
         <span class="level chip chip-green">基础</span>
         <span class="play"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg></span>
         <span class="dur">02:00</span>
-      </div>
+      </a>
       <div class="vbody">
         <h3>影视片段 02：一齐行多步</h3>
         <div class="tags">
