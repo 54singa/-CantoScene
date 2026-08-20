@@ -95,6 +95,12 @@
     background:#fff;border:1px solid var(--line);border-radius:var(--radius);
     overflow:hidden;box-shadow:0 10px 28px rgba(51,64,79,.08);
   }
+  .theater:fullscreen{
+    width:100vw;height:100vh;border:0;border-radius:0;background:#111;
+    display:flex;flex-direction:column;box-shadow:none;
+  }
+  .theater:fullscreen .screen{flex:1;min-height:0;aspect-ratio:auto;}
+  .theater:fullscreen .controls{background:#fff;padding-top:10px;}
   .frame-edge{
     height:16px;background:var(--film);position:relative;
   }
@@ -150,8 +156,19 @@
     box-shadow:0 2px 6px rgba(51,64,79,.18);
   }
   .timecode{font-family:var(--mono);font-size:12.5px;color:var(--ink-soft);white-space:nowrap;}
-  .ctrl-icons{display:flex;gap:12px;align-items:center;}
-  .ctrl-icons svg{width:17px;height:17px;stroke:var(--ink-soft);fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;}
+  .ctrl-icons{display:flex;gap:10px;align-items:center;}
+  .ctrl-icons button{font:inherit;}
+  .icon-control{
+    width:30px;height:30px;padding:0;border:0;border-radius:50%;background:transparent;
+    display:inline-flex;align-items:center;justify-content:center;cursor:pointer;
+  }
+  .icon-control:hover,.icon-control:focus-visible{background:var(--sky-wash);outline:none;}
+  .icon-control svg{width:17px;height:17px;stroke:var(--ink-soft);fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;}
+  .volume-control{display:flex;align-items:center;gap:5px;}
+  .volume-slider{width:62px;accent-color:var(--sky);cursor:pointer;}
+  .volume-btn.is-muted{background:var(--peach-wash);}
+  .volume-btn.is-muted .volume-waves{display:none;}
+  .fullscreen-btn.is-active{background:var(--sky-wash);}
 
   /* 播放器下方信息 */
   .below{
@@ -266,8 +283,9 @@
     font-size:13px;font-weight:700;color:var(--peach-deep);
     border:2px solid var(--peach-deep);border-radius:8px;
     padding:5px 13px;transform:rotate(1.6deg);
-    background:var(--peach-wash);
+    background:var(--peach-wash);cursor:pointer;font-family:inherit;
   }
+  .stamped:disabled{cursor:wait;opacity:.65;}
   .stamped svg{width:13px;height:13px;fill:var(--peach-deep);}
   .ai-explain{
     display:inline-flex;align-items:center;gap:6px;border:0;border-radius:999px;
@@ -362,8 +380,15 @@
           <div class="track"><span class="fill"></span><span class="thumb"></span></div>
           <span class="timecode">00:08 / 01:32</span>
           <div class="ctrl-icons">
-            <svg viewBox="0 0 24 24"><path d="M4 10v4h4l5 4V6l-5 4H4z"/><path d="M16.5 9.5a4 4 0 0 1 0 5"/></svg>
-            <svg viewBox="0 0 24 24"><path d="M4 9V5a1 1 0 0 1 1-1h4M20 9V5a1 1 0 0 0-1-1h-4M4 15v4a1 1 0 0 0 1 1h4M20 15v4a1 1 0 0 1-1 1h-4"/></svg>
+            <div class="volume-control">
+              <button class="icon-control volume-btn" type="button" aria-label="静音" aria-pressed="false" title="静音">
+                <svg viewBox="0 0 24 24"><path d="M4 10v4h4l5 4V6l-5 4H4z"/><path class="volume-waves" d="M16.5 9.5a4 4 0 0 1 0 5"/></svg>
+              </button>
+              <input class="volume-slider" type="range" min="0" max="1" step="0.05" value="1" aria-label="音量" />
+            </div>
+            <button class="icon-control fullscreen-btn" type="button" aria-label="进入全屏" aria-pressed="false" title="进入全屏">
+              <svg viewBox="0 0 24 24"><path d="M4 9V5a1 1 0 0 1 1-1h4M20 9V5a1 1 0 0 0-1-1h-4M4 15v4a1 1 0 0 0 1 1h4M20 15v4a1 1 0 0 1-1 1h-4"/></svg>
+            </button>
           </div>
         </div>
         <div class="frame-edge"></div>
@@ -411,10 +436,10 @@
               <svg viewBox="0 0 24 24"><path d="M4 5v14l11-7z"/></svg>
               重播本句
             </span>
-            <span class="stamped">
+            <button class="stamped" type="button">
               <svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2 4.4-9.5 9-9.5 9z"/></svg>
               已收藏
-            </span>
+            </button>
             <button class="ai-explain" type="button">AI 讲解这句</button>
           </div>
           <div class="ai-card" aria-live="polite"></div>

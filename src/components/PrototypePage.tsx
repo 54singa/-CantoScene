@@ -164,6 +164,10 @@ export function PrototypePage({ source, pageId }: { source: string; pageId: stri
       const thumb = scope.querySelector<HTMLElement>('.track .thumb')
       const timecode = scope.querySelector<HTMLElement>('.timecode')
       const durationLabel = scope.querySelector<HTMLElement>('.subhead .meta .tc')
+      const volumeButton = scope.querySelector<HTMLButtonElement>('.volume-btn')
+      const volumeSlider = scope.querySelector<HTMLInputElement>('.volume-slider')
+      const fullscreenButton = scope.querySelector<HTMLButtonElement>('.fullscreen-btn')
+      const theater = scope.querySelector<HTMLElement>('.theater')
       const subtitlesBody = scope.querySelector<HTMLElement>('.subs-body')
       const postcard = scope.querySelector<HTMLElement>('.postcard')
       const subtitlesHead = scope.querySelector<HTMLElement>('.subs-head')
@@ -297,8 +301,63 @@ export function PrototypePage({ source, pageId }: { source: string; pageId: stri
         if (video.paused) void video.play()
         else video.pause()
       }
+      let previousVolume = video?.volume || 1
+      const renderVolume = () => {
+        if (!video) return
+        const muted = video.muted || video.volume === 0
+        if (volumeSlider) volumeSlider.value = muted ? '0' : String(video.volume)
+        volumeButton?.classList.toggle('is-muted', muted)
+        volumeButton?.setAttribute('aria-pressed', String(muted))
+        volumeButton?.setAttribute('aria-label', muted ? '恢复声音' : '静音')
+        volumeButton?.setAttribute('title', muted ? '恢复声音' : '静音')
+      }
+      const onVolumeToggle = () => {
+        if (!video) return
+        if (video.muted || video.volume === 0) {
+          video.muted = false
+          video.volume = previousVolume > 0 ? previousVolume : 1
+        } else {
+          previousVolume = video.volume
+          video.muted = true
+        }
+        renderVolume()
+      }
+      const onVolumeInput = () => {
+        if (!video || !volumeSlider) return
+        const nextVolume = Number(volumeSlider.value)
+        video.volume = nextVolume
+        video.muted = nextVolume === 0
+        if (nextVolume > 0) previousVolume = nextVolume
+        renderVolume()
+      }
+      const renderFullscreen = () => {
+        const active = document.fullscreenElement === theater
+        fullscreenButton?.classList.toggle('is-active', active)
+        fullscreenButton?.setAttribute('aria-pressed', String(active))
+        fullscreenButton?.setAttribute('aria-label', active ? '退出全屏' : '进入全屏')
+        fullscreenButton?.setAttribute('title', active ? '退出全屏' : '进入全屏')
+      }
+      const onFullscreen = async () => {
+        if (!video || !theater) return
+        try {
+          if (document.fullscreenElement === theater) {
+            await document.exitFullscreen?.()
+          } else if (theater.requestFullscreen) {
+            await theater.requestFullscreen()
+          } else {
+            const mobileVideo = video as HTMLVideoElement & { webkitEnterFullscreen?: () => void }
+            mobileVideo.webkitEnterFullscreen?.()
+          }
+        } catch {
+          fullscreenButton?.setAttribute('title', '当前浏览器无法进入全屏')
+        }
+      }
       playButtons.forEach((button) => button.addEventListener('click', togglePlay))
       video?.addEventListener('click', togglePlay)
+      volumeButton?.addEventListener('click', onVolumeToggle)
+      volumeSlider?.addEventListener('input', onVolumeInput)
+      fullscreenButton?.addEventListener('click', onFullscreen)
+      document.addEventListener('fullscreenchange', renderFullscreen)
       const onPlay = () => {
         scope.querySelector('.big-play')?.classList.add('is-playing')
         controlIcon?.setAttribute('d', 'M7 5h4v14H7zM14 5h4v14h-4z')
@@ -322,6 +381,8 @@ export function PrototypePage({ source, pageId }: { source: string; pageId: stri
       video?.addEventListener('pause', onPause)
       video?.addEventListener('ended', onEnded)
       track?.addEventListener('click', onTrackClick)
+      renderVolume()
+      renderFullscreen()
 
       const updatePostcard = (lineIndex: number, row: HTMLElement) => {
         selectedLine = lines[Math.min(lineIndex, lines.length - 1)]
@@ -341,7 +402,7 @@ export function PrototypePage({ source, pageId }: { source: string; pageId: stri
       rows.forEach((row, index) => row.addEventListener('click', rowHandlers[index]))
       if (rows[0]) updatePostcard(0, rows[0])
 
-      const savedButton = postcard?.querySelector<HTMLElement>('.stamped')
+      const savedButton = postcard?.querySelector<HTMLButtonElement>('.stamped')
       const renderSaved = () => {
         if (!savedButton) return
         const saved = isFavorite(selectedLine.id)
@@ -353,11 +414,17 @@ export function PrototypePage({ source, pageId }: { source: string; pageId: stri
           navigate(`/login?next=/watch/${videoStudy.slug}`)
           return
         }
+        if (!savedButton || savedButton.disabled) return
+        savedButton.disabled = true
+        savedButton.setAttribute('aria-busy', 'true')
         try {
           await toggleFavorite(selectedLine, videoStudy.title)
           renderSaved()
         } catch {
-          if (savedButton?.lastChild) savedButton.lastChild.textContent = ' 保存失败'
+          if (savedButton.lastChild) savedButton.lastChild.textContent = ' 保存失败，请重试'
+        } finally {
+          savedButton.disabled = false
+          savedButton.removeAttribute('aria-busy')
         }
       }
       savedButton?.addEventListener('click', onSave)
@@ -375,6 +442,10 @@ export function PrototypePage({ source, pageId }: { source: string; pageId: stri
         playButtons.forEach((button) => button.removeEventListener('click', togglePlay))
         rows.forEach((row, index) => row.removeEventListener('click', rowHandlers[index]))
         video?.removeEventListener('click', togglePlay)
+        volumeButton?.removeEventListener('click', onVolumeToggle)
+        volumeSlider?.removeEventListener('input', onVolumeInput)
+        fullscreenButton?.removeEventListener('click', onFullscreen)
+        document.removeEventListener('fullscreenchange', renderFullscreen)
         video?.removeEventListener('loadedmetadata', renderTime)
         video?.removeEventListener('durationchange', renderTime)
         video?.removeEventListener('timeupdate', renderTime)
