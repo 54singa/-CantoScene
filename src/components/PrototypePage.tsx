@@ -384,6 +384,13 @@ export function PrototypePage({ source, pageId }: { source: string; pageId: stri
       renderVolume()
       renderFullscreen()
 
+      const savedButton = postcard?.querySelector<HTMLButtonElement>('.stamped')
+      const renderSaved = () => {
+        if (!savedButton) return
+        const saved = isFavorite(selectedLine.id)
+        savedButton.lastChild && (savedButton.lastChild.textContent = saved ? ' 已收藏' : ' 收藏')
+        savedButton.classList.toggle('not-saved', !saved)
+      }
       const updatePostcard = (lineIndex: number, row: HTMLElement) => {
         selectedLine = lines[Math.min(lineIndex, lines.length - 1)]
         resetAiCard()
@@ -396,19 +403,13 @@ export function PrototypePage({ source, pageId }: { source: string; pageId: stri
         row.classList.add('current')
         row.after(postcard!)
         if (video) video.currentTime = selectedLine.start
+        renderSaved()
         renderTime()
       }
       const rowHandlers = rows.map((row, index) => () => updatePostcard(index, row))
       rows.forEach((row, index) => row.addEventListener('click', rowHandlers[index]))
       if (rows[0]) updatePostcard(0, rows[0])
 
-      const savedButton = postcard?.querySelector<HTMLButtonElement>('.stamped')
-      const renderSaved = () => {
-        if (!savedButton) return
-        const saved = isFavorite(selectedLine.id)
-        savedButton.lastChild && (savedButton.lastChild.textContent = saved ? ' 已收藏' : ' 收藏')
-        savedButton.classList.toggle('not-saved', !saved)
-      }
       const onSave = async () => {
         if (!isLoggedIn) {
           navigate(`/login?next=/watch/${videoStudy.slug}`)
